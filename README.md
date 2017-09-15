@@ -4,8 +4,10 @@ This repository contains experiments about **Operational Systems**.
 
 ## Organization
 
-* In each folder have an experiment, they are:
-	* inter_process_communication
+### In each folder have an experiment, they are:
+
+* **inter_process_communication**
+
 A project to make a "chat" between 2 process using shared memory and messages queues.
 
 ## Usage
