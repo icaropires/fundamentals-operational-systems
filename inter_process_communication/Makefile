@@ -1,22 +1,25 @@
 # Exe files
-BINFOLDER := bin/
+BIN := bin/
 # .h files
-INCFOLDER := inc/
+INC := inc/
 # .c files
-SRCFOLDER := src/
+SRC := src/
 # .o files
-OBJFOLDER := obj/
+OBJ := obj/
 
 CC := gcc
 
-CFLAGS :=
+CFLAGS := -W -Wall -ansi -pedantic
 
-# Any file of .c extension.
-# If many executables is needed, create anothers flags.
-SRCFILES := $(wildcard src/*.c)
+# Source files.
+# Add all files to be used in onde project here. 
+PROCESSFILE := $(SRC)process.c 
+
+# Concatenates all files to the project.
+PROJECT1 := $(PROCESSFILE)
 
 # Compile project. 
-all: $(SRCFILES:src/%.c=obj/%.o)
+all: $(PROJECT1:src/%.c=obj/%.o)
 	$(CC) $(CFLAGS) obj/*.o -o bin/prog
 
 # Generate .o files.
