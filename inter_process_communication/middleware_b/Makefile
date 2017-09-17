@@ -19,7 +19,7 @@ MIDDLEWAREB:= $(wildcard src/*.c)
 
 # Compile project. 
 all: create_folders $(MIDDLEWAREB:src/%.c=obj/%.o)
-	$(CC) $(CFLAGS) obj/*.o -o bin/midleware_b
+	$(CC) $(CFLAGS) obj/*.o -o bin/middleware_b
 
 create_folders:
 	@mkdir -p $(OBJ) $(BIN)
@@ -29,8 +29,8 @@ obj/%.o: src/%.c
 	$(CC) $(CFLAGS) -c $< -o $@ -I./inc
 
 # Run the executable files.
-run: bin/midleware_b
-		bin/midleware_b
+run: bin/middleware_b
+		bin/middleware_b
 
 .PHONY: clean
 clean:
