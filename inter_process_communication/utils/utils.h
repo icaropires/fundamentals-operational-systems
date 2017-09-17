@@ -10,7 +10,8 @@
 #define FLAG 0
 #define MESSAGE_SIZE 101
 #define FILE_PATH "/bin/ls"
-#define ARB_CHAR 'j'
+#define ARB_CHAR_A 'j'
+#define ARB_CHAR_B 'o'
 
 typedef struct Message {
     long mytype;

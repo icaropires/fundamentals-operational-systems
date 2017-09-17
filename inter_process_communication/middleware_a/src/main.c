@@ -2,7 +2,7 @@
 #include "../../utils/utils.h"
 
 int main() {
-	int msqid = create_message_queue(FILE_PATH, ARB_CHAR);
+	int msqid = create_message_queue(FILE_PATH, ARB_CHAR_A);
 
 	Message msg;
 	
