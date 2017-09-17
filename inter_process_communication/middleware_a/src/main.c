@@ -1,22 +1,18 @@
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/ipc.h>
-#include <sys/msg.h>
+#include "middleware_a.h"
 
-typedef struct message {
-	long mtype;
-	char msg[101];
-} Message;
+#define ARB_NUMBER 1
+#define FLAG 0
 
 int main() {
-	// char 'j' about xanayna.
-	key_t key = ftok("/bin/ls", 'j');
-	int msqid = msgget(key, 0666 | IPC_CREAT);
+	int msqid = create_message_queue("/bin/ls", 'j');
+
 	Message msg;
 	
-	msgrcv(msqid, &msg, sizeof(msg), 1, 0);
+	fprintf(stdout, "Receiving message in MIDDLEWARE A...\n");
+	is_error = receiving_message(msqid, &msg, ARB_NUMBER, FLAG);
+	assert(is_error == 0);
 
-	printf("Middleware A\n");
-	printf("%s\n", msg.msg);
+	fprintf(stdout, "Message received in MIDDLEWARE A\n");
+
 	return 0;
 }

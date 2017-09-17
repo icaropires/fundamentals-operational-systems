@@ -8,9 +8,13 @@ int create_message_queue(char *file_path, char ch) {
 }
 
 int sending_message(int msqid, Message *msg, int flag) {
+    assert(msg != NULL);
+
     int is_ok = -1;
 
-    if(msgsnd(msqid, msg->msg, sizeof(msg->msg), flag) != -1) {
+    printf("%d lala \n", msg);
+
+    if(msgsnd(msqid, msg, sizeof(Message), flag) != -1) {
         is_ok = 0;
     } else {
         perror("Error while sending message.");
