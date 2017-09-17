@@ -26,11 +26,17 @@ build_middleware_a:
 build_middleware_b:
 	$(MIDDLEWARE_B) && make
 
-run_a:
+run_host_a:
 	$(HOST_A) && ./bin/host_a
 
-run_b:
+run_host_b:
 	$(HOST_B) && ./bin/host_b
+
+run_middleware_a:
+	$(MIDDLEWARE_A) && ./bin/middleware_a
+
+run_middleware_b:
+	$(MIDDLEWARE_B) && ./bin/middleware_b
 
 clean:
 	$(HOST_A) && make clean
