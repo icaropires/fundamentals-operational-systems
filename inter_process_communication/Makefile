@@ -1,36 +1,39 @@
-# Exe files
-BIN := bin/
-# .h files
-INC := inc/
-# .c files
-SRC := src/
-# .o files
-OBJ := obj/
+# Host A folder.
+HOST_A := @cd ./host_a/
 
-CC := gcc
+# Host B folder.
+HOST_B := @cd ./host_b/
 
-CFLAGS := -ansi -pedantic -g
+# Middleware A folder.
+MIDDLEWARE_A := @cd ./middleware_a/
 
-# Source files.
-# Add all files to be used in onde project here. 
-
-# Concatenates all files to the project.
-PROJECT := $(SRC)/*.c 
+# Middleware B folder.
+MIDDLEWARE_B := @cd ./middleware_b/
 
 # Compile project. 
-all: $(PROJECT:src/%.c=obj/%.o)
-	$(CC) $(CFLAGS) obj/*.o -o bin/prog
+all: build_host_a build_host_b build_middleware_a build_middleware_b
 
-# Generate .o files.
-obj/%.o: src/%.c
-	$(CC) $(CFLAGS) -c $< -o $@ -I./inc
+# Compile each project.
+build_host_a:
+	$(HOST_A) && make
 
-# Run the executable files.
-run: bin/prog
-	bin/prog
+build_host_b:
+	$(HOST_B) && make
 
-.PHONY: clean
+build_middleware_a:
+	$(MIDDLEWARE_A) && make
+
+build_middleware_b:
+	$(MIDDLEWARE_B) && make
+
+run_a:
+	$(HOST_A) && ./bin/host_a
+
+run_b:
+	$(HOST_B) && ./bin/host_b
+
 clean:
-	rm -rf obj/*
-	rm -rf bin/*
-
+	$(HOST_A) && make clean
+	$(HOST_B) && make clean
+	$(MIDDLEWARE_A) && make clean
+	$(MIDDLEWARE_B) && make clean
