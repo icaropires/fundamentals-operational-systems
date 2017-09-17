@@ -1,12 +1,5 @@
 #include "middleware_a.h"
-
-// Remove later
-int create_message_queue(char *file_path, char ch) {
-    key_t key = ftok(file_path, ch);
-    int msqid = msgget(key, 0666 | IPC_CREAT);
-
-	return msqid;
-}
+#include "../../utils/utils.c"
 
 int receiving_message(int msqid, Message *msg, int arb_number, int flag) {
 
@@ -19,7 +12,7 @@ int receiving_message(int msqid, Message *msg, int arb_number, int flag) {
 		exit(1);
 	}
 
-	int bytes = msgrcv(msqid, msg, sizeof(Message), arb_number, flag);
+	int bytes = msgrcv(msqid, msg, sizeof(Message), ARB_NUMBER, FLAG);
     if(bytes != -1){
 		return bytes;	
 	} else {
