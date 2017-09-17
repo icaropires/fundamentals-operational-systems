@@ -1,6 +1,7 @@
 #ifndef PROCESS
 #define PROCESS
+#include <sys/types.h>
 
-int create_process();
+void run_process();
 
 #endif

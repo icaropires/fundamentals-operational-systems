@@ -9,17 +9,16 @@ OBJ := obj/
 
 CC := gcc
 
-CFLAGS := -W -Wall -ansi -pedantic
+CFLAGS := -ansi -pedantic -g
 
 # Source files.
 # Add all files to be used in onde project here. 
-PROCESSFILE := $(SRC)process.c 
 
 # Concatenates all files to the project.
-PROJECT1 := $(PROCESSFILE)
+PROJECT := $(SRC)/*.c 
 
 # Compile project. 
-all: $(PROJECT1:src/%.c=obj/%.o)
+all: $(PROJECT:src/%.c=obj/%.o)
 	$(CC) $(CFLAGS) obj/*.o -o bin/prog
 
 # Generate .o files.
