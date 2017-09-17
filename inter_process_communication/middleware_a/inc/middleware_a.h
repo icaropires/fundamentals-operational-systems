@@ -1,10 +1,9 @@
-#ifndef MIDDLEWARE_A 
-#define MIDDLEWARE_A
+#ifndef _GNU_SOURCE 
+#define _GNU_SOURCE
 
-#include <sys/types.h>
-#include <sys/ipc.h>
 #include <sys/msg.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 
 typedef struct Message {

@@ -5,9 +5,10 @@ int main() {
 
 	Message msg = {1, "Message_test_1."};
 
+	fprintf(stdout, "Messages will be sent to queue with msqid %d.\n", msqid);
 	fprintf(stdout, "Sending messsage from HOST A...\n");
-    is_error = sending_message(msqid, &msg, 0);
-    assert(is_error == 0);
+
+    sending_message(msqid, &msg, 0);
 
 	fprintf(stdout, "Message sent from HOST A\n");
 
