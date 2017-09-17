@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <sys/shm.h>
+#include <sys/stat.h>
 
 #define ARB_NUMBER 1
 #define FLAG 0

@@ -9,7 +9,8 @@ int main() {
 	fprintf(stdout, "Receiving message in MIDDLEWARE A...\n");
 	receiving_message(msqid, &msg, ARB_NUMBER, FLAG);
 
-	fprintf(stdout, "%s\n", msg.msg);
+    pass_msg_to_sh_memory(msg);
+	//fprintf(stdout, "%s\n", msg.msg);
 
 	return 0;
 }
