@@ -31,16 +31,6 @@ char* attach_sh_memory_segment(int segment_id, size_t expected_size){
     char* shared_memory = (char*) shmat(segment_id, NULL, 0);
     assert(shared_memory != NULL);
 
-    fprintf(stdout, "id: %d\n", segment_id);
-    
-    // Check the segment’s size.
-    struct shmid_ds buf;
-    shmctl(segment_id, IPC_STAT, &buf);
-
-    int segment_size = buf.shm_segsz;
-    fprintf(stdout, "%d\n", segment_size);
-    //assert(segment_size == expected_size);
-
     return shared_memory;
 }
 
@@ -51,9 +41,9 @@ void pass_msg_to_sh_memory(Message msg){
     char* shared_memory = attach_sh_memory_segment(segment_id, msg_size);
     // sprintf(shared_memory, "OLA");
     strcpy(shared_memory, msg.msg);
-}
 
-void close_sh_memory(int segment_id, char* shared_memory){
-    shmdt(shared_memory);
-    shmctl(segment_id, IPC_RMID, 0);
+    // Write address to file
+    FILE* fp = fopen("../address", "w");
+    fprintf(fp, "%d %p", segment_id, shared_memory);
+    fclose(fp);
 }
