@@ -1,10 +1,9 @@
-#include "host_a.h"
-#include <string.h>
+#include "../../utils/utils.h"
 
 int main() {
     int msqid = create_message_queue(FILE_PATH, ARB_CHAR_A);
 
-	Message msg = {1, "Message_test_1."};
+	Message msg = {NORMAL_MESSAGE_TYPE, "Message_test_1."};
 
 	fprintf(stdout, "Messages will be sent to queue with msqid %d.\n", msqid);
 	fprintf(stdout, "Type END to stop sending.\n");

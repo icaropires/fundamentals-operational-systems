@@ -1,23 +1,4 @@
 #include "middleware_a.h"
-#include "../../utils/utils.c"
-
-int receiving_message(int msqid, Message *msg, int arb_number, int flag) {
-	// Check if there are messages on this queue.
-	if(!check_messages(msqid)){
-		fprintf(stdout, "Waiting...\n");
-	} else {
-		perror("Couldn't check this queue");
-		exit(1);
-	}
-
-	int bytes = msgrcv(msqid, msg, sizeof(Message), ARB_NUMBER, FLAG);
-    if(bytes != -1){
-		return bytes;	
-	} else {
-		perror("Message couldn't be sent");
-		exit(1);
-	}
-}
 
 int check_messages(int msqid) {
 	struct msqid_ds buf;
@@ -43,7 +24,6 @@ void pass_msg_to_sh_memory(Message msg){
 
     int segment_id = allocate_sh_memory(msg_size);
     char* shared_memory = attach_sh_memory_segment(segment_id, msg_size);
-    // sprintf(shared_memory, "OLA");
     strcpy(shared_memory, msg.msg);
 
     // Write address to file

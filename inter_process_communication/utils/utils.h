@@ -14,13 +14,19 @@
 #define FILE_PATH "/bin/ls"
 #define ARB_CHAR_A 'j'
 #define ARB_CHAR_B 'o'
+#define NORMAL_MESSAGE_TYPE 1
 
 typedef struct Message {
-    long mytype;
+    long mtype;
     char msg[MESSAGE_SIZE];
 } Message;
 
 // Returns msqid.
 int create_message_queue(char *file_path, char ch);
+
+// Return amount of bytes sent
+int receiving_message(int msqid, Message *msg, int arb_number, int flag);
+
+void sending_message(int msqid, Message *msg, int flag);
 
 #endif

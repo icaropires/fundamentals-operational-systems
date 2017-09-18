@@ -27,6 +27,7 @@ create_folders:
 # Generate .o files.
 obj/%.o: src/%.c
 	$(CC) $(CFLAGS) -c $< -o $@ -I./inc
+	$(CC) $(CFLAGS) -c ../utils/utils.c -o obj/utils.o -I../utils
 
 # Run the executable files.
 run: bin/middleware_b

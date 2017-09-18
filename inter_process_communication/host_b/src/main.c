@@ -1,4 +1,4 @@
-#include "host_b.h"
+#include "../../utils/utils.h"
 
 int main() {
 	int msqid = create_message_queue(FILE_PATH, ARB_CHAR_B);
