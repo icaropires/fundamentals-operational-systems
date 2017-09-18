@@ -7,10 +7,19 @@ int main() {
 	Message msg;
 	
 	fprintf(stdout, "Receiving message in MIDDLEWARE A...\n");
-	receiving_message(msqid, &msg, ARB_NUMBER, FLAG);
 
-    pass_msg_to_sh_memory(msg);
-	//fprintf(stdout, "%s\n", msg.msg);
+	do {
+		receiving_message(msqid, &msg, ARB_NUMBER, FLAG);
+		fprintf(stdout, "%s\n", msg.msg);
+		if(!strcmp(msg.msg, "END")) {
+			break;
+		}
+	} while(check_messages(msqid) == 0);
+
+	fprintf(stdout, "All messages Received.\n");
+	
+	pass_msg_to_sh_memory(msg);
+
 
 	return 0;
 }
