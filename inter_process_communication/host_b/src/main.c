@@ -1,27 +1,24 @@
 #include "../../utils/utils.h"
 
 int main() {
-	int msqid = create_message_queue(FILE_PATH, ARB_CHAR_B);
-	Message msg;
-	pid_t pid;
 	char *path = strcat(PWD,"/../middleware_b/bin/middleware_b");
 	path = remove_last_from_path(path);
 	
 	fprintf(stdout, "Receiving message in HOST B...\n");
 
-	pid = fork();
-	// Parent process.
+	int msqid = create_message_queue(FILE_PATH, ARB_CHAR_B);
+	pid_t pid = fork();
 	if(pid) {
 		do {
+            Message msg;
 			receiving_message(msqid, &msg, ARB_NUMBER, FLAG);
 			fprintf(stdout, "Message: %s\n", msg.msg);
 		} while(1);
-	// Child process.
 	} else {
-		execvp(path, NULL);
+		if(execvp(path, NULL) ==-1 ) {
+			perror("Can't start middleware_A");
+		}
 	}
-
-
 
 	return 0;
 }

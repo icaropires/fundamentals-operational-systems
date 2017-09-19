@@ -11,7 +11,13 @@ char* attach_sh_memory_segment(int segment_id, size_t expected_size){
     char* shared_memory = (char*) shmat(segment_id, NULL, 0);
     assert(shared_memory != NULL);
 
-    return shared_memory;
+	return shared_memory;
+}
+
+void write_info(int pid, int segment_id, char* shared_memory){
+    FILE* file = fopen("../address", "w");
+    fprintf(file, "%d|%d|%p", pid, segment_id, shared_memory);
+    fclose(file);
 }
 
 void pass_msg_to_sh_memory(Message msg){
@@ -21,8 +27,5 @@ void pass_msg_to_sh_memory(Message msg){
     char* shared_memory = attach_sh_memory_segment(segment_id, msg_size);
     strcpy(shared_memory, msg.msg);
 
-    // Write address to file
-    FILE* fp = fopen("../address", "w");
-    fprintf(fp, "%d %p", segment_id, shared_memory);
-    fclose(fp);
+	write_info(getpid(), segment_id, shared_memory);
 }

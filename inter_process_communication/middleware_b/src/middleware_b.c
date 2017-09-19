@@ -7,41 +7,40 @@ char* attach_sh_memory_segment(int segment_id, void* address){
     return shared_memory;
 }
 
-char* get_msg_from_sh_memory(){
-
-	// Read address from file
+void fill_info(int *pid, int *segment_id, void **address){
     FILE* file = fopen("../address", "r");
 	assert(file != NULL);
 
-	void* address;
-	int segment_id = -5;
+	*segment_id = -5;
 
-    fscanf(file, "%d %p", &segment_id, &address);
+    fscanf(file, "%d|%d|%p", pid, segment_id, address);
     fclose(file);
 
 	assert(address != NULL);
-	assert(segment_id != -5);
+	assert(*segment_id != -5);
 
 	fprintf(stdout, "Got address for shared memory area\n");
+}
 
+char* get_msg_from_sh_memory(){
+	void* address;
+	int pid, segment_id;
+	
+	fill_info(&pid, &segment_id, &address);
 	char* shared_memory = attach_sh_memory_segment(segment_id, address);
 
 	assert(shared_memory != NULL);
-
 	return shared_memory;
 }
 
 void close_sh_memory(){
-    FILE* file = fopen("../address", "r");
-	assert(file != NULL);
-
 	void* address;
-	int segment_id = -5;
+	int pid, segment_id;
 
-    fscanf(file, "%d %p", &segment_id, &address);
-    fclose(file);
-
+	fill_info(&pid, &segment_id, &address);
 	char* shared_memory = attach_sh_memory_segment(segment_id, address);
+
+	assert(shared_memory != NULL);
 
     shmdt(shared_memory);
     shmctl(segment_id, IPC_RMID, 0);
