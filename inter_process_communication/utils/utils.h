@@ -1,10 +1,12 @@
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE
 
-#include <sys/msg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/msg.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
 
@@ -15,6 +17,7 @@
 #define ARB_CHAR_A 'j'
 #define ARB_CHAR_B 'o'
 #define NORMAL_MESSAGE_TYPE 1
+#define PWD getenv("PWD")
 
 typedef struct Message {
     long mtype;
