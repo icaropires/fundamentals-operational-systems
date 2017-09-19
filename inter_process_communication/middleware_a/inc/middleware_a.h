@@ -5,8 +5,6 @@
 
 #include "../../utils/utils.h"
 
-int check_messages(int msqid);
-
 int allocate_sh_memory(size_t size);
 
 char* attach_sh_memory_segment(int segment_id, size_t expected_size);

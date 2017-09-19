@@ -14,7 +14,7 @@ int main() {
 		if(!strcmp(msg.msg, "END")) {
 			break;
 		}
-	} while(check_messages(msqid) == 0);
+	} while(1);
 
 	fprintf(stdout, "All messages Received.\n");
 

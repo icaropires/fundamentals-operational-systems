@@ -1,17 +1,5 @@
 #include "../../utils/utils.h"
 
-char *remove_last_from_path(char* str){
-	int i;
-	for(i = 0; str[i] != '\0'; ++i){
-		int u = 0;
-		if(str[i] == '/'){
-			u = i;  
-		}
-	}
-	str[i] = '\0';
-	return str;
-}
-
 int main() {
 	int msqid = create_message_queue(FILE_PATH, ARB_CHAR_A);
 	char aux[MESSAGE_SIZE];
@@ -23,7 +11,6 @@ int main() {
 	fprintf(stdout, "Messages will be sent to queue with msqid %d.\n", msqid);
 	fprintf(stdout, "Type END to stop sending.\n");
 	fprintf(stdout, "Sending messsage from HOST A...\n");
-
 
 	pid = fork();
 	if(pid) {

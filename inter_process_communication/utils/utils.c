@@ -50,3 +50,16 @@ int receiving_message(int msqid, Message *msg, int arb_number, int flag) {
 		exit(1);
 	}
 }
+
+char *remove_last_from_path(char* str){
+	int i;
+	for(i = 0; str[i] != '\0'; ++i){
+		int u = 0;
+		if(str[i] == '/'){
+			u = i;
+		}
+	}
+	str[i] = '\0';
+	return str;
+}
+

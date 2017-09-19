@@ -1,10 +1,5 @@
 #include "middleware_a.h"
 
-int check_messages(int msqid) {
-	struct msqid_ds buf;
-	return msgctl(msqid, IPC_STAT, &buf);
-}
-
 int allocate_sh_memory(size_t size){
     const int shared_segment_size = sizeof(size);
 

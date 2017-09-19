@@ -32,4 +32,6 @@ int receiving_message(int msqid, Message *msg, int arb_number, int flag);
 
 void sending_message(int msqid, Message *msg, int flag);
 
+char *remove_last_from_path(char* str);
+
 #endif
