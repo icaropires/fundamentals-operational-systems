@@ -11,6 +11,4 @@ void fill_info(int *pid, int *segment_id, void **address);
 
 char* get_msg_from_sh_memory();
 
-void close_sh_memory();
-
 #endif

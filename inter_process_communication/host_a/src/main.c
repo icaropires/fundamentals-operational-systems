@@ -9,26 +9,28 @@ int main() {
 	fprintf(stdout, "Type END to stop sending.\n");
 	fprintf(stdout, "Sending messsage from HOST A...\n");
 
-	pid_t pid;
-    char aux[MESSAGE_SIZE];
+    char msg_aux[MESSAGE_SIZE];
 
-	pid = fork();
+	pid_t pid = fork();
 	if(pid) {
+		// Dad handle signals
+        signal(SIGINT, invalid_exit_handling);
+        signal(SIGTERM, invalid_exit_handling);
 		do {
-			fgets(aux, sizeof(aux), stdin);
+			fgets(msg_aux, sizeof(msg_aux), stdin);
+            msg_aux[strcspn(msg_aux, "\n")] = 0;
 
             Message msg = {NORMAL_MESSAGE_TYPE, "Message_test_1."};
-			strcpy(msg.msg, aux);
+			strcpy(msg.msg, msg_aux);
 
 			sending_message(msqid, &msg, FLAG);
-		} while(strcmp(aux, "END"));
+		} while(strcmp(msg_aux, "END"));
 	} else {
-		if(execvp(path, NULL) ==-1 ) {
+		if(execvp(path, (char * const*){NULL}) == -1) {
 			perror("Can't start middleware_A");
 		}
 	}
 
-	//	fprintf(stdout, "All messages sent from HOST A\n");
-
+    delete_message_queue(msqid);
 	return 0;
 }

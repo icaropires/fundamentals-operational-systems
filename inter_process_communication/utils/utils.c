@@ -22,8 +22,17 @@ void sending_message(int msqid, Message *msg, int flag) {
         /* Nothing */
     } else {
         perror("Error while sending message");
-		exit(1);
     }
+}
+
+void delete_message_queue(int msqid){
+	if(msgctl(msqid, IPC_RMID, NULL) == -1){
+		perror("Couldn't delete queue");
+	}
+}
+
+void invalid_exit_handling(int signal){
+    fprintf(stdout, "\nPlease, send the message END to exit the program!\n");
 }
 
 int receiving_message(int msqid, Message *msg, int arb_number, int flag) {
@@ -39,16 +48,15 @@ int receiving_message(int msqid, Message *msg, int arb_number, int flag) {
 		exit(1);
 	}
 
-	// Receive message
-	int bytes = msgrcv(msqid, msg, sizeof(Message), ARB_NUMBER, FLAG);
+    // Receive message
+    int bytes = msgrcv(msqid, msg, sizeof(Message), ARB_NUMBER, FLAG);
 
-	// Check if message could be sent
+    // Check if message could be sent
     if(bytes != -1){
-		return bytes;	
-	} else {
-		perror("Message couldn't be sent");
-		exit(1);
-	}
+        return bytes;	
+    } else {
+        perror("Message couldn't be received");
+    }
 }
 
 char *remove_last_from_path(char* str){
@@ -62,4 +70,3 @@ char *remove_last_from_path(char* str){
 	str[i] = '\0';
 	return str;
 }
-

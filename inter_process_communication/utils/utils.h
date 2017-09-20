@@ -6,6 +6,7 @@
 #include <assert.h>
 #include <unistd.h>
 #include <string.h>
+#include <signal.h>
 #include <sys/msg.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
@@ -27,10 +28,14 @@ typedef struct Message {
 // Returns msqid.
 int create_message_queue(char *file_path, char ch);
 
+void invalid_exit_handling(int signal);
+
 // Return amount of bytes sent
 int receiving_message(int msqid, Message *msg, int arb_number, int flag);
 
 void sending_message(int msqid, Message *msg, int flag);
+
+void delete_message_queue(int msqid);
 
 char *remove_last_from_path(char* str);
 
