@@ -1,34 +1,41 @@
+// Client side C/C++ program to demonstrate Socket programming
 #include "middleware_b.h"
 
-char* attach_sh_memory_segment(int segment_id, void* address){
-    char* shared_memory = (char*) shmat(segment_id, address, 0);
-    assert(shared_memory != NULL);
-
-    return shared_memory;
-}
-
-void fill_info(int *pid, int *segment_id, void **address){
-    FILE* file = fopen("../address", "r");
-	assert(file != NULL);
-
-	*segment_id = -5;
-
-    fscanf(file, "%d|%d|%p", pid, segment_id, address);
-    fclose(file);
-
-	assert(address != NULL);
-	assert(*segment_id != -5);
-
-	fprintf(stdout, "Got address for shared memory area\n");
-}
-
-char* get_msg_from_sh_memory(){
-	void* address;
-	int pid, segment_id;
-	
-	fill_info(&pid, &segment_id, &address);
-	char* shared_memory = attach_sh_memory_segment(segment_id, address);
-
-	assert(shared_memory != NULL);
-	return shared_memory;
+#define PORT 8080
+  
+int client()
+{
+    struct sockaddr_in address;
+    int sock = 0, valread;
+    struct sockaddr_in serv_addr;
+    char *hello = "Hello from client";
+    char buffer[1024] = {0};
+    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
+    {
+        printf("\n Socket creation error \n");
+        return -1;
+    }
+  
+    memset(&serv_addr, '0', sizeof(serv_addr));
+  
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(PORT);
+      
+    // Convert IPv4 and IPv6 addresses from text to binary form
+    if(inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)<=0) 
+    {
+        printf("\nInvalid address/ Address not supported \n");
+        return -1;
+    }
+  
+    if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
+    {
+        printf("\nConnection Failed \n");
+        return -1;
+    }
+    send(sock , hello , strlen(hello) , 0 );
+    printf("Hello message sent\n");
+    valread = read( sock , buffer, 1024);
+    printf("%s\n",buffer );
+    return 0;
 }

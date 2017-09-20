@@ -1,33 +1,55 @@
 #include "middleware_a.h"
 
-int allocate_sh_memory(size_t size){
-    const int shared_segment_size = sizeof(size);
+#define PORT 8080
 
-    const int segment_id = shmget(IPC_PRIVATE, shared_segment_size,
-                            IPC_CREAT | IPC_EXCL | S_IRUSR | S_IWUSR); 
+int server()
+{
+    int server_fd, new_socket, valread;
+    struct sockaddr_in address;
+    int opt = 1;
+    int addrlen = sizeof(address);
+    char buffer[1024] = {0};
+    char *hello = "Hello from server";
 
-	return segment_id;
-}
+    // Creating socket file descriptor
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
+    {
+        perror("socket failed");
+        exit(EXIT_FAILURE);
+    }
 
-char* attach_sh_memory_segment(int segment_id, size_t expected_size){
-    char* shared_memory = (char*) shmat(segment_id, NULL, 0);
-    assert(shared_memory != NULL);
+    // Forcefully attaching socket to the port 8080
+    if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
+                                                  &opt, sizeof(opt)))
+    {
+        perror("setsockopt");
+        exit(EXIT_FAILURE);
+    }
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons( PORT );
 
-	return shared_memory;
-}
-
-void write_info(int pid, int segment_id, char* shared_memory){
-    FILE* file = fopen("../address", "w");
-    fprintf(file, "%d|%d|%p", pid, segment_id, shared_memory);
-    fclose(file);
-}
-
-void pass_msg_to_sh_memory(Message msg){
-    const int msg_size = sizeof(Message);
-
-    const int segment_id = allocate_sh_memory(msg_size);
-    char* shared_memory = attach_sh_memory_segment(segment_id, msg_size);
-    strcpy(shared_memory, msg.msg);
-
-	write_info(getpid(), segment_id, shared_memory);
+    // Forcefully attaching socket to the port 8080
+    if (bind(server_fd, (struct sockaddr *)&address,
+                                 sizeof(address))<0)
+    {
+        perror("bind failed");
+        exit(EXIT_FAILURE);
+    }
+    if (listen(server_fd, 3) < 0)
+    {
+        perror("listen");
+        exit(EXIT_FAILURE);
+    }
+    if ((new_socket = accept(server_fd, (struct sockaddr *)&address,
+                       (socklen_t*)&addrlen))<0)
+    {
+        perror("accept");
+        exit(EXIT_FAILURE);
+    }
+    valread = read(new_socket , buffer, 1024);
+    printf("%s\n",buffer );
+    send(new_socket , hello , strlen(hello) , 0 );
+    printf("Hello message sent\n");
+    return 0;
 }
