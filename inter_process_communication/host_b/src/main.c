@@ -1,7 +1,7 @@
 #include "host_b.h"
 
 int main() {
-	fprintf(stdout, "Receiving message in HOST B...\n");
+	fprintf(stderr, "Receiving message in HOST B...\n");
 
 	// Defined on host_a.h
 	SECOND_MSQID = create_message_queue(FILE_PATH, ARB_CHAR_B);

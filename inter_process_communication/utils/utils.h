@@ -19,6 +19,7 @@
 #define ARB_CHAR_B 'o'
 #define NORMAL_MESSAGE_TYPE 1
 #define PWD getenv("PWD")
+#define TMP_FILE "../.tmp"
 
 typedef struct Message {
     long mtype;

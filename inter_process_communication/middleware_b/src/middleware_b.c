@@ -15,20 +15,27 @@ void get_msg_from_sh(int segment_id, void** address, char** ptr_msg){
     shmctl(segment_id, IPC_RMID, 0);
 }
 
-void fill_info(int *pid, int *segment_id, void **address){
-    FILE* file = fopen("../address", "r");
+void fill_info(pid_t host_b_pid, pid_t *host_a_pid, int *segment_id, void **address){
+    FILE* file = fopen(TMP_FILE, "r");
 	assert(file != NULL);
 
 	*segment_id = -5;
 
-    if(fscanf(file, "%d|%d|%p", pid, segment_id, address) < 3){
+    if(fscanf(file, "%d|%d|%p", (int*)host_a_pid, segment_id, address) < 3){
 		fprintf(stderr, "There was a problem reading the file");
 	}
 
+	assert(address != NULL);
+	assert(*segment_id >= 0);
+
+	fprintf(stderr, "Got address for shared memory area\n");
     fclose(file);
 
-	assert(address != NULL);
-	assert(*segment_id != -5);
+    FILE * fle = fopen(TMP_FILE, "w");
+    assert(file != NULL);
 
-	fprintf(stdout, "Got address for shared memory area\n");
+    fprintf(file, "%d", host_b_pid);
+
+    fclose(file);
+    fprintf(stderr, "Wrote host_b pid to file\n");
 }

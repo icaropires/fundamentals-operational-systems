@@ -2,12 +2,15 @@
 
 int main() {
 
-	fprintf(stdout, "Middleware B started.\n");
+	fprintf(stderr, "Middleware B started.\n");
 	
+    // Better this be here because will need this information in this function
     void *address;
-    int pid, segment_id;
+    int segment_id;
+    pid_t host_a_pid;
+    pid_t host_b_pid;
+    fill_info(host_b_pid, &host_a_pid, &segment_id, &address);
 
-    fill_info(&pid, &segment_id, &address);
 	signal(SIGINT, SIG_IGN);
 
 	do {

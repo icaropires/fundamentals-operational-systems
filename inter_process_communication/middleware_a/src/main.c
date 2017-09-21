@@ -2,7 +2,7 @@
 
 int main() {
 
-	fprintf(stdout, "Receiving message in MIDDLEWARE A...\n");
+	fprintf(stderr, "Receiving message in MIDDLEWARE A...\n");
 
 	int msqid = create_message_queue(FILE_PATH, ARB_CHAR_A);
 
