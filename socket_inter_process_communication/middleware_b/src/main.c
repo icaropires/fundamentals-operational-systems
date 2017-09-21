@@ -8,24 +8,24 @@ int main() {
 	//signal(SIGTERM, SIG_IGN); 
 
 
-	do {
+	//do {
         Message msg;
         msg.mtype = NORMAL_MESSAGE_TYPE;
 
 		if(!strcmp(msg.msg, "END")){
-			break;
+			//break;
 		}
 
 		// Start socket.
-		client(msg);
+		msg = client(msg);
 
-		fprintf(stdout, "Sending messsage from MIDDLEWARE B...\n");
+		fprintf(stdout, "Sending messsage %s from MIDDLEWARE B...\n", msg.msg);
 
         int msqid = create_message_queue(FILE_PATH, ARB_CHAR_B);
 	    sending_message(msqid, &msg, FLAG);
 
-		fprintf(stdout, "Message sent from MIDDLEWARE B\n");
-	} while(1);
+		fprintf(stdout, "Message sent from MIDDLEWARE B.\n");
+	//} while(1);
 
 	return 0;
 }

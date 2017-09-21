@@ -11,12 +11,12 @@
 extern int client_socket;
 extern struct sockaddr_in serv_addr;
 
-void client(Message msg);
+Message client(Message msg);
 
 void convert_ip_to_binary();
 
-void connet_socket(struct sockaddr_in serv_addr);
+void connet_socket(int client_socket, struct sockaddr_in serv_addr);
 
-void send_message(int client_socket, Message msg);
+Message receive_message(int client_socket, Message msg);
 
 #endif

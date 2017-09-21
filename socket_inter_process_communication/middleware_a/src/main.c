@@ -10,18 +10,18 @@ int main() {
 	//signal(SIGINT, SIG_IGN);
 	//signal(SIGTERM, SIG_IGN);
 
-	do {
+	//do {
         Message msg;
 
 		receiving_message(msqid, &msg, ARB_NUMBER, FLAG);
 
 		if(!strcmp(msg.msg, "END")) {
-			break;
+			//break;
 		}
 
 		// Start socket.
 		server(msg);
-	} while(1);
+	//} while(1);
 
 	return 0;
 }

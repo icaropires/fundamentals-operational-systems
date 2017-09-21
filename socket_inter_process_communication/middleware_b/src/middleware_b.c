@@ -1,5 +1,5 @@
 // Client side C/C++ program to demonstrate Socket programming
-#include "middleware_b.h"
+#include "../inc/middleware_b.h"
 
 int client_socket;
 struct sockaddr_in serv_addr;
@@ -11,20 +11,19 @@ void convert_ip_to_binary() {
     }
 }
 
-void connect_socket(struct sockaddr_in serv_addr) {
+void connect_socket(int client_socket, struct sockaddr_in serv_addr) {
     if (connect(client_socket, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
         perror("\nConnection Failed \n");
     }
 }
 
-void send_message(int client_socket, Message msg) {
-    //send(client_socket, msg.msg, strlen(msg.msg), SOCKET_FLAG);
-    //printf("Message sent from MIDDLEWARE B\n");
-    valread = read(client_socket, buffer, BUFFER_SIZE);
-    printf("Received message in MIDDLEWARE B: %s\n",buffer );
+Message receive_message(int client_socket, Message msg) {
+    valread = read(client_socket, msg.msg, BUFFER_SIZE);
+    printf("Received message in MIDDLEWARE B: %s\n",msg.msg);
+	return msg;
 }
 
-void client(Message msg) {
+Message client(Message msg) {
 	client_socket = create_socket(client_socket);
   
     memset(&serv_addr, '0', sizeof(serv_addr));
@@ -34,8 +33,8 @@ void client(Message msg) {
       
 	convert_ip_to_binary();
   
-	connect_socket(serv_addr);
+	connect_socket(client_socket, serv_addr);
 
-	send_message(client_socket, msg);
-
+	msg = receive_message(client_socket, msg);
+	return msg;
 }
