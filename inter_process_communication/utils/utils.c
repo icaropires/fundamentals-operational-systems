@@ -39,14 +39,20 @@ int receiving_message(int msqid, Message *msg, int arb_number, int flag) {
     assert(msg != NULL);
 	assert(msg->mtype >= 0);
 
-	// Check if there are messages on this queue.
-	struct msqid_ds buf;
-	if(!msgctl(msqid, IPC_STAT, &buf)){
-		fprintf(stdout, "Waiting for messages...\n");
-	} else {
-		perror("Couldn't check this queue");
-		exit(1);
-	}
+	// Get out when there is any message on queue
+	// Improve, idle waiting
+    fprintf(stdout, "Waiting for messages...\n");
+    struct msqid_ds buf;
+    unsigned int amount_messages;
+    do{
+        if(!msgctl(msqid, IPC_STAT, &buf)){
+            /* Nothing */
+        } else {
+            perror("Couldn't check this queue");
+            exit(1);
+        }
+        amount_messages = buf.msg_qnum;
+    }while(!amount_messages);
 
     // Receive message
     int bytes = msgrcv(msqid, msg, sizeof(Message), ARB_NUMBER, FLAG);
