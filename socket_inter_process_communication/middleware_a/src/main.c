@@ -15,12 +15,12 @@ int main() {
 
 		receiving_message(msqid, &msg, ARB_NUMBER, FLAG);
 
-		// Start socket.
-		server(msg);
-
 		if(!strcmp(msg.msg, "END")) {
 			break;
 		}
+
+		// Start socket.
+		server(msg);
 	} while(1);
 
 	return 0;
