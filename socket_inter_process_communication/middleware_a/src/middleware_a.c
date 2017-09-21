@@ -1,23 +1,15 @@
 #include "middleware_a.h"
 
-#define PORT 8080
-
-int server()
-{
-    int server_fd, new_socket, valread;
-    struct sockaddr_in address;
-    int opt = 1;
-    int addrlen = sizeof(address);
-    char buffer[1024] = {0};
-    char *hello = "Hello from server";
-
+void create_socket_file_descriptor() {
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
     {
         perror("socket failed");
         exit(EXIT_FAILURE);
     }
+}
 
+void attach_socket_to_port(int port, int server_fd, int opt) {
     // Forcefully attaching socket to the port 8080
     if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
                                                   &opt, sizeof(opt)))
@@ -49,7 +41,18 @@ int server()
     }
     valread = read(new_socket , buffer, 1024);
     printf("%s\n",buffer );
-    send(new_socket , hello , strlen(hello) , 0 );
-    printf("Hello message sent\n");
+    send(new_socket , message, strlen(message) , 0 );
+}
+
+int server()
+{
+	opt=0;
+	addrlen = sizeof(address);
+	buffer;
+	create_socket_file_descriptor();
+
+	attach_socket_to_port(PORT, server_fd, opt);
+
+    printf("Message sent from MIDDLEWARE A.\n");
     return 0;
 }

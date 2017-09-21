@@ -1,4 +1,4 @@
-#ifndef MIDDLEWARE_A_H
+#ifndef MIDDLEWARE_B_H
 #define MIDDLEWARE_B_H
 
 #include "../../utils/utils.h"
