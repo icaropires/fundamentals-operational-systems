@@ -1,20 +1,14 @@
 #include "middleware_a.h"
 
-void create_socket_file_descriptor() {
-    // Creating socket file descriptor
-	// Parameters(domain, type, protocol)
-    if ((server_fd = socket(AF_INET, SOCK_STREAM, SOCKET_PROTOCOL)) == 0)
-    {
-        perror("socket failed");
-        exit(EXIT_FAILURE);
-    }
-}
+int server_fd;
+int new_socket;
+int opt;
+int addrlen;
 
 void attach_socket_to_port(int server_fd, int opt, Message msg) {
     // Forcefully attaching socket to the PORT
     if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
-                                                  &opt, sizeof(opt)))
-    {
+                                                  &opt, sizeof(opt))) {
         perror("setsockopt");
         exit(EXIT_FAILURE);
     }
@@ -24,19 +18,16 @@ void attach_socket_to_port(int server_fd, int opt, Message msg) {
 
     // Forcefully attaching socket to the PORT
     if (bind(server_fd, (struct sockaddr *)&address,
-                                 sizeof(address)) < 0)
-    {
+                                 sizeof(address)) < 0) {
         perror("bind failed");
         exit(EXIT_FAILURE);
     }
-    if (listen(server_fd, BACKLOG) < 0)
-    {
+    if (listen(server_fd, BACKLOG) < 0) {
         perror("listen");
         exit(EXIT_FAILURE);
     }
     if ((new_socket = accept(server_fd, (struct sockaddr *)&address,
-                       (socklen_t*)&addrlen)) < 0)
-    {
+                       (socklen_t*)&addrlen)) < 0) {
         perror("accept");
         exit(EXIT_FAILURE);
     }
@@ -45,16 +36,12 @@ void attach_socket_to_port(int server_fd, int opt, Message msg) {
     send(new_socket, msg.msg, strlen(msg.msg), SOCKET_FLAG);
 }
 
-int server(Message msg)
-{
+void server(Message msg) {
 	opt = OPT_VALUE;
 	addrlen = sizeof(address);
-	buffer;
 
-	create_socket_file_descriptor();
+	server_fd = create_socket(server_fd);
 
 	attach_socket_to_port(server_fd, opt, msg);
-
     fprintf(stdout, "Message sent from MIDDLEWARE A.\n");
-    return 0;
 }
