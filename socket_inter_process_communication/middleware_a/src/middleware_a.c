@@ -31,7 +31,7 @@ void attach_socket_to_port(int server_fd, int opt, Message msg) {
         perror("accept");
         exit(EXIT_FAILURE);
     }
-    valread = read(new_socket, buffer, BUFFER_SIZE);
+    //valread = read(new_socket, buffer, BUFFER_SIZE);
     //fprintf(stdout,"%s\n",buffer);
     send(new_socket, msg.msg, strlen(msg.msg), SOCKET_FLAG);
 }

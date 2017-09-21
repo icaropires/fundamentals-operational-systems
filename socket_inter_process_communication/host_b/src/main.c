@@ -24,7 +24,5 @@ int main() {
 		}
 	}
 
-	close_sh_memory();
-
 	return 0;
 }

@@ -28,6 +28,7 @@ create_folders:
 obj/%.o: src/%.c
 	$(CC) $(CFLAGS) -c $< -o $@ -I./inc
 	$(CC) $(CFLAGS) -c ../utils/utils.c -o obj/utils.o -I../utils
+	$(CC) $(CFLAGS) -c ../utils/socket.c -o obj/socket.o -I../utils
 	$(CC) $(CFLAGS) -c ../middleware_b/src/middleware_b.c -o obj/middleware_b.o -I../middleware_b/inc
 
 # Run the executable files.

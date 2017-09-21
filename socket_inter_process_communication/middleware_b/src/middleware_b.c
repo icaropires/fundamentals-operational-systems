@@ -18,10 +18,10 @@ void connect_socket(struct sockaddr_in serv_addr) {
 }
 
 void send_message(int client_socket, Message msg) {
-    send(client_socket, msg.msg, strlen(msg.msg), SOCKET_FLAG);
-    printf("Message sent from MIDDLEWARE B\n");
+    //send(client_socket, msg.msg, strlen(msg.msg), SOCKET_FLAG);
+    //printf("Message sent from MIDDLEWARE B\n");
     valread = read(client_socket, buffer, BUFFER_SIZE);
-    printf("%s\n",buffer );
+    printf("Received message in MIDDLEWARE B: %s\n",buffer );
 }
 
 void client(Message msg) {
