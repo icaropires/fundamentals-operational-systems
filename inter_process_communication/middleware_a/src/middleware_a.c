@@ -16,9 +16,9 @@ char* attach_sh_memory_segment(int segment_id, size_t expected_size){
 	return shared_memory;
 }
 
-void write_info(int pid, int segment_id, char* shared_memory){
+void write_info(int segment_id, char* shared_memory){
     FILE* file = fopen(TMP_FILE, "w");
-    fprintf(file, "%d|%d|%p", pid, segment_id, shared_memory);
+    fprintf(file, "%d|%p", segment_id, shared_memory);
     fclose(file);
 }
 
@@ -29,5 +29,5 @@ void pass_msg_to_sh_memory(Message msg){
     char* shared_memory = attach_sh_memory_segment(segment_id, msg_size);
     strcpy(shared_memory, msg.msg);
 
-	write_info(getpid(), segment_id, shared_memory);
+	write_info(segment_id, shared_memory);
 }

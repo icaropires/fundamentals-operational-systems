@@ -10,21 +10,34 @@
 #include <sys/msg.h>
 #include <sys/shm.h>
 #include <sys/stat.h>
+#include <sys/sem.h>
 
 #define ARB_NUMBER 1
 #define FLAG 0
 #define MESSAGE_SIZE 101
-#define FILE_PATH "/bin/ls"
+#define ARB_FILE "../.arb_file"
 #define ARB_CHAR_A 'j'
 #define ARB_CHAR_B 'o'
 #define NORMAL_MESSAGE_TYPE 1
 #define PWD getenv("PWD")
 #define TMP_FILE "../.tmp"
+#define SEMAPHORES_NUMBER 1
+
+extern int HOST_B_PID;
 
 typedef struct Message {
     long mtype;
     char msg[MESSAGE_SIZE];
 } Message;
+
+union semun {
+    int val;
+    struct semid_ds *buf;
+    unsigned short int *array;
+    struct seminfo *__buf;
+};
+
+void generate_arb_file();
 
 // Returns msqid.
 int create_message_queue(char *file_path, char ch);

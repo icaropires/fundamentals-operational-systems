@@ -4,7 +4,7 @@ int main() {
 
 	fprintf(stderr, "Receiving message in MIDDLEWARE A...\n");
 
-	int msqid = create_message_queue(FILE_PATH, ARB_CHAR_A);
+	int msqid = create_message_queue(ARB_FILE, ARB_CHAR_A);
 
 	// Child ignores signals for exit
 	signal(SIGINT, SIG_IGN);

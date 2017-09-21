@@ -4,10 +4,11 @@ int main() {
 	fprintf(stderr, "Receiving message in HOST B...\n");
 
 	// Defined on host_a.h
-	SECOND_MSQID = create_message_queue(FILE_PATH, ARB_CHAR_B);
+	SECOND_MSQID = create_message_queue(ARB_FILE, ARB_CHAR_B);
 
 	pid_t pid = fork();
     CHILD_PID = pid;
+    HOST_B_PID = getpid();
 
 	if(pid) {
 		signal(SIGINT, handle_finish);
