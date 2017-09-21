@@ -7,16 +7,16 @@ int main() {
 	int msqid = create_message_queue(FILE_PATH, ARB_CHAR_A);
 
 	// Child ignores signals for exit
-	signal(SIGINT, SIG_IGN);
-	signal(SIGTERM, SIG_IGN);
-	// Start socket.
-	server();
+	//signal(SIGINT, SIG_IGN);
+	//signal(SIGTERM, SIG_IGN);
 
 	do {
         Message msg;
 
 		receiving_message(msqid, &msg, ARB_NUMBER, FLAG);
 
+		// Start socket.
+		server(msg);
 
 		if(!strcmp(msg.msg, "END")) {
 			break;
