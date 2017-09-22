@@ -1,22 +1,35 @@
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/ipc.h>
-#include <sys/msg.h>
-
-typedef struct message {
-	long mtype;
-	char msg[101];
-} Message;
+#include "middleware_a.h"
 
 int main() {
-	// char 'j' about xanayna.
-	key_t key = ftok("/bin/ls", 'j');
-	int msqid = msgget(key, 0666 | IPC_CREAT);
-	Message msg;
-	
-	msgrcv(msqid, &msg, sizeof(msg), 1, 0);
 
-	printf("Middleware A\n");
-	printf("%s\n", msg.msg);
+	fprintf(stderr, "Receiving message in MIDDLEWARE A...\n");
+
+	int msqid = create_message_queue(ARB_FILE, ARB_CHAR_A);
+
+	// Child ignores signals for exit
+	signal(SIGINT, SIG_IGN);
+
+	int semid = create_semaphores(ARB_FILE, IPC_CREAT | IPC_EXCL | S_IRUSR | S_IWUSR); 
+	initialize_semaphores(semid);
+
+	fprintf(stdout, "Waiting for B to connect\n");
+	semaphore_wait_for_zero(semid); // Start blocked
+	fprintf(stderr, "Middleware A will use semaphore of semid %d\n", semid);
+
+	do {
+        Message msg;
+
+		receiving_message(msqid, &msg, ARB_NUMBER, FLAG);
+		if(!strcmp(msg.msg, "END")) {
+			break;
+		}
+
+		pass_msg_to_sh_memory(msg);
+
+		binary_semaphore_down(semid); // Unlock B, Value = 0
+		binary_semaphore_up(semid); // Value = 1
+		semaphore_wait_for_zero(semid); // Block this till 0
+	} while(1);
+
 	return 0;
 }

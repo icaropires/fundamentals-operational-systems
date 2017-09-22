@@ -39,7 +39,4 @@ run_middleware_b:
 	$(MIDDLEWARE_B) && ./bin/middleware_b
 
 clean:
-	$(HOST_A) && make clean
-	$(HOST_B) && make clean
-	$(MIDDLEWARE_A) && make clean
-	$(MIDDLEWARE_B) && make clean
+	@rm -rf */obj/* */bin/*
