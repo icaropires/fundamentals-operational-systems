@@ -9,8 +9,12 @@ extern int SECOND_MSQID;
 
 extern pid_t CHILD_PID;
 
+extern int SEMID;
+
 void close_sh_memory();
 
 void handle_finish(int signal);
+
+void binary_semaphore_deallocate(int semid);
 
 #endif

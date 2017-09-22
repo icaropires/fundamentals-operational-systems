@@ -5,8 +5,10 @@
 
 #include "../../utils/utils.h"
 
+extern int SEMID;
+
 void fill_info(int *segment_id, void **address);
 
-void get_msg_from_sh(int segment_id, void** address, char** ptr_msg);
+char* get_msg_from_sh(int segment_id, void** address);
 
 #endif

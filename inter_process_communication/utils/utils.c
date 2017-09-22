@@ -84,11 +84,11 @@ char *remove_last_from_path(char* str){
 	return str;
 }
 
-int semaphore_alloc(char *file_path, int sem_flags){
+int create_semaphores(char *file_path, int sem_flags){
 
     key_t key = ftok(file_path, ARB_CHAR_A);
 
-    int semid = semget(key, SEMAPHORES_NUMBER, sem_flags) == -1;
+    int semid = semget(key, SEMAPHORES_NUMBER, sem_flags);
     if(semid != -1){
         return semid;
     } else {
@@ -96,7 +96,7 @@ int semaphore_alloc(char *file_path, int sem_flags){
     }
 }
 
-// Ready for arbitrary semaphore
+// Ready for binary semaphore
 int initialize_semaphores(int semid){
     unsigned short SEMNUM_TH = 0;
 
@@ -110,5 +110,38 @@ int initialize_semaphores(int semid){
         return code;
     } else {
         perror("Wasn't possible intializing semaphores");
+    }
+}
+
+void binary_semaphore_up(int semid){
+    struct sembuf operations[1];
+
+    operations[0].sem_num = 0;
+    operations[0].sem_op = 1;
+
+    if(semop(semid, operations, 1)){
+       perror("Wasn't possible to up the semaphore");
+    }
+}
+
+void semaphore_wait_for_zero(int semid) {
+		struct sembuf operations[1];
+
+    operations[0].sem_num = 0;
+    operations[0].sem_op = 0;
+
+    if(semop(semid, operations, 1)){
+       perror("Wasn't possible to down the semaphore");
+    }
+}
+
+void binary_semaphore_down(int semid) {
+    struct sembuf operations[1];
+
+    operations[0].sem_num = 0;
+    operations[0].sem_op = -1;
+
+    if(semop(semid, operations, 1)){
+       perror("Wasn't possible to down the semaphore");
     }
 }

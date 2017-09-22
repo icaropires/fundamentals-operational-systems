@@ -49,8 +49,18 @@ int receiving_message(int msqid, Message *msg, int arb_number, int flag);
 
 void sending_message(int msqid, Message *msg, int flag);
 
+void semaphore_wait_for_zero(int semid);
+
 void delete_message_queue(int msqid);
 
 char *remove_last_from_path(char* str);
+
+int create_semaphores(char *file_path, int sem_flags);
+
+int initialize_semaphores(int semid);
+
+void binary_semaphore_up(int semid);
+
+void binary_semaphore_down(int semid);
 
 #endif

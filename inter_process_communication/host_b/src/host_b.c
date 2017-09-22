@@ -1,24 +1,24 @@
 #include <host_b.h>
 
 int SECOND_MSQID;
+
 pid_t CHILD_PID;
 
-void binary_semaphore_down(int semid) {
-    struct sembuf operations[1];
+void binary_semaphore_deallocate(int semid){
+	int SEMNUM_TH = 0;
+	union semun ignored_argument;
 
-    operations[0].sem_num = 0;
-    operations[0].sem_op = -1;
-    operations[0].sem_flg = SEM_UNDO;
+	int code = semctl (semid, SEMNUM_TH, IPC_RMID, ignored_argument);
 
-    if(semop(semid, operations, 1)){
-       perror("Wasn't possible to down the semaphore");
+    if(code == -1){
+        perror("Was not possible to allocate semaphores");
     }
 }
 
 void handle_finish(int signal){
 	kill(CHILD_PID, SIGTERM);
     delete_message_queue(SECOND_MSQID);
+    binary_semaphore_deallocate(SEMID);
 	remove(TMP_FILE);
 	remove(ARB_FILE);
-    // Delete semaphore
 }

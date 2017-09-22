@@ -13,6 +13,7 @@ int main() {
 	if(pid) {
 		signal(SIGINT, handle_finish);
 		signal(SIGTERM, handle_finish);
+
 		do {
             Message msg;
 			receiving_message(SECOND_MSQID, &msg, ARB_NUMBER, FLAG);

@@ -1,12 +1,14 @@
-#include "host_a.h"
+#include "../../utils/utils.h"
 
 int main() {
     // For generating unique keys
     generate_arb_file();
 
 	int msqid = create_message_queue(ARB_FILE, ARB_CHAR_A);
+
 	fprintf(stderr, "Messages will be sent to queue with msqid %d.\n", msqid);
-	fprintf(stderr, "Type END to stop sending.\n");
+
+	fprintf(stdout, "Type END to stop sending.\n");
 	fprintf(stderr, "Sending messsage from HOST A...\n");
 
     char msg_aux[MESSAGE_SIZE];
@@ -25,7 +27,6 @@ int main() {
 
             Message msg = {NORMAL_MESSAGE_TYPE, "Message_test_1."};
 			strcpy(msg.msg, msg_aux);
-
 			sending_message(msqid, &msg, FLAG);
 		} while(1);
 
