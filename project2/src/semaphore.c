@@ -70,10 +70,10 @@ void binary_semaphore_up(int semid, int sem_th) {
     operations[0].sem_num = sem_th;
     operations[0].sem_op = 1;
 
-    if(semop(semid, operations, 1)){
-       perror("Wasn't possible to up the semaphore");
+    if(semop(semid, operations, 1) != -1){
+       fprintf(stderr, "Semaphore was incremented\n");
     } else {
-		fprintf(stderr, "Ve");
+       perror("Wasn't possible to up the semaphore");
 	}
 }
 
@@ -85,9 +85,11 @@ void semaphore_wait_for_zero(int semid, int sem_th) {
     operations[0].sem_num = sem_th;
     operations[0].sem_op = 0;
 
-    if(semop(semid, operations, 1)){
+    if(semop(semid, operations, 1) != -1){
+       fprintf(stderr, "Semaphore is waiting for zero\n");
+    } else {
        perror("Wasn't possible to make semaphore wait for zero");
-    }
+	}
 }
 
 void binary_semaphore_down(int semid, int sem_th) {
@@ -98,7 +100,9 @@ void binary_semaphore_down(int semid, int sem_th) {
     operations[0].sem_num = sem_th;
     operations[0].sem_op = -1;
 
-    if(semop(semid, operations, 1)){
+    if(semop(semid, operations, 1) != -1){
+       fprintf(stderr, "Semaphore was decremented\n");
+    } else {
        perror("Wasn't possible to down the semaphore");
-    }
+	}
 }
