@@ -1,12 +1,9 @@
-#include <unistd.h>
-
 #include "semaphore.h"
 #include "message.h"
 #include "kid.h"
 
-
-
 int main(int argc, char** argv) {
-    sleep(rand() % 1000);
+    pid_t pid = fork();
+    thinking_kid(pid);
     return 0;
 }
