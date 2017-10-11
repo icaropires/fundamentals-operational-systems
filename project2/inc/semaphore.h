@@ -13,6 +13,8 @@ typedef union semun {
 
 int create_semaphores(char *file_path, int sem_flags, int sem_num);
 
+void remove_semaphores(int semid);
+
 int initialize_semaphores(int semid, int sem_num);
 
 int get_ready_semaphores(char *file_path, int sem_flags, int sem_num);
