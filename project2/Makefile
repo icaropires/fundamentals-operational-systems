@@ -15,10 +15,10 @@ CFLAGS := -ansi -pedantic -g -std=c11
 # Add all files to be used in onde project here. 
 
 # Concatenates all files to the project.
-HOSTA := $(wildcard src/*.c)
+PROJECT := $(wildcard src/*.c)
 
 # Compile project. 
-all: create_folders $(HOSTA:src/%.c=obj/%.o)
+all: create_folders $(PROJECT:src/%.c=obj/%.o)
 	$(CC) $(CFLAGS) obj/*.o -o bin/project
 
 create_folders:
