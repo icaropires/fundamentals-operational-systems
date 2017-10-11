@@ -4,23 +4,25 @@
 #include "utils.h"
 #include <sys/sem.h>
 
-#define SEMAPHORES_NUMBER 1
-
-union semun {
+typedef union semun {
     int val;
     struct semid_ds *buf;
     unsigned short int *array;
     struct seminfo *__buf;
-};
+} Semun;
 
-void semaphore_wait_for_zero(int semid);
+int create_semaphores(char *file_path, int sem_flags, int sem_num);
 
-int create_semaphores(char *file_path, int sem_flags);
+int initialize_semaphores(int semid, int sem_num);
 
-int initialize_semaphores(int semid);
+int get_ready_semaphores(char *file_path, int sem_flags, int sem_num);
 
-void binary_semaphore_up(int semid);
+void check_sem_th_limit(int semid, int sem_th);
 
-void binary_semaphore_down(int semid);
+void semaphore_wait_for_zero(int semid, int sem_th);
+
+void binary_semaphore_up(int semid, int sem_th);
+
+void binary_semaphore_down(int semid, int sem_th);
 
 #endif  // PROJECT2_INC_SEMAPHORE_H_
