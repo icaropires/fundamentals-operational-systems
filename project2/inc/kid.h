@@ -19,10 +19,13 @@
 
 void thinking_kid(int pid);
 
-void wainting_kid(int pid);
+void waiting_kid(int pid);
 
 void acrossing_kid(int pid);
 
 void fall_kid();
 
+void apply_delay();
+
+void print_kid_status(int id, char *status);
 #endif // PROJECT2_INC_UTILS_H_
