@@ -28,4 +28,5 @@ void fall_kid();
 void apply_delay();
 
 void print_kid_status(int id, char *status);
+
 #endif // PROJECT2_INC_UTILS_H_
