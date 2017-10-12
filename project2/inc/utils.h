@@ -1,10 +1,13 @@
 #ifndef PROJECT2_INC_UTILS_H_
 #define PROJECT2_INC_UTILS_H_
 
+#define _GNU_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
