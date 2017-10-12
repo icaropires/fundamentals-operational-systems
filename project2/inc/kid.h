@@ -15,8 +15,8 @@
 #define THINKING_MSG "Kid is thinking"
 #define WAITING_MSG "Kid is waiting"
 
-#define MAX_THINKING_DELAY 1000*10
-#define MAX_CROSSING_DELAY 70*1000
+#define MAX_THINKING_DELAY 1000
+#define MAX_CROSSING_DELAY 70
 #define STEPS_TO_CROSS 7
 
 void kid_think(pid_t pid);
