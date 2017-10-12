@@ -2,8 +2,8 @@
 
 ## Entidades
 
-* **Corda:** array *R[6]*
-* **Crianças:** *KN* processos definidos pelo usuário
+* **Corda:** array *R[7]*
+* **Crianças:** *Kn* processos definidos pelo usuário
 
 ## Fluxo
 

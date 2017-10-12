@@ -52,6 +52,7 @@ int receiving_message(int msqid, Message *msg, int arb_number, int flag) {
         return bytes;	
     } else {
         perror("Message couldn't be received");
+		return -1;
     }
 }
 

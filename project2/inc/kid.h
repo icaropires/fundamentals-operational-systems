@@ -1,31 +1,34 @@
-#ifndef KID_H
-#define KID_H
+#ifndef PROJECT2_INC_KID_H_
+#define PROJECT2_INC_KID_H_
+
+#define  _BSD_SOURCE
 
 #include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
 #include <time.h>
 
-// Messages.
-#define ACROSSING_MSG "Kid acrossing"
-#define CROSSED_MSG "Kid crossed"
-#define THINKING_MSG "Kid thinking"
-#define WAITING_MSG "Kid waiting"
+#include "../inc/utils.h"
+#include "../inc/semaphore.h"
 
-// Consts.
+// Messages.
+#define CROSSING_MSG "Kid is crossing"
+#define CROSSED_MSG "Kid is crossed"
+#define THINKING_MSG "Kid is thinking"
+#define WAITING_MSG "Kid is waiting"
+
 #define MAX_THINKING_DELAY 1000
 #define MAX_CROSSING_DELAY 70
+#define STEPS_TO_CROSS 7
 
-void thinking_kid(int pid);
+void kid_think(pid_t pid);
 
-void waiting_kid(int pid);
+void kid_wait(pid_t pid);
 
-void acrossing_kid(int pid);
+void kid_cross(pid_t pid, pid_t *rope);
 
 void fall_kid();
 
-void apply_delay();
+void apply_delay(time_t time);
 
-void print_kid_status(int id, char *status);
-#endif // PROJECT2_INC_UTILS_H_
+void print_kid_status(pid_t pid, char *status);
+
+#endif // PROJECT2_INC_KID_H_

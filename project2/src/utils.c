@@ -9,12 +9,9 @@ void generate_arb_file(){
 
 char *remove_last_from_path(char* str){
 	int i;
-	for(i = 0; str[i] != '\0'; ++i){
-		int u = 0;
-		if(str[i] == '/'){
-			u = i;
-		}
-	}
+
+	for(i = 0; str[i] != '\0'; ++i);
 	str[i] = '\0';
+
 	return str;
 }

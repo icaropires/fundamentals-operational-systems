@@ -1,8 +1,12 @@
 #ifndef PROJECT2_INC_SEMAPHORE_H_
 #define PROJECT2_INC_SEMAPHORE_H_
 
-#include "utils.h"
+#define _GNU_SOURCE
+
 #include <sys/sem.h>
+
+#include "../inc/utils.h"
+#include "../inc/semaphore.h"
 
 #define IGNORED_VALUE 0
 
@@ -17,11 +21,11 @@ int create_semaphores(char *file_path, int sem_flags, int sem_num);
 
 void remove_semaphores(int semid);
 
-int initialize_semaphores(int semid, int sem_num, int value);
+size_t get_sem_size(int semid);
 
-int get_ready_semaphores(int sem_num);
+int initialize_semaphores(int semid, int value);
 
-void check_sem_th_limit(int semid, int sem_th);
+int get_ready_semaphores(int sem_num, int exclusive);
 
 void semaphore_wait_for_zero(int semid, int sem_th);
 
