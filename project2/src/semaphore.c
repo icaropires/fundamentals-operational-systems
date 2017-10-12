@@ -1,7 +1,7 @@
 #include "semaphore.h"
 
 int create_semaphores(char *file_path, int sem_flags, int sem_num) {
-	fprintf(stderr, "\nCreating semaphores...\n");
+	fprintf(stderr, "\n(start) Creating semaphores...\n");
 
 	int semid = -1;
 	key_t key = ftok(file_path, ARB_CHAR_A);
@@ -11,39 +11,39 @@ int create_semaphores(char *file_path, int sem_flags, int sem_num) {
 		semid = semget(key, sem_num, sem_flags);
 
 		if(semid != -1){
-			fprintf(stderr, "Semaphore created, semid: %d\n", semid);
+			fprintf(stderr, "(success) Semaphore created, semid: %d\n", semid);
 		} else {
-			perror("Was not possible to allocate semaphores");
+			perror("(error) Was not possible to allocate semaphores");
 			exit(1);
 		}
 	} else {
-		perror("Couldn't generate key with ftok");
+		perror("(error) Couldn't generate key with ftok");
 	}
 
 	return semid;
 }
 
 void remove_semaphores(int semid){
-    fprintf(stderr, "\nRemoving semaphore %d...\n", semid);
+    fprintf(stderr, "\n(start) Removing semaphore %d...\n", semid);
 
 	if(!semctl(semid, IGNORED_VALUE, IPC_RMID)){
-        fprintf(stderr, "Semaphore %d removed\n", semid);
+        fprintf(stderr, "(success) Semaphore %d removed\n", semid);
 	} else {
-		perror("Wasn't possible to remove semaphore");
+		perror("(error) Wasn't possible to remove semaphore");
     }
 }
 
 size_t get_sem_size(int semid){
-	fprintf(stderr, "\nGetting size of %d semaphore...\n", semid);
+	fprintf(stderr, "\n(start) Getting size of %d semaphore...\n", semid);
 
 	struct semid_ds info;
 	size_t size = -1;
 
 	if(semctl(semid, IGNORED_VALUE, IPC_STAT, &info) != -1){
 		size = info.sem_nsems;
-		fprintf(stderr, "Size gotten: %d\n", (int) size);
+		fprintf(stderr, "(success) Size gotten: %d\n", (int) size);
 	} else {
-		perror("Couldn't get semaphore size");
+		perror("(error) Couldn't get semaphore size");
 		exit(1);
 	}
 
@@ -51,7 +51,7 @@ size_t get_sem_size(int semid){
 }
 
 int initialize_semaphores(int semid, int value) {
-	fprintf(stderr, "\nInitializing sem %d semaphores with value %d...\n", semid, value);
+	fprintf(stderr, "\n(start) Initializing sem %d semaphores with value %d...\n", semid, value);
 
 	size_t sem_size = get_sem_size(semid);
 
@@ -67,9 +67,9 @@ int initialize_semaphores(int semid, int value) {
 	free(argument.array);
 
 	if(code != -1){
-		fprintf(stderr, "Semaphore initialized\n");
+		fprintf(stderr, "(success) Semaphore initialized\n");
 	} else {
-		perror("Wasn't possible intialize semaphores");
+		perror("(error) Wasn't possible intialize semaphores");
 		exit(1);
 	}
 
@@ -77,7 +77,7 @@ int initialize_semaphores(int semid, int value) {
 }
 
 int get_ready_semaphores(int sem_num, int exclusive) {
-	fprintf(stderr, "\nGetting semaphores ready...\n");
+	fprintf(stderr, "\n(start) Getting semaphores ready...\n");
 
 	int semid = -1;
 
@@ -91,15 +91,15 @@ int get_ready_semaphores(int sem_num, int exclusive) {
 				sem_num);
 	}
 
-	initialize_semaphores(semid, 0);
+	initialize_semaphores(semid, 1);
 
-	fprintf(stderr, "Got semaphores ready\n");
+	fprintf(stderr, "(success) Got semaphores ready\n");
 
 	return semid;
 }
 
 void get_sem_th_val(int semid, int sem_th){
-	fprintf(stderr, "\nGetting sem %d, sem-th:%d value...\n", semid, sem_th);
+	fprintf(stderr, "\n(start) Getting sem %d, sem-th:%d value...\n", semid, sem_th);
 
 	assert(sem_th < get_sem_size(semid));
 
@@ -108,20 +108,20 @@ void get_sem_th_val(int semid, int sem_th){
 
 	if(sem_val != -1){
 		fprintf(stderr,
-				"---------------------------------------------------------\n"
-				"current status: semid: %d, sem_th: %d, sem_val: %d\n" 
-				"---------------------------------------------------------\n",
+				"------------------------------------------------------------\n"
+				"(success) current status: semid: %d, sem_th: %d, sem_val: %d\n" 
+				"-------------------------------------------------------------\n",
 				semid,
 				sem_th,
 				sem_val);
 	} else {
-		perror("Couldn't get information about semaphore");
+		perror("(error) Couldn't get information about semaphore");
 		exit(1);
 	}
 }
 
 void up(int semid, int sem_th) {
-    fprintf(stderr, "\nUpping semaphore %d, sem-th: %d...\n", semid, sem_th);
+    fprintf(stderr, "\n(start) Upping semaphore %d, sem-th: %d...\n", semid, sem_th);
 	assert(sem_th < get_sem_size(semid));
 
 	struct sembuf operations[1];
@@ -130,17 +130,17 @@ void up(int semid, int sem_th) {
 	operations[0].sem_op = 1;
 	operations[0].sem_flg = 0;
 
-	fprintf(stderr, "Semaphore was incremented\n");
+	fprintf(stderr, "(success) Semaphore was incremented\n");
 	if(semop(semid, operations, 1) != -1){
 		get_sem_th_val(semid, sem_th);
 	} else {
-		perror("Wasn't possible to up the semaphore");
+		perror("(error) Wasn't possible to up the semaphore");
 		exit(1);
 	}
 }
 
 void down(int semid, int sem_th) {
-    fprintf(stderr, "\nDowning semaphore %d, sem-th: %d ...\n", semid, sem_th);
+    fprintf(stderr, "\n(start) Downing semaphore %d, sem-th: %d ...\n", semid, sem_th);
 	assert(sem_th < get_sem_size(semid));
 
 	struct sembuf operations[1];
@@ -149,18 +149,18 @@ void down(int semid, int sem_th) {
 	operations[0].sem_op = -1;
 	operations[0].sem_flg = 0;
 
-	fprintf(stderr, "Semaphore will be decremented\n");
+	fprintf(stderr, "(success) Semaphore will be decremented\n");
 	get_sem_th_val(semid, sem_th);
 
 	if(semop(semid, operations, 1) != -1){
 		// Nothing
 	} else {
-		perror("Wasn't possible to down the semaphore");
+		perror("(error) Wasn't possible to down the semaphore");
 	}
 }
 
 void semaphore_wait_for_zero(int semid, int sem_th) {
-    fprintf(stderr, "\nMaking semaphore %d, sem-th:%d wait for zero...\n", semid, sem_th);
+    fprintf(stderr, "\n(start) Making semaphore %d, sem-th:%d wait for zero...\n", semid, sem_th);
 	assert(sem_th < get_sem_size(semid));
 
 	struct sembuf operations[1];
@@ -170,10 +170,10 @@ void semaphore_wait_for_zero(int semid, int sem_th) {
 	operations[0].sem_flg = 0;
 
 	if(semop(semid, operations, 1) != -1){
-		fprintf(stderr, "Semaphore is waiting for zero\n");
+		fprintf(stderr, "(success) Semaphore is waiting for zero\n");
 		get_sem_th_val(semid, sem_th);
 	} else {
-		perror("Wasn't possible to make semaphore wait for zero");
+		perror("(error) Wasn't possible to make semaphore wait for zero");
 		exit(1);
 	}
 }

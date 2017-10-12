@@ -1,24 +1,24 @@
 #include "../inc/kid.h"
 
 void kid_think(pid_t pid) {
-    fprintf(stderr, "\nKid %d starting to think...\n", pid);
+    fprintf(stderr, "\n(start) Kid %d starting to think...\n", pid);
 
     print_kid_status(pid, THINKING_MSG);
     apply_delay(MAX_THINKING_DELAY);
 
-    fprintf(stderr, "Kid %d ended thinking\n", pid);
+    fprintf(stderr, "(success) Kid %d ended thinking\n", pid);
 }
 
 void kid_wait(pid_t pid) {
-    fprintf(stderr, "\nKid %d will be waiting...\n", pid);
+    fprintf(stderr, "\n(start) Kid %d will be waiting...\n", pid);
 
     print_kid_status(pid, WAITING_MSG);
 
-    fprintf(stderr, "Kid %d stopped waiting\n", pid);
+    fprintf(stderr, "(success) Kid %d stopped waiting\n", pid);
 }
 
 void kid_cross(pid_t pid, pid_t *rope) {
-    fprintf(stderr, "\nKid %d starting thinking...\n", pid);
+    fprintf(stderr, "\n(start) Kid %d starting thinking...\n", pid);
 
     int semid = get_ready_semaphores(STEPS_TO_CROSS, 0);
 	assert(get_sem_size(semid) == STEPS_TO_CROSS);
@@ -35,22 +35,22 @@ void kid_cross(pid_t pid, pid_t *rope) {
         up(semid, i);
     }
 
-    fprintf(stderr, "Kid %d crossed\n", pid);
+    fprintf(stderr, "(success) Kid %d crossed\n", pid);
 }
 
 void print_rope(pid_t *rope, size_t size){
-    fprintf(stderr, "\nPrinting rope...\n");
+    fprintf(stderr, "\n(start) Printing rope...\n");
 
 	for(int i = 0; i < size; ++i){
 		fprintf(stdout, "[%d]%s",
 				(int) rope[i], i != size - 1? "" : "\n");
 	}
 
-    fprintf(stderr, "Rope was printed\n");
+    fprintf(stderr, "(success) Rope was printed\n");
 }
 
 void apply_delay(time_t time) {
-    fprintf(stderr, "\nApplying delay of %d miliseconds..\n", (int)time);
+    fprintf(stderr, "\n(start) Applying delay of %d miliseconds..\n", (int)time);
 
     unsigned int seed = clock();
     assert(seed != -1);
@@ -58,7 +58,7 @@ void apply_delay(time_t time) {
     int delay = rand_r(&seed) % time;
     usleep(delay);
 
-    fprintf(stderr, "Delay of %d miliseconds ended\n", (int)time);
+    fprintf(stderr, "(success) Delay of %d miliseconds ended\n", (int)time);
 }
 
 void print_kid_status(pid_t pid, char *status) {

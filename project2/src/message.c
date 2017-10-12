@@ -9,7 +9,7 @@ int create_message_queue(char *file_path, char ch) {
 	if(msqid != -1){
 		return msqid;
 	} else {
-		perror("Couldn't create message queue");
+		perror("(error) Couldn't create message queue");
 		exit(1);
 	}
 }
@@ -21,7 +21,7 @@ void sending_message(int msqid, Message *msg, int flag) {
     if(msgsnd(msqid, msg, sizeof(Message), flag) != -1) {
         /* Nothing */
     } else {
-        perror("Error while sending message");
+        perror("(error) Error while sending message");
     }
 }
 
@@ -38,7 +38,7 @@ int receiving_message(int msqid, Message *msg, int arb_number, int flag) {
         if(!msgctl(msqid, IPC_STAT, &buf)){
             /* Nothing */
         } else {
-            perror("Couldn't check this queue");
+            perror("(error) Couldn't check this queue");
             exit(1);
         }
         amount_messages = buf.msg_qnum;
@@ -51,13 +51,13 @@ int receiving_message(int msqid, Message *msg, int arb_number, int flag) {
     if(bytes != -1){
         return bytes;	
     } else {
-        perror("Message couldn't be received");
+        perror("(error) Message couldn't be received");
 		return -1;
     }
 }
 
 void delete_message_queue(int msqid){
 	if(msgctl(msqid, IPC_RMID, NULL) == -1){
-		perror("Couldn't delete queue");
+		perror("(error) Couldn't delete queue");
 	}
 }
