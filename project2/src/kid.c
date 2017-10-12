@@ -16,7 +16,7 @@ void kid_cross(pid_t pid, pid_t *rope) {
 	assert(get_sem_size(semid) == STEPS_TO_CROSS);
 
     for(int i = 0; i < STEPS_TO_CROSS; ++i){
-        // Erase foot print of previus step
+        // Erase footprint of previus step
         if(rope[i - (i != 0)] && rope[i] == pid){
             rope[i-1] = -1;
         }
@@ -28,6 +28,13 @@ void kid_cross(pid_t pid, pid_t *rope) {
     }
 
     apply_delay(MAX_CROSSING_DELAY);
+}
+
+void print_rope(pid_t *rope, size_t size){
+	for(int i = 0; i < size; ++i){
+		fprintf(stdout, "[%d]%s",
+				(int) rope[i], i != size - 1? "" : "\n");
+	}
 }
 
 void apply_delay(time_t time) {
