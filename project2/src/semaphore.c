@@ -24,14 +24,17 @@ int create_semaphores(char *file_path, int sem_flags, int sem_num) {
 }
 
 void remove_semaphores(int semid){
-	if(semctl(semid, IGNORED_VALUE, IPC_RMID)){
+    fprintf(stderr, "\nRemoving semaphore %d...\n", semid);
+
+	if(!semctl(semid, IGNORED_VALUE, IPC_RMID)){
+        fprintf(stderr, "Semaphore %d removed\n", semid);
+	} else {
 		perror("Wasn't possible to remove semaphore");
-		exit(1);
-	}
+    }
 }
 
 size_t get_sem_size(int semid){
-	fprintf(stderr, "\nGetting semaphore size...\n");
+	fprintf(stderr, "\nGetting size of %d semaphore...\n", semid);
 
 	struct semid_ds info;
 	size_t size = -1;
@@ -48,7 +51,7 @@ size_t get_sem_size(int semid){
 }
 
 int initialize_semaphores(int semid, int value) {
-	fprintf(stderr, "\nInitializing semaphores...\n");
+	fprintf(stderr, "\nInitializing sem %d semaphores with value %d...\n", semid, value);
 
 	size_t sem_size = get_sem_size(semid);
 
@@ -96,7 +99,7 @@ int get_ready_semaphores(int sem_num, int exclusive) {
 }
 
 void get_sem_th_val(int semid, int sem_th){
-	fprintf(stderr, "\nGetting sem_th value...\n");
+	fprintf(stderr, "\nGetting sem %d, sem-th:%d value...\n", semid, sem_th);
 
 	assert(sem_th < get_sem_size(semid));
 
@@ -118,6 +121,7 @@ void get_sem_th_val(int semid, int sem_th){
 }
 
 void up(int semid, int sem_th) {
+    fprintf(stderr, "\nUpping semaphore %d, sem-th: %d...\n", semid, sem_th);
 	assert(sem_th < get_sem_size(semid));
 
 	struct sembuf operations[1];
@@ -136,6 +140,7 @@ void up(int semid, int sem_th) {
 }
 
 void down(int semid, int sem_th) {
+    fprintf(stderr, "\nDowning semaphore %d, sem-th: %d ...\n", semid, sem_th);
 	assert(sem_th < get_sem_size(semid));
 
 	struct sembuf operations[1];
@@ -155,6 +160,7 @@ void down(int semid, int sem_th) {
 }
 
 void semaphore_wait_for_zero(int semid, int sem_th) {
+    fprintf(stderr, "\nMaking semaphore %d, sem-th:%d wait for zero...\n", semid, sem_th);
 	assert(sem_th < get_sem_size(semid));
 
 	struct sembuf operations[1];
