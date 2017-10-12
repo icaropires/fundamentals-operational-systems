@@ -3,18 +3,21 @@
 int create_semaphores(char *file_path, int sem_flags, int sem_num) {
 
     key_t key = ftok(file_path, ARB_CHAR_A);
+	int semid = -1;
 
     if(key != -1){
-        int semid = semget(key, sem_num, sem_flags);
+        semid = semget(key, sem_num, sem_flags);
 
         if(semid != -1){
-            return semid;
+			// Nothing.
         } else {
             perror("Was not possible to allocate semaphores");
         }
     } else {
         perror("Couldn't generate key with ftok");
     }
+
+	return semid;
 }
 
 void remove_semaphores(int semid){
@@ -23,41 +26,56 @@ void remove_semaphores(int semid){
     }
 }
 
-// Ready for binary semaphore
-int initialize_semaphores(int semid, int sem_num, int value) {
-    Semun argument;
+size_t get_sem_size(int semid){
+	struct semid_ds info;
+	size_t size = -1;
 
-    for(int i = 0; i < sem_num; ++i){
+	if(semctl(semid, IGNORED_VALUE, IPC_STAT, &info) != -1){
+		size = info.sem_nsems;
+	} else {
+		perror("Couldn't get semaphore size");
+	}
+
+	return size;
+}
+
+
+// Ready for binary semaphore
+int initialize_semaphores(int semid, int value) {
+    Semun argument;
+	size_t sem_size = get_sem_size(semid);
+
+    for(int i = 0; i < sem_size; ++i){
         argument.array[i] = value;
     }
 
-    int code = semctl(semid, sem_num, SETALL, argument);
+    int code = semctl(semid, sem_size, SETALL, argument);
     if(code != -1){
-        return code;
+		// Nothing
     } else {
         perror("Wasn't possible intializing semaphores");
     }
+
+	return code;
 }
 
-int get_ready_semaphores(int sem_num) {
-    int semid = create_semaphores(ARB_FILE, IPC_CREAT | IPC_EXCL | S_IRUSR | S_IWUSR, sem_num);
-    initialize_semaphores(semid, sem_num, 0);
+int get_ready_semaphores(int sem_num, int exclusive) {
+	int semid = -1;
+
+    if(exclusive){
+        semid = create_semaphores(ARB_FILE, IPC_CREAT | IPC_PRIVATE | S_IRUSR | S_IWUSR, sem_num);
+    } else {
+        semid = create_semaphores(ARB_FILE, IPC_CREAT | S_IRUSR | S_IWUSR, sem_num);
+    }
+
+    initialize_semaphores(semid, 1);
 
     return semid;
 }
 
-void check_sem_th_limit(int semid, int sem_th){
-	struct semid_ds info;
-
-	if(semctl(semid, IGNORED_VALUE, IPC_STAT, &info) != -1){
-        assert(sem_th < info.sem_nsems);
-	} else {
-		perror("Couldn't get information about semaphore");
-	
-	}
-}
-
 void get_sem_th_val(int semid, int sem_th){
+	assert(sem_th < get_sem_size(semid));
+
 	struct semid_ds info;
     int sem_val = semctl(semid, sem_th, GETVAL, &info);
 
@@ -76,7 +94,7 @@ void get_sem_th_val(int semid, int sem_th){
 }
 
 void up(int semid, int sem_th) {
-	check_sem_th_limit(semid, sem_th);
+	assert(sem_th < get_sem_size(semid));
 
     struct sembuf operations[1];
 
@@ -93,7 +111,7 @@ void up(int semid, int sem_th) {
 }
 
 void down(int semid, int sem_th) {
-	check_sem_th_limit(semid, sem_th);
+	assert(sem_th < get_sem_size(semid));
 
     struct sembuf operations[1];
 
@@ -112,7 +130,7 @@ void down(int semid, int sem_th) {
 }
 
 void semaphore_wait_for_zero(int semid, int sem_th) {
-	check_sem_th_limit(semid, sem_th);
+	assert(sem_th < get_sem_size(semid));
 
     struct sembuf operations[1];
 
