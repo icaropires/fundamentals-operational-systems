@@ -9,7 +9,7 @@ OBJ := obj/
 
 CC := gcc
 
-CFLAGS := -ansi -pedantic -g -std=c11
+CFLAGS := -Wall -ansi -pedantic -g -std=c11
 
 # Source files.
 # Add all files to be used in onde project here. 
