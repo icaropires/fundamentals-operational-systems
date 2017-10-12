@@ -1,9 +1,11 @@
 #ifndef PROJECT2_INC_MESSAGE_H_
 #define PROJECT2_INC_MESSAGE_H_
 
+#define _GNU_SOURCE
+
 #include <sys/msg.h>
 
-#include "utils.h"
+#include "../inc/utils.h"
 
 #define NORMAL_MESSAGE_TYPE 1
 #define MESSAGE_SIZE 101

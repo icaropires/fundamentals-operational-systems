@@ -6,6 +6,8 @@
 #include <assert.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #define ARB_NUMBER 1
 #define ARB_FILE ".arb_file"
@@ -16,4 +18,4 @@ void generate_arb_file();
 
 char *remove_last_from_path(char* str);
 
-#endif  // PROJECT2_INC_UTILS_H_
+#endif // PROJECT2_INC_UTILS_H_
