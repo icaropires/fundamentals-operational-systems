@@ -30,6 +30,9 @@ obj/%.o: src/%.c
 
 # Run the executable files.
 run: bin/project
+	bin/project 2>.log
+
+run_debug: bin/project
 	bin/project
 
 .PHONY: clean

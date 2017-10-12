@@ -10,12 +10,12 @@
 
 #define IGNORED_VALUE 0
 
-typedef union semun {
+union semun {
     int val;
     struct semid_ds *buf;
     unsigned short int *array;
     struct seminfo *__buf;
-} Semun;
+};
 
 int create_semaphores(char *file_path, int sem_flags, int sem_num);
 
