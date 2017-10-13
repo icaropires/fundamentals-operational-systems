@@ -47,46 +47,32 @@ void kid_cross(Kid kid, pid_t *rope) {
     int semid = get_ready_semaphores(ROPE_SIZE, 0, 1);
 	assert(get_sem_size(semid) == ROPE_SIZE);
 
-	const int LAST_STEP = ROPE_SIZE - 1;
-
-	// crosses depending on which side the kid is
+	// Crosses depending on which side the kid is
 	if (kid.side == RIGHT) {
-		for(int i = 1; i < ROPE_SIZE; ++i){
-			// Erase footprint of previous step
-			if(i > 1){
-				if(rope[i - 1] == kid.short_id){
-					rope[i - 1] = -1;
-				}
-			}
-
-			down(semid, i);
-
-			rope[i] = kid.short_id;
-			usleep(MAX_CROSSING_DELAY/STEPS_TO_CROSS);
-			if(i == LAST_STEP){
+		for(int i = FIRST_STEP - 1; i <= LAST_STEP; ++i){
+			if (i != LAST_STEP){
+				down(semid, i + 1);
+				rope[i + 1] = kid.short_id;
 				rope[i] = -1;
+				up(semid, i);
+				usleep(STEP_DELAY);	
+			} else {
+				rope[i] = -1;
+				up(semid, i);
 			}
-
-			up(semid, i);
 		}
 	} else {
-		for(int i = LAST_STEP; i > 0; --i){
-			// Erase footprint of previous step
-			if(i < LAST_STEP){
-				if(rope[i + 1] == kid.short_id){
-					rope[i + 1] = -1;
-				}
-			}
-
-			down(semid, i);
-
-			rope[i] = kid.short_id;
-			usleep(MAX_CROSSING_DELAY/STEPS_TO_CROSS);
-			if(i == 1){
+		for(int i = LAST_STEP + 1; i >= FIRST_STEP; --i){
+			if (i != FIRST_STEP){
+				down(semid, i - 1);
+				rope[i - 1] = kid.short_id;
 				rope[i] = -1;
+				up(semid, i);
+				usleep(STEP_DELAY);	
+			} else {
+				rope[i] = -1;
+				up(semid, i);
 			}
-
-			up(semid, i);
 		}
 	}
 
@@ -105,7 +91,7 @@ void kid_cross(Kid kid, pid_t *rope) {
 void print_rope(pid_t *rope, Kid *kids){
 	fprintf(stderr, "\n(start) Printing rope...\n");
 
-	for(int i = 1; i < ROPE_SIZE; ++i){
+	for(int i = FIRST_STEP; i <= LAST_STEP; ++i){
 
 		// I has some kid on this rope position
 		if(rope[i] != -1){
@@ -115,16 +101,16 @@ void print_rope(pid_t *rope, Kid *kids){
 			if(KID_SIDE == LEFT){
 				fprintf(stdout, "|<-%3d|%s",
 						(int) rope[i],
-						i != ROPE_SIZE - 1? "" : "\n");
+						i != LAST_STEP? "" : "\n");
 			} else {
 				fprintf(stdout, "|%3d->|%s",
 						(int) rope[i],
-						i != ROPE_SIZE - 1? "" : "\n");
+						i != LAST_STEP? "" : "\n");
 			}
 		} else {
 			fprintf(stdout, "%s%s",
 					"~~~~~~~",
-					i != ROPE_SIZE - 1? "" : "\n");
+					i != LAST_STEP? "" : "\n");
 		}
 	}
 

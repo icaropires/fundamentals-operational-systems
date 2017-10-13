@@ -15,11 +15,15 @@
 #define THINKING_MSG "Kid is thinking"
 #define WAITING_MSG "Kid is waiting"
 
+#define STEPS_TO_CROSS 7
+#define ROPE_SIZE (STEPS_TO_CROSS + 3)
+#define LAST_STEP (ROPE_SIZE - 2)
+#define FIRST_STEP 2
+
 #define MAX_THINKING_DELAY 1000
 #define MAX_CROSSING_DELAY 70 * (int)1e3
-#define STEPS_TO_CROSS 7
-#define ROPE_SIZE (STEPS_TO_CROSS + 1)
-#define AMOUNT_CROSSED 0 // Index to amount of kids passing
+#define STEP_DELAY (MAX_CROSSING_DELAY/STEPS_TO_CROSS)
+#define AMOUNT_CROSSED 0 // Index to amount of kids passing #define RIGHT 'R'
 #define RIGHT 'R'
 #define LEFT 'L'
 
