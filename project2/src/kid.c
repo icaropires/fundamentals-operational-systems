@@ -41,38 +41,46 @@ void kid_wait(Kid kid) {
     fprintf(stderr, "(success) Kid %d stopped waiting\n", kid.short_id);
 }
 
-void kid_cross(Kid kid, pid_t *rope) {
+void kid_cross(Kid kid, pid_t *rope, int *meta_sh) {
     fprintf(stderr, "\n(start) Kid %d starting crossing...\n", kid.short_id);
 
-    int semid = get_ready_semaphores(ROPE_SIZE, 0, 1);
-	assert(get_sem_size(semid) == ROPE_SIZE);
+    int sem_rope = get_ready_semaphores(ROPE_SIZE, 0, 1);
+	assert(get_sem_size(sem_rope) == ROPE_SIZE);
+
+    int locking_manage = get_ready_semaphores(LOCKING_MANAGE_SIZE, 0, 1);
 
 	// Crosses depending on which side the kid is
 	if (kid.side == RIGHT) {
-		for(int i = FIRST_STEP - 1; i <= LAST_STEP; ++i){
+		down(locking_manage, LEFT_LOCK);
+
+		for(int i = FIRST_STEP; i <= LAST_STEP; ++i){
 			if (i != LAST_STEP){
-				down(semid, i + 1);
+				down(sem_rope, i + 1);
 				rope[i + 1] = kid.short_id;
 				rope[i] = -1;
-				up(semid, i);
+				up(sem_rope, i);
 				usleep(STEP_DELAY);	
 			} else {
 				rope[i] = -1;
-				up(semid, i);
+				up(sem_rope, i);
 			}
+			up(locking_manage, LEFT_LOCK);
 		}
 	} else {
-		for(int i = LAST_STEP + 1; i >= FIRST_STEP; --i){
+		down(locking_manage, RIGHT_LOCK);
+
+		for(int i = LAST_STEP; i >= FIRST_STEP; --i){
 			if (i != FIRST_STEP){
-				down(semid, i - 1);
+				down(sem_rope, i - 1);
 				rope[i - 1] = kid.short_id;
 				rope[i] = -1;
-				up(semid, i);
+				up(sem_rope, i);
 				usleep(STEP_DELAY);	
 			} else {
 				rope[i] = -1;
-				up(semid, i);
+				up(sem_rope, i);
 			}
+			up(locking_manage, RIGHT_LOCK);
 		}
 	}
 
@@ -83,7 +91,8 @@ void kid_cross(Kid kid, pid_t *rope) {
 		kid.side = RIGHT;
 	}
 
-	rope[AMOUNT_CROSSED]++;
+	meta_sh[CROSSING_AMOUNT]++;
+	//rope[AMOUNT_CROSSED]++;
 
     fprintf(stderr, "(success) Kid %d crossed\n", kid.short_id);
 }
@@ -121,14 +130,13 @@ void watch_printing_rope(pid_t *rope, int n_crosses, Kid *kids){
 	fprintf(stdout, "\n================================================================\n");
 
 	time_t time_counter = 0;
-	time_t time_step = MAX_CROSSING_DELAY/STEPS_TO_CROSS;
 
 	while(rope[AMOUNT_CROSSED] < n_crosses){
 		fprintf(stdout, "%10d ms: ", (int)time_counter);
 		print_rope(rope, kids);
 
-		usleep(time_step);
-		time_counter += time_step;
+		usleep(STEP_DELAY);
+		time_counter += STEP_DELAY;
 	}
 	fprintf(stdout, "%10d ms: ", (int)time_counter);
 	print_rope(rope, kids);
