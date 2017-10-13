@@ -18,12 +18,12 @@ int allocate_sh_memory(size_t size){
     return segment_id;
 }
 
-pid_t* attach_sh_memory_segment(int segment_id){
+void *attach_sh_memory_segment(int segment_id){
     fprintf(stderr, "\n(start) Attaching to shared memory area...\n");
 
-    pid_t *shared_memory = (pid_t*) shmat(segment_id, NULL, 0);
+    void *shared_memory = (void*) shmat(segment_id, NULL, 0);
 
-    if(shared_memory != (pid_t*) -1){
+    if(shared_memory != (void*) -1){
         fprintf(stderr, "(success) %d to shared memory area.\n", getpid());
     } else {
         perror("(error) %d couldn't attach to shared memory area");

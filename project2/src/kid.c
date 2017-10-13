@@ -92,3 +92,15 @@ void watch_printing_rope(pid_t *rope, int n_crosses){
 	print_rope(rope);
 	fprintf(stdout, "=============================================================================\n");
 }
+
+Kid *fill_kid_info(pid_t kid_pid, Kid *kids, int n_kids, char side) {
+   fprintf(stderr, "\nStarting filling information about kid with pid: %d\n", kid_pid);
+
+   int i; for(i = 0; kids[i].pid != -1 && i < n_kids; ++i);
+
+   kids[i].pid = kid_pid;
+   kids[i].short_id = i + 1;
+   kids[i].side = side;
+
+   return kids;
+}
