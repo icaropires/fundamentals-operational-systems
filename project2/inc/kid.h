@@ -16,7 +16,7 @@
 #define WAITING_MSG "Kid is waiting"
 
 #define MAX_THINKING_DELAY 1000
-#define MAX_CROSSING_DELAY 70 * (int)1e5 / 2
+#define MAX_CROSSING_DELAY 70 * (int)1e3
 #define STEPS_TO_CROSS 7
 #define ROPE_SIZE (STEPS_TO_CROSS + 1)
 #define AMOUNT_CROSSED 0 // Index to amount of kids passing
@@ -27,13 +27,15 @@ typedef struct kid {
 	char side;
 } Kid;
 
+int find_kid(pid_t kid_pid, Kid *kids, int n_kids);
+
 void apply_random_delay(time_t time);
 
-void kid_think(pid_t pid);
+void kid_think(Kid kid);
 
-void kid_wait(pid_t pid);
+void kid_wait(Kid kid);
 
-void kid_cross(pid_t pid, pid_t *rope);
+void kid_cross(Kid kid, pid_t *rope);
 
 void print_rope(pid_t *rope);
 
@@ -41,8 +43,8 @@ void watch_printing_rope(pid_t *rope, int n_crosses);
 
 void fall_kid();
 
-void print_kid_status(pid_t pid, char *status);
+void print_kid_status(Kid kid, char *status);
 
-Kid *fill_kid_info(pid_t kid_pid, Kid *kids, int n_kids, char side);
+void fill_kid_info(pid_t kid_pid, Kid *kids, int n_kids, char side);
 
 #endif // PROJECT2_INC_KID_H_
