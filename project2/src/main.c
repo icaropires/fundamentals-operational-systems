@@ -20,9 +20,19 @@ int main(int argc, char** argv) {
 	pid_t *rope = (pid_t *) attach_sh_memory_segment(rope_segment_id);
 	memset(rope, -1, ROPE_SIZE * sizeof(pid_t));
 
-	int sem_rope = get_ready_semaphores(ROPE_SIZE, 1, 1);
+	int manage_segment = allocate_sh_memory(META_SIZE);
+	int *meta_sh = (int *) attach_sh_memory_segment(manage_segment);
+	memset(meta_sh, -1, META_SIZE * sizeof(int));
 
-	rope[AMOUNT_CROSSED] = 0;
+	int sem_rope = get_ready_semaphores(ROPE_SIZE, 1, 1);
+	int locking_manage = get_ready_semaphores(LOCKING_MANAGE_SIZE, 1, 1);
+
+    // Mudar para memória compartilhada
+    meta_sh[CROSSING_AMOUNT] = 0;
+	//rope[AMOUNT_CROSSED] = 0;
+
+    down(locking_manage, RIGHT_LOCK);
+    // down(locking_manage, LEFT_LOCK);
 
 	for(int i = 0; i < n_kids; ++i){
 		pid_t pid = fork();
@@ -42,6 +52,7 @@ int main(int argc, char** argv) {
 			fprintf(stderr, "Starting kid (%d): %d\n", i + 1, my_pid);
 
 			pid_t *rope = attach_sh_memory_segment(rope_segment_id);
+			int *meta_sh = attach_sh_memory_segment(manage_segment);
 			Kid *kids = attach_sh_memory_segment(kids_segment_id);
 
             if (i < 3) {
@@ -53,7 +64,7 @@ int main(int argc, char** argv) {
             Kid this_kid = kids[find_kid(my_pid, kids, n_kids)];
 
 			kid_think(this_kid);
-			kid_cross(this_kid, rope);
+			kid_cross(this_kid, rope, meta_sh);
 
 			fprintf(stderr, "Ending kid\n");
 			exit(0);
@@ -67,8 +78,11 @@ int main(int argc, char** argv) {
 
     fprintf(stderr, "\n(start) Final deallocations...\n");
 	remove_semaphores(sem_rope);
+	remove_semaphores(locking_manage);
+
 	deallocate_sh_memory(rope_segment_id);
 	deallocate_sh_memory(kids_segment_id);
+	deallocate_sh_memory(manage_segment);
     fprintf(stderr, "\n(success) Final deallocations...\n");
 
     fprintf(stderr, "(success) Everything was like it meant to be\n");

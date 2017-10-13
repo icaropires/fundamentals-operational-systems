@@ -39,3 +39,7 @@ run_debug: bin/project
 clean:
 	rm -rf obj/*
 	rm -rf bin/*
+
+reset:
+	make clean && make && clear && make run
+
