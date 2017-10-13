@@ -44,7 +44,12 @@ int main(int argc, char** argv) {
 			pid_t *rope = attach_sh_memory_segment(rope_segment_id);
 			Kid *kids = attach_sh_memory_segment(kids_segment_id);
 
-            fill_kid_info(my_pid, kids, n_kids, RIGHT);
+            if (i < 3) {
+                fill_kid_info(my_pid, kids, n_kids, RIGHT);
+            } else {
+                fill_kid_info(my_pid, kids, n_kids, LEFT);
+            }
+
             Kid this_kid = kids[find_kid(my_pid, kids, n_kids)];
 
 			kid_think(this_kid);
