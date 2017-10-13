@@ -91,7 +91,9 @@ int get_ready_semaphores(int sem_num, int exclusive, int initialize) {
 				sem_num);
 	}
 
-	initialize_semaphores(semid, initialize);
+	if(exclusive){
+		initialize_semaphores(semid, initialize);
+	}
 
 	fprintf(stderr, "(success) Got semaphores ready\n");
 

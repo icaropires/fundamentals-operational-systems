@@ -35,7 +35,7 @@ void kid_wait(pid_t pid) {
 }
 
 void kid_cross(pid_t pid, pid_t *rope) {
-    fprintf(stderr, "\n(start) Kid %d starting thinking...\n", pid);
+    fprintf(stderr, "\n(start) Kid %d starting crossing...\n", pid);
 
     int semid = get_ready_semaphores(ROPE_SIZE, 0, 1);
 	assert(get_sem_size(semid) == ROPE_SIZE);
@@ -76,7 +76,7 @@ void print_rope(pid_t *rope){
 }
 
 void watch_printing_rope(pid_t *rope, int n_crosses){
-	fprintf(stdout, "\n=========================================================\n");
+	fprintf(stdout, "\n=============================================================================\n");
 
 	time_t time_counter = 0;
 	time_t time_step = MAX_CROSSING_DELAY/STEPS_TO_CROSS;
@@ -90,5 +90,5 @@ void watch_printing_rope(pid_t *rope, int n_crosses){
 	}
 	fprintf(stdout, "%10d ms: ", (int)time_counter);
 	print_rope(rope);
-	fprintf(stdout, "=========================================================\n");
+	fprintf(stdout, "=============================================================================\n");
 }

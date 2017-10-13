@@ -44,7 +44,7 @@ int main(int argc, char** argv) {
 		}
 	}
 
-	// plus because of watching process
+	// Plus 1 because of watching process
 	for(int i = 0; i < n_kids + 1; ++i){
 		wait(0);
 	}
