@@ -41,19 +41,21 @@ void kid_cross(pid_t pid, pid_t *rope) {
 	assert(get_sem_size(semid) == ROPE_SIZE);
 
     for(int i = 1; i < ROPE_SIZE; ++i){
-        // Erase footprint of previus step
+        // Erase footprint of previous step
         if(i > 1){
 			if(rope[i - 1] == pid){
-				rope[i-1] = -1;
+				rope[i - 1] = -1;
 			}
         }
 
         down(semid, i);
+
         rope[i] = pid;
         usleep(MAX_CROSSING_DELAY/STEPS_TO_CROSS);
 		if(i == ROPE_SIZE - 1){
 			rope[i] = -1;
 		}
+
         up(semid, i);
     }
 
@@ -66,13 +68,12 @@ void print_rope(pid_t *rope){
     fprintf(stderr, "\n(start) Printing rope...\n");
 
 	for(int i = 1; i < ROPE_SIZE; ++i){
-		fprintf(stdout, "[%4d]%s",
+		fprintf(stdout, "[%6d]%s",
 				(int) rope[i], i != ROPE_SIZE - 1? "" : "\n");
 	}
 
     fprintf(stderr, "(success) Rope was printed\n");
 }
-
 
 void watch_printing_rope(pid_t *rope, int n_crosses){
 	fprintf(stdout, "\n=========================================================\n");

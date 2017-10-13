@@ -16,7 +16,7 @@
 #define WAITING_MSG "Kid is waiting"
 
 #define MAX_THINKING_DELAY 1000
-#define MAX_CROSSING_DELAY 70 * (int)1e5 * 2
+#define MAX_CROSSING_DELAY 70 * (int)1e5 / 2
 #define STEPS_TO_CROSS 7
 #define ROPE_SIZE (STEPS_TO_CROSS + 1)
 #define AMOUNT_CROSSED 0 // Index to amount of kids passing
