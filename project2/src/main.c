@@ -4,17 +4,24 @@
 #include "../inc/shared_memory.h"
 
 int main(int argc, char** argv) {
+    fprintf(stderr, "(start) Starting program...\n");
+
 	generate_arb_file();
 
 	int n_kids = 0;
 	fprintf(stdout, "Quantas crianças?\n");
 	scanf("%d", &n_kids);
 
+    int kids_segment_id = allocate_sh_memory(n_kids);
+    Kid *kids = (Kid *) attach_sh_memory_segment(kids_segment_id);
+    memset(kids, -1, n_kids * sizeof(Kid));
+
+	int rope_segment_id = allocate_sh_memory(ROPE_SIZE);
+	pid_t *rope = (pid_t *) attach_sh_memory_segment(rope_segment_id);
+	memset(rope, -1, ROPE_SIZE * sizeof(pid_t));
+
 	int sem_rope = get_ready_semaphores(ROPE_SIZE, 1, 1);
 
-	int segment_id = allocate_sh_memory(ROPE_SIZE);
-	pid_t *rope = attach_sh_memory_segment(segment_id);
-	memset(rope, -1, sizeof(*rope) * ROPE_SIZE);
 	rope[AMOUNT_CROSSED] = 0;
 
 	for(int i = 0; i < n_kids; ++i){
@@ -23,18 +30,18 @@ int main(int argc, char** argv) {
 		if(pid && i == 0){
 			fprintf(stderr, "Starting parent process: %d\n", getpid());
 
-			fprintf(stderr, "Ending parent\n");
-
 			pid_t watch_pid = fork();
 			if(watch_pid == 0){
 				watch_printing_rope(rope, n_kids);
 				exit(0);
 			}
+
+			fprintf(stderr, "Ending parent\n");
 		} else if (!pid){
 			pid_t my_pid = getpid();
-			fprintf(stderr, "Starting kid (%d): %d\n", i, my_pid);
+			fprintf(stderr, "Starting kid (%d): %d\n", i + 1, my_pid);
 
-			pid_t *rope = attach_sh_memory_segment(segment_id);
+			pid_t *rope = attach_sh_memory_segment(rope_segment_id);
 
 			kid_think(my_pid);
 			kid_cross(my_pid, rope);
@@ -49,8 +56,12 @@ int main(int argc, char** argv) {
 		wait(0);
 	}
 
+    fprintf(stderr, "\n(start) Final deallocations...\n");
 	remove_semaphores(sem_rope);
-	deallocate_sh_memory(segment_id);
+	deallocate_sh_memory(rope_segment_id);
+	deallocate_sh_memory(kids_segment_id);
+    fprintf(stderr, "\n(success) Final deallocations...\n");
 
+    fprintf(stderr, "(success) Everything was like it meant to be\n");
 	return 0;
 }
