@@ -42,9 +42,13 @@ int main(int argc, char** argv) {
 			fprintf(stderr, "Starting kid (%d): %d\n", i + 1, my_pid);
 
 			pid_t *rope = attach_sh_memory_segment(rope_segment_id);
+			Kid *kids = attach_sh_memory_segment(kids_segment_id);
 
-			kid_think(my_pid);
-			kid_cross(my_pid, rope);
+            fill_kid_info(my_pid, kids, n_kids, 'L');
+            Kid this_kid = kids[find_kid(my_pid, kids, n_kids)];
+
+			kid_think(this_kid);
+			kid_cross(this_kid, rope);
 
 			fprintf(stderr, "Ending kid\n");
 			exit(0);
