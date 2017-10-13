@@ -13,7 +13,7 @@ int create_semaphores(char *file_path, int sem_flags, int sem_num) {
 		if(semid != -1){
 			fprintf(stderr, "(success) Semaphore created, semid: %d\n", semid);
 		} else {
-			perror("(error) Was not possible to allocate semaphores");
+			perror("(error) Was not possible to create semaphores");
 			exit(1);
 		}
 	} else {
@@ -76,7 +76,7 @@ int initialize_semaphores(int semid, int value) {
 	return code;
 }
 
-int get_ready_semaphores(int sem_num, int exclusive) {
+int get_ready_semaphores(int sem_num, int exclusive, int initialize) {
 	fprintf(stderr, "\n(start) Getting semaphores ready...\n");
 
 	int semid = -1;
@@ -91,7 +91,7 @@ int get_ready_semaphores(int sem_num, int exclusive) {
 				sem_num);
 	}
 
-	initialize_semaphores(semid, 1);
+	initialize_semaphores(semid, initialize);
 
 	fprintf(stderr, "(success) Got semaphores ready\n");
 
@@ -140,7 +140,7 @@ void up(int semid, int sem_th) {
 }
 
 void down(int semid, int sem_th) {
-    fprintf(stderr, "\n(start) Downing semaphore %d, sem-th: %d ...\n", semid, sem_th);
+    fprintf(stderr, "\n(start) Downing semaphore %d, sem-th: %d...\n", semid, sem_th);
 	assert(sem_th < get_sem_size(semid));
 
 	struct sembuf operations[1];

@@ -25,7 +25,7 @@ size_t get_sem_size(int semid);
 
 int initialize_semaphores(int semid, int value);
 
-int get_ready_semaphores(int sem_num, int exclusive);
+int get_ready_semaphores(int sem_num, int exclusive, int initialize);
 
 void semaphore_wait_for_zero(int semid, int sem_th);
 
