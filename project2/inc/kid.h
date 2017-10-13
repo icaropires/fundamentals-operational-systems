@@ -20,6 +20,8 @@
 #define STEPS_TO_CROSS 7
 #define ROPE_SIZE (STEPS_TO_CROSS + 1)
 #define AMOUNT_CROSSED 0 // Index to amount of kids passing
+#define RIGHT 'R'
+#define LEFT 'L'
 
 typedef struct kid {
 	pid_t pid;
@@ -37,9 +39,9 @@ void kid_wait(Kid kid);
 
 void kid_cross(Kid kid, pid_t *rope);
 
-void print_rope(pid_t *rope);
+void print_rope(pid_t *rope, Kid *kids);
 
-void watch_printing_rope(pid_t *rope, int n_crosses);
+void watch_printing_rope(pid_t *rope, int n_crosses, Kid *kids);
 
 void fall_kid();
 
