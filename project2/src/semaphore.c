@@ -1,10 +1,10 @@
 #include "semaphore.h"
 
-int create_semaphores(char *file_path, int sem_flags, int sem_num) {
+int create_semaphores(char *file_path, int sem_flags, int sem_num, char arb_char) {
 	fprintf(stderr, "\n(start) Creating semaphores...\n");
 
 	int semid = -1;
-	key_t key = ftok(file_path, ARB_CHAR_A);
+	key_t key = ftok(file_path, arb_char);
 
 	if(key != -1){
 		fprintf(stderr, "Key generated, key: %d\n", (int)key);
@@ -76,7 +76,7 @@ int initialize_semaphores(int semid, int value) {
 	return code;
 }
 
-int get_ready_semaphores(int sem_num, int exclusive, int initialize) {
+int get_ready_semaphores(int sem_num, int exclusive, int initialize, char arb_char) {
 	fprintf(stderr, "\n(start) Getting semaphores ready...\n");
 
 	int semid = -1;
@@ -84,11 +84,11 @@ int get_ready_semaphores(int sem_num, int exclusive, int initialize) {
 	if(exclusive){
 		semid = create_semaphores(ARB_FILE,
 				IPC_CREAT | IPC_PRIVATE | S_IRUSR | S_IWUSR,
-				sem_num);
+				sem_num, arb_char);
 	} else {
 		semid = create_semaphores(ARB_FILE,
 				IPC_CREAT | S_IRUSR | S_IWUSR,
-				sem_num);
+				sem_num, arb_char);
 	}
 
 	if(exclusive){

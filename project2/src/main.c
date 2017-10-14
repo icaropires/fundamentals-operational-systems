@@ -24,15 +24,13 @@ int main(int argc, char** argv) {
 	int *meta_sh = (int *) attach_sh_memory_segment(manage_segment);
 	memset(meta_sh, -1, META_SIZE * sizeof(int));
 
-	int sem_rope = get_ready_semaphores(ROPE_SIZE, 1, 1);
-	int locking_manage = get_ready_semaphores(LOCKING_MANAGE_SIZE, 1, 1);
+	int sem_rope = get_ready_semaphores(ROPE_SIZE, 1, 1, ARB_CHAR_A);
+	int locking_manage = get_ready_semaphores(LOCKING_MANAGE_SIZE, 1, 1, ARB_CHAR_B);
 
-    // Mudar para memória compartilhada
     meta_sh[CROSSING_AMOUNT] = 0;
-	//rope[AMOUNT_CROSSED] = 0;
 
-    down(locking_manage, RIGHT_LOCK);
-    // down(locking_manage, LEFT_LOCK);
+    // down(locking_manage, RIGHT_LOCK);
+    down(locking_manage, LEFT_LOCK);
 
 	for(int i = 0; i < n_kids; ++i){
 		pid_t pid = fork();
@@ -42,7 +40,7 @@ int main(int argc, char** argv) {
 
 			pid_t watch_pid = fork();
 			if(watch_pid == 0){
-				watch_printing_rope(rope, n_kids, kids);
+				watch_printing_rope(rope, n_kids, kids, meta_sh);
 				exit(0);
 			}
 
