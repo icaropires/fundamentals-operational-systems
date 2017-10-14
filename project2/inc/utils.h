@@ -15,6 +15,8 @@
 #define ARB_NUMBER 1
 #define ARB_FILE ".arb_file"
 #define ARB_CHAR_A 'a'
+#define ARB_CHAR_B 'b'
+
 #define PWD getenv("PWD")
 
 void generate_arb_file();

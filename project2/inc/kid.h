@@ -17,13 +17,12 @@
 
 #define STEPS_TO_CROSS 7
 #define ROPE_SIZE (STEPS_TO_CROSS + 2)
-#define LAST_STEP (FIRST_STEP + STEPS_TO_CROSS)
+#define LAST_STEP (FIRST_STEP + STEPS_TO_CROSS - 1)
 #define FIRST_STEP 1
 
 #define MAX_THINKING_DELAY 1000
 #define MAX_CROSSING_DELAY 70 * (int)1e3
 #define STEP_DELAY (MAX_CROSSING_DELAY/STEPS_TO_CROSS)
-#define AMOUNT_CROSSED 0 // Index to amount of kids passing
 #define RIGHT 'R'
 #define LEFT 'L'
 
@@ -54,7 +53,7 @@ void kid_cross(Kid kid, pid_t *rope, int *meta_sh);
 
 void print_rope(pid_t *rope, Kid *kids);
 
-void watch_printing_rope(pid_t *rope, int n_crosses, Kid *kids);
+void watch_printing_rope(pid_t *rope, int n_crosses, Kid *kids, int *meta_sh);
 
 void fall_kid();
 

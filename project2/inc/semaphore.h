@@ -17,7 +17,7 @@ union semun {
     struct seminfo *__buf;
 };
 
-int create_semaphores(char *file_path, int sem_flags, int sem_num);
+int create_semaphores(char *file_path, int sem_flags, int sem_num, char arb_file);
 
 void remove_semaphores(int semid);
 
@@ -25,7 +25,7 @@ size_t get_sem_size(int semid);
 
 int initialize_semaphores(int semid, int value);
 
-int get_ready_semaphores(int sem_num, int exclusive, int initialize);
+int get_ready_semaphores(int sem_num, int exclusive, int initialize, char arb_file);
 
 void semaphore_wait_for_zero(int semid, int sem_th);
 
