@@ -33,14 +33,6 @@ void kid_think(Kid kid) {
     fprintf(stderr, "(success) Kid %d ended thinking\n", kid.short_id);
 }
 
-void kid_wait(Kid kid) {
-    fprintf(stderr, "\n(start) Kid %d will be waiting...\n", kid.short_id);
-
-    print_kid_status(kid, WAITING_MSG);
-
-    fprintf(stderr, "(success) Kid %d stopped waiting\n", kid.short_id);
-}
-
 void kid_cross(Kid kid, pid_t *rope, int *meta_sh) {
     fprintf(stderr, "\n(start) Kid %d starting crossing...\n", kid.short_id);
 
@@ -53,7 +45,11 @@ void kid_cross(Kid kid, pid_t *rope, int *meta_sh) {
 		up(locking_manage, LEFT_LOCK);
 
 		for(int i = FIRST_STEP - 1; i <= LAST_STEP; ++i){
-			if (i != LAST_STEP){
+			if(i == FIRST_STEP - 1) {
+				meta_sh[CROSSING_AMOUNT]++;
+				print_kid_status(kid, CROSSING_MSG);
+			} 
+			if (i != LAST_STEP) {
 				down(sem_rope, i + 1);
 				rope[i + 1] = kid.short_id;
 				rope[i] = -1;
@@ -61,6 +57,8 @@ void kid_cross(Kid kid, pid_t *rope, int *meta_sh) {
 				usleep(STEP_DELAY);	
 			} else {
 				rope[i] = -1;
+				meta_sh[CROSSING_AMOUNT]--;
+				print_kid_status(kid, CROSSED_MSG);
 				up(sem_rope, i);
 			}
 		}
@@ -69,7 +67,11 @@ void kid_cross(Kid kid, pid_t *rope, int *meta_sh) {
 		up(locking_manage, RIGHT_LOCK);
 
 		for(int i = LAST_STEP + 1; i >= FIRST_STEP; --i){
-			if (i != FIRST_STEP){
+			if(i == LAST_STEP + 1) {
+				meta_sh[CROSSING_AMOUNT]++;
+				print_kid_status(kid, CROSSING_MSG);
+			}
+			else if (i != FIRST_STEP){
 				down(sem_rope, i - 1);
 				rope[i - 1] = kid.short_id;
 				rope[i] = -1;
@@ -77,19 +79,23 @@ void kid_cross(Kid kid, pid_t *rope, int *meta_sh) {
 				usleep(STEP_DELAY);	
 			} else {
 				rope[i] = -1;
+				meta_sh[CROSSING_AMOUNT]--;
+				print_kid_status(kid, CROSSED_MSG);
 				up(sem_rope, i);
 			}
 		}
 	}
 
+	meta_sh[CROSSED_AMOUNT]--;
+
 	// swap side
 	if(kid.side == RIGHT){
 		kid.side = LEFT;
+		meta_sh[LEFT_AMOUNT]++;
 	} else {
 		kid.side = RIGHT;
+		meta_sh[RIGHT_AMOUNT] = meta_sh[CROSSED_AMOUNT] - meta_sh[LEFT_AMOUNT];
 	}
-
-	meta_sh[CROSSING_AMOUNT]++;
 
     fprintf(stderr, "(success) Kid %d crossed\n", kid.short_id);
 }
@@ -128,7 +134,7 @@ void watch_printing_rope(pid_t *rope, int n_crosses, Kid *kids, int *meta_sh){
 
 	time_t time_counter = 0;
 
-	while(meta_sh[CROSSING_AMOUNT] < n_crosses){
+	while(meta_sh[CROSSED_AMOUNT]){
 		fprintf(stdout, "%10d ms: ", (int)time_counter);
 		print_rope(rope, kids);
 
