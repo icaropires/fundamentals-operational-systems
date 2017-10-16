@@ -33,6 +33,19 @@ void kid_think(Kid kid) {
     fprintf(stderr, "(success) Kid %d ended thinking\n", kid.short_id);
 }
 
+void swap_side(Kid *kid, int *meta_sh){
+	// swap side
+	if(kid->side == RIGHT){
+		kid->side = LEFT;
+		meta_sh[RIGHT_AMOUNT]--;
+		meta_sh[LEFT_AMOUNT]++;
+	} else {
+		kid->side = RIGHT;
+		meta_sh[LEFT_AMOUNT]--;
+		meta_sh[RIGHT_AMOUNT]++;
+	}
+}
+
 void kid_cross(Kid kid, pid_t *rope, int *meta_sh) {
     fprintf(stderr, "\n(start) Kid %d starting crossing...\n", kid.short_id);
 
@@ -44,11 +57,10 @@ void kid_cross(Kid kid, pid_t *rope, int *meta_sh) {
 		down(locking_manage, LEFT_LOCK);
 		up(locking_manage, LEFT_LOCK);
 
+		meta_sh[CROSSING_AMOUNT]++;
+		print_kid_status(kid, CROSSING_MSG);
+
 		for(int i = FIRST_STEP - 1; i <= LAST_STEP; ++i){
-			if(i == FIRST_STEP - 1) {
-				meta_sh[CROSSING_AMOUNT]++;
-				print_kid_status(kid, CROSSING_MSG);
-			} 
 			if (i != LAST_STEP) {
 				down(sem_rope, i + 1);
 				rope[i + 1] = kid.short_id;
@@ -57,7 +69,6 @@ void kid_cross(Kid kid, pid_t *rope, int *meta_sh) {
 				usleep(STEP_DELAY);	
 			} else {
 				rope[i] = -1;
-				meta_sh[CROSSING_AMOUNT]--;
 				print_kid_status(kid, CROSSED_MSG);
 				up(sem_rope, i);
 			}
@@ -66,12 +77,11 @@ void kid_cross(Kid kid, pid_t *rope, int *meta_sh) {
 		down(locking_manage, RIGHT_LOCK);
 		up(locking_manage, RIGHT_LOCK);
 
+		meta_sh[CROSSING_AMOUNT]++;
+		print_kid_status(kid, CROSSING_MSG);
+
 		for(int i = LAST_STEP + 1; i >= FIRST_STEP; --i){
-			if(i == LAST_STEP + 1) {
-				meta_sh[CROSSING_AMOUNT]++;
-				print_kid_status(kid, CROSSING_MSG);
-			}
-			else if (i != FIRST_STEP){
+			if (i != FIRST_STEP){
 				down(sem_rope, i - 1);
 				rope[i - 1] = kid.short_id;
 				rope[i] = -1;
@@ -79,28 +89,21 @@ void kid_cross(Kid kid, pid_t *rope, int *meta_sh) {
 				usleep(STEP_DELAY);	
 			} else {
 				rope[i] = -1;
-				meta_sh[CROSSING_AMOUNT]--;
 				print_kid_status(kid, CROSSED_MSG);
 				up(sem_rope, i);
 			}
 		}
 	}
 
-	meta_sh[CROSSED_AMOUNT]--;
+	meta_sh[CROSSING_AMOUNT]--;
+	meta_sh[CROSSES_TO_END]--;
 
-	// swap side
-	if(kid.side == RIGHT){
-		kid.side = LEFT;
-		meta_sh[LEFT_AMOUNT]++;
-	} else {
-		kid.side = RIGHT;
-		meta_sh[RIGHT_AMOUNT] = meta_sh[CROSSED_AMOUNT] - meta_sh[LEFT_AMOUNT];
-	}
+	swap_side(&kid, meta_sh);
 
     fprintf(stderr, "(success) Kid %d crossed\n", kid.short_id);
 }
 
-void print_rope(pid_t *rope, Kid *kids){
+void print_rope(pid_t *rope, Kid *kids, int * meta_sh){
 	fprintf(stderr, "\n(start) Printing rope...\n");
 
 	for(int i = FIRST_STEP; i <= LAST_STEP; ++i){
@@ -110,11 +113,15 @@ void print_rope(pid_t *rope, Kid *kids){
 			const char KID_SIDE = kids[rope[i] - 1].side;
 
 			// Which side are the kid?
-			if(KID_SIDE == LEFT){
+			if(KID_SIDE == LEFT && rope[i]){
 				fprintf(stdout, "|<-%3d|%s",
 						(int) rope[i],
 						i != LAST_STEP? "" : "\n");
-			} else {
+			} else if (kids[rope[i] - 1].short_id == 0){
+				fprintf(stdout, "|bug|%s",
+						i != LAST_STEP? "" : "\n");
+			}
+			else {
 				fprintf(stdout, "|%3d->|%s",
 						(int) rope[i],
 						i != LAST_STEP? "" : "\n");
@@ -134,15 +141,16 @@ void watch_printing_rope(pid_t *rope, int n_crosses, Kid *kids, int *meta_sh){
 
 	time_t time_counter = 0;
 
-	while(meta_sh[CROSSED_AMOUNT]){
+	while(meta_sh[CROSSES_TO_END] > 0){
 		fprintf(stdout, "%10d ms: ", (int)time_counter);
-		print_rope(rope, kids);
+		print_rope(rope, kids, meta_sh);
 
 		usleep(STEP_DELAY);
+
 		time_counter += STEP_DELAY;
 	}
 	fprintf(stdout, "%10d ms: ", (int)time_counter);
-	print_rope(rope, kids);
+	print_rope(rope, kids, meta_sh);
 	fprintf(stdout, "================================================================\n");
 }
 
@@ -150,10 +158,13 @@ void fill_kid_info(pid_t kid_pid, Kid *kids, int n_kids, char side) {
    fprintf(stderr, "\nStarting filling information about kid with pid: %d\n", kid_pid);
 
    int i; for(i = 0; kids[i].pid != -1 && i < n_kids; ++i);
+   unsigned int seed = clock();
 
    kids[i].pid = kid_pid;
    kids[i].short_id = i + 1;
    kids[i].side = side;
+   kids[i].crosses = 0;
+   kids[i].maximum_crosses = (rand_r(&seed) % MAXIMUM_KIDS_CROSSES) + 2;
 
    fprintf(stderr, "(success) Filled information about kid with pid: %d\n", kid_pid);
 }
