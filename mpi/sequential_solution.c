@@ -1,42 +1,44 @@
+/*
+ * Fundamentos de Sistemas Operacionais
+ * Alunos: Arthur Temporim (14/0016759) e Ícaro Pires (15/0129815)
+ * Construindo aplicações distribuídas usando MPI 
+ * Versão sequencial
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <float.h>
 
-//#define VECTOR_SIZE 1000000000
-#define VECTOR_SIZE 100
+#define V_SIZE 1000000000
 
 int main() {
-	double *vector;
-	int i=0;
-	double min = DBL_MAX;
-	double max = DBL_MIN;
+	// Too big for static allocation.
+	float *V = (float*) malloc(sizeof(float) * V_SIZE); 
 
-	// Simple computer cant alloc this size of vector.
-	vector = (double*) malloc(sizeof(double) * VECTOR_SIZE); 
-	double aux;
-
-	// Initialize vector.
-	for(i=0;i<VECTOR_SIZE;i++) {
-		aux = i-VECTOR_SIZE/2;
-		vector[i] = pow(aux,2);
+	// Initialize V.
+	for(int i = 0; i < V_SIZE; i++) {
+		float aux = i - V_SIZE/2;
+		V[i] = aux * aux;
 	}
 
-	for(i=0;i<VECTOR_SIZE;i++) {
-		vector[i] = sqrt(vector[i]);
-	}
+	float min = FLT_MAX;
+	float max = FLT_MIN;
 
-	for(i=0;i<VECTOR_SIZE;i++) {
-		if(vector[i] > max) {
-			max = vector[i];
-		}
-		if(vector[i] < min) {
-			min = vector[i];
+	// Calculate square root and get min/max.
+	for(int i = 0; i<V_SIZE; i++) {
+		V[i] = sqrt(V[i]);
+
+		if(V[i] > max) {
+			max = V[i];
+		} else if(V[i] < min) {
+			min = V[i];
 		}
 	}
 	
-	printf("Max: %lf\n", max);
-	printf("Min: %lf\n", min);
+	printf("Max: %f\n", max);
+	printf("Min: %f\n", min);
 
+	free(V);
 	return 0;
 }
