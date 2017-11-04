@@ -2,7 +2,7 @@
  * Fundamentos de Sistemas Operacionais
  * Alunos: Arthur Temporim (14/0016759) e Ícaro Pires (15/0129815)
  * Construindo aplicações distribuídas usando MPI 
- * Versão sequencial
+ * Solução sequencial
  */
 
 #include <stdio.h>
