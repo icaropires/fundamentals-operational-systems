@@ -14,7 +14,7 @@
 
 ## Introdução
 
-	Este trabalho consiste na criação de um software capaz de manipular um vetor de 1.000.000.000 de posições de valores de tipo float. Esta solução deve ser implementada utilizando o framework MPI.
+Este trabalho consiste na criação de um software capaz de manipular um vetor de 1.000.000.000 de posições de valores de tipo float. Esta solução deve ser implementada utilizando o framework MPI.
 	
 ## Descrição da Solução
 
@@ -26,7 +26,7 @@ Para que fosse possível a solução do projeto, foi necessário alocar o vetor 
 
 Só foi possível rodar o projeto em computadores ou VMs com memória acima de 4Gb, todos os testes com configurações inferiores a esta não tiveram sucesso.
 
-Os dados coletados das execuções podem ser verificados nos [anexos]([Arquivo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/devel/mpi/doc/anexo_sequencial.md).
+Os dados coletados das execuções podem ser verificados nos [Arquivo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/devel/mpi/doc/anexo_sequencial.md).
 
 ### Solução com MPI
 
@@ -51,7 +51,7 @@ Dentro do escopo do MPI (`MPI_Init()`, `MPI_Finalize()`) foi dividido 2 comporta
 
 Com essa implementação a solução usou cerca de 2.7GB de RAM e teve desempenho 2x mais rápido que a solução sequencial.
 
-Os dados coletados das execuções podem ser verificados nos [anexos]([Arquivo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/devel/mpi/doc/anexo_mpi.md)
+Os dados coletados das execuções podem ser verificados nos [Arquivo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/devel/mpi/doc/anexo_mpi.md)
 
 ## Códigos
 
