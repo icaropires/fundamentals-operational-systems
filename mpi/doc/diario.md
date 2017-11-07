@@ -54,6 +54,24 @@ Com essa implementação a solução usou cerca de 2.7GB de RAM e teve desempenh
 Os dados coletados das execuções podem ser verificados nos [Arquivo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/devel/mpi/doc/anexo_mpi.md)
 Todos os testes nos anexos foram feitos com **5** processos.
 
+### Solução com MPI distribuída
+
+Para aplicar a solução de MPI em vários computadores, foi configurado máquinas virtuais.
+
+A instalação e execução do projeto de forma distribuída foi feita utilizando o seguinte tutorial:
+
+[Running an MPI Cluster within a LAN](http://mpitutorial.com/tutorials/running-an-mpi-cluster-within-a-lan/)
+
+Após a instação e configuração feitas nas máquinas virtuais foram executados testes:
+
+1. Executando o binário do cliente a partir do master
+2. Executando o binário do master a partir do master
+3. Executando o binário nas 2 máquinas.
+
+O resultado foi positivo para os 2 primeiros casos, porém mesmo após esperar 5 minutos de execução o resultado não foi alcançado.
+
+Os dados coletados das execuções podem ser verificados nos [Arquivo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/devel/mpi/doc/anexo_distribuido.md).
+
 ## Códigos
 
 * [Sequencial](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/devel/mpi/sequential_solution.c)
@@ -193,9 +211,21 @@ int main(int argc, char** argv) {
 
 Com a implementação de MPI várias barreiras podem ser quebradas, como a solução de problemas que são insolucionáveis com os recursos de apenas uma máquina, mas quando mais uma máquina é adicionada a solução pode se tornar alcançável.
 
-Outro ponto obeservável com MPI é a melhoria no desempenho das soluções. Quando é possível paralelizar uma atividade e dividir entre mais `workers`.
+Outro ponto obeservável com MPI, é a melhoria no desempenho das soluções. Quando é possível paralelizar uma atividade e dividir entre mais `workers`.
 
 # Instruções para execução
+
+## Sequencial
+
+* Compilar
+
+`gcc -o prog sequential_solution.c -lm -std=c99`
+
+* Executar
+
+`./prog`
+
+## MPI em apenas uma máquina
 
 * Compilar
 
@@ -204,3 +234,13 @@ Outro ponto obeservável com MPI é a melhoria no desempenho das soluções. Qua
 * Executar
 
 `mpirun -np [numero de processos] mpi`
+
+## MPI Distribuído
+
+* Compilar
+
+`mpicc -o mpi mpi_solution.c -lm -std=c99`
+
+* Executar
+
+`mpirun -np [numero de processos] --host [host1,hostn] ./mpi`
