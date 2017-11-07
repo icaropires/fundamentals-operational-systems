@@ -33,19 +33,38 @@ Computador 1:
 
 
 Computador 2:
-	Informações: 
-		Sistema Operacional: Manjaro
-		Processador: Intel® Core™ i7-7200U CPU @ 2.40GHz × 4 
-		Memória: 7,7 GB
+	Informaçõe Este computador é uma VM com 3 CPUs disponíveis.
+		Sistema Operacional: Ubuntu
+		Processador: Intel® Cor i7-7200U CPU @ 2.40GHz 4 
+		Memória:5,120 GB
 		Estado do computador antes das execuções: Anexo 2
 
 	Execução - $ time ./bin:
 
 		Primeira:
+			Max: 500000000.000000
+			Min: 0.000000
+
+			real	0m9.569s
+			user	0m8.597s
+			sys	0m0.940s
 
 		Segunda:
+			Max: 500000000.000000
+			Min: 0.000000
+
+			real	0m9.584s
+			user	0m8.557s
+			sys	0m0.988s
 
 		Terceira:
+			Max: 500000000.000000
+			Min: 0.000000
+
+			real	0m9.640s
+			user	0m8.701s
+			sys	0m0.908s
+
 
 Anexo 1 - $ top -b:
 	top - 19:56:16 up 17:41,  3 users,  load average: 0,04, 0,09, 0,15
@@ -281,506 +300,94 @@ Anexo 1 - $ top -b:
 	16865 icaro     20   0   33572   3412   2856 R   0,0  0,0   0:00.00 top
 
 Anexo 2: $ top -b:
-	top - 08:49:02 up 21 min,  1 user,  load average: 0,05, 0,20, 0,16
-	Tasks: 157 total,   1 running, 156 sleeping,   0 stopped,   0 zombie
-	%Cpu0  :   8,4/1,0     9[|||||||                                                                      ]
-	%Cpu1  :   5,1/0,9     6[|||||                                                                        ]
-	%Cpu2  :   4,6/1,0     6[|||||                                                                        ]
-	%Cpu3  :   4,6/0,9     6[|||||                                                                        ]
-	GiB Mem :  9,6/7,590    [                                                                             ]
-	GiB Swap:  0,0/2,000    [                                                                             ]
 
-	PID USER      PR  NI    VIRT    RES  %CPU %MEM     TIME+ S COMMAND
-	1 root      20   0  153,2m   7,9m   0,0  0,1   0:01.10 S systemd
-	144 root      20   0   92,4m  15,8m   0,0  0,2   0:00.20 S  `- systemd-journal
-	154 root      20   0   85,1m   7,4m   0,0  0,1   0:00.25 S  `- systemd-udevd
-	192 root      20   0   31,3m   4,2m   0,0  0,1   0:00.01 S  `- bluetoothd
-	193 root      20   0   19,0m   2,7m   0,0  0,0   0:00.00 S  `- crond
-	194 avahi     20   0   48,0m   3,1m   0,0  0,0   0:00.26 S  `- avahi-daemon
-	221 avahi     20   0   47,9m   0,3m   0,0  0,0   0:00.00 S      `- avahi-daemon
-	195 root      20   0   40,0m   3,6m   0,0  0,0   0:00.00 S  `- bumblebeed
-	196 root      20   0  415,2m   9,0m   0,0  0,1   0:00.03 S  `- ModemManager
-	197 root      20   0   68,6m   5,7m   0,0  0,1   0:00.09 S  `- systemd-logind
-	199 dbus      20   0   38,6m   4,5m   0,0  0,1   0:01.56 S  `- dbus-daemon
-	238 root      20   0  553,4m  19,9m   0,0  0,3   0:04.46 S  `- NetworkManager
-	1695 root      20   0    9,1m   3,8m   0,0  0,0   0:00.00 S      `- dhclient
-	249 polkitd   20   0  521,5m  16,8m   0,0  0,2   0:00.64 S  `- polkitd
-	321 root      20   0  347,2m   8,4m   0,0  0,1   0:00.01 S  `- lightdm
-	520 root      20   0  351,5m  47,9m   0,0  0,6   0:16.40 S      `- Xorg
-	656 root      20   0  257,9m   7,1m   0,0  0,1   0:00.01 S      `- lightdm
-	678 arthur    20   0   15,5m   3,2m   0,0  0,0   0:00.02 S          `- sh
-	698 arthur    20   0  338,7m  15,3m   0,0  0,2   0:00.08 S              `- xfce4-session
-	719 arthur    20   0   15,5m   3,3m   0,0  0,0   0:00.00 S                  `- ff-theme-util
-	736 arthur    20   0    6,3m   0,8m   0,0  0,0   0:00.00 S                      `- inotifywait
-	720 arthur    20   0  400,5m  30,6m   0,0  0,4   0:00.16 S                  `- xfce4-clipman
-	726 arthur    20   0  546,9m  54,3m   0,0  0,7   0:00.43 S                  `- blueman-applet
-	729 arthur    20   0  376,4m  28,4m   0,0  0,4   0:01.19 S                  `- pamac-tray
-	733 arthur    20   0  329,3m  22,5m   0,0  0,3   0:00.11 S                  `- polkit-gnome-au
-	738 arthur    20   0  462,3m  37,1m   0,0  0,5   0:00.56 S                  `- msm_notifier
-	739 arthur    20   0  649,4m  30,0m   0,0  0,4   0:00.34 S                  `- pa-applet
-	752 arthur    20   0  405,2m  23,2m   0,0  0,3   0:00.11 S                  `- light-locker
-	762 arthur    20   0  931,0m  44,2m   0,0  0,6   0:02.12 S                  `- nm-applet
-	521 root      20   0  277,1m   6,2m   0,0  0,1   0:00.02 S  `- accounts-daemon
-	627 root      20   0   37,8m   6,4m   0,0  0,1   0:00.07 S  `- wpa_supplicant
-	664 arthur    20   0   80,9m   7,7m   0,0  0,1   0:00.04 S  `- systemd
-	665 arthur    20   0  132,2m   2,1m   0,0  0,0   0:00.00 S      `- (sd-pam)
-	689 arthur    20   0   38,3m   4,3m   0,0  0,1   0:00.20 S      `- dbus-daemon
-	702 arthur    20   0   55,7m   5,1m   0,0  0,1   0:00.04 S      `- xfconfd
-	707 arthur    20   0  161,6m   1,3m   0,0  0,0   0:00.03 S      `- gpg-agent
-	745 arthur    20   0  274,6m   6,8m   0,0  0,1   0:00.04 S      `- gvfsd
-	751 arthur    20   0  404,0m   7,6m   0,0  0,1   0:00.00 S      `- gvfsd-fuse
-	767 arthur     9 -11  872,6m  14,3m   0,0  0,2   0:02.77 S      `- pulseaudio
-	769 arthur    20   0  336,7m   6,1m   0,0  0,1   0:00.00 S      `- at-spi-bus-laun
-	776 arthur    20   0   37,8m   3,4m   0,0  0,0   0:00.07 S          `- dbus-daemon
-	781 arthur    20   0  213,3m   6,1m   0,0  0,1   0:00.30 S      `- at-spi2-registr
-	788 arthur    20   0  181,0m   4,9m   0,0  0,1   0:00.00 S      `- dconf-service
-	847 arthur    20   0  350,4m  10,0m   0,0  0,1   0:00.01 S      `- gvfs-udisks2-vo
-	861 arthur    20   0   35,3m   3,9m   0,0  0,1   0:00.00 S      `- obexd
-	863 arthur    20   0  259,0m   4,9m   0,0  0,1   0:00.00 S      `- gvfs-mtp-volume
-	867 arthur    20   0  357,3m   7,4m   0,0  0,1   0:00.00 S      `- gvfs-afc-volume
-	872 arthur    20   0  271,3m   5,6m   0,0  0,1   0:00.00 S      `- gvfs-gphoto2-vo
-	880 arthur    20   0  348,9m   6,8m   0,0  0,1   0:00.00 S      `- gvfsd-trash
-	886 arthur    20   0  187,0m   6,4m   0,0  0,1   0:00.00 S      `- gvfsd-metadata
-	1626 arthur    20   0  270,8m   5,6m   0,0  0,1   0:00.00 S      `- gnome-keyring-d
-	1639 arthur    20   0  495,1m   7,0m   0,0  0,1   0:00.02 S      `- gvfsd-network
-	1664 arthur    20   0  433,8m   7,6m   0,0  0,1   0:00.06 S      `- gvfsd-dnssd
-	1990 arthur    20   0   67,5m   5,1m   0,0  0,1   0:00.00 S      `- gconfd-2
-	3677 arthur    20   0  451,1m  29,0m   0,0  0,4   0:00.36 S      `- xfce4-notifyd
-	675 arthur    20   0  271,1m   9,1m   0,0  0,1   0:00.09 S  `- gnome-keyring-d
-	705 arthur    20   0   13,1m   0,4m   0,0  0,0   0:00.00 S  `- ssh-agent
-	710 arthur    20   0  540,4m  23,7m   0,0  0,3   0:03.27 S  `- xfwm4
-	714 arthur    20   0  403,0m  24,4m   0,0  0,3   0:00.57 S  `- xfce4-panel
-	832 arthur    20   0  396,8m  27,4m   0,0  0,4   0:01.26 S      `- panel-8-whisker
-	1766 arthur    20   0  732,5m  64,6m   0,0  0,8   0:07.14 S          `- terminator
-	2902 arthur    20   0   24,0m   4,1m   0,0  0,1   0:00.09 S              `- bash
-	4148 arthur    20   0   41,5m   3,5m   6,2  0,0   0:00.01 R                  `- top
-	4066 arthur    20   0   24,0m   4,0m   0,0  0,1   0:00.01 S              `- bash
-	4100 arthur    20   0   37,2m   7,9m   0,0  0,1   0:00.33 S                  `- vim
-	834 arthur    20   0  184,5m  14,9m   0,0  0,2   0:00.32 S      `- panel-6-systray
-	835 arthur    20   0  380,6m  19,9m   0,0  0,3   0:00.04 S      `- panel-2-actions
-	716 arthur    20   0  197,2m  14,8m   0,0  0,2   0:00.02 S  `- Thunar
-	718 arthur    20   0  495,7m  33,7m   0,0  0,4   0:00.55 S  `- xfdesktop
-	721 arthur    20   0  383,6m  16,7m   0,0  0,2   0:00.18 S  `- xfsettingsd
-	741 arthur    20   0  407,9m  31,4m   0,0  0,4   0:01.12 S  `- xfce4-power-man
-	782 rtkit     21   1  176,9m   2,6m   0,0  0,0   0:00.01 S  `- rtkit-daemon
-	799 root      20   0  302,3m   8,5m   0,0  0,1   0:00.15 S  `- upowerd
-	850 root      20   0  493,0m  10,4m   0,0  0,1   0:00.32 S  `- udisksd
-	1753 ntp       20   0  104,5m   4,2m   0,0  0,1   0:00.14 S  `- ntpd
-	2 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S kthreadd
-	3 root      20   0    0,0m   0,0m   0,0  0,0   0:00.05 S  `- ksoftirqd/0
-	5 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/0:0H
-	7 root      20   0    0,0m   0,0m   0,0  0,0   0:00.50 S  `- rcu_preempt
-	8 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- rcu_sched
-	9 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- rcu_bh
-	10 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- migration/0
-	11 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- lru-add-drain
-	12 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- watchdog/0
-	13 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- cpuhp/0
-	14 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- cpuhp/1
-	15 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- watchdog/1
-	16 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- migration/1
-	17 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ksoftirqd/1
-	19 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/1:0H
-	20 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- cpuhp/2
-	21 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- watchdog/2
-	22 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- migration/2
-	23 root      20   0    0,0m   0,0m   0,0  0,0   0:00.14 S  `- ksoftirqd/2
-	25 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/2:0H
-	26 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- cpuhp/3
-	27 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- watchdog/3
-	28 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- migration/3
-	29 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ksoftirqd/3
-	31 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/3:0H
-	32 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kdevtmpfs
-	33 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- netns
-	34 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- khungtaskd
-	35 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- oom_reaper
-	36 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- writeback
-	37 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kcompactd0
-	38 root      25   5    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ksmd
-	39 root      39  19    0,0m   0,0m   0,0  0,0   0:00.21 S  `- khugepaged
-	40 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- crypto
-	41 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kintegrityd
-	42 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- bioset
-	43 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kblockd
-	46 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/2:1
-	47 root      20   0    0,0m   0,0m   0,0  0,0   0:00.03 S  `- kworker/3:1
-	48 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- devfreq_wq
-	49 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- watchdogd
-	50 root      20   0    0,0m   0,0m   0,0  0,0   0:02.15 S  `- kworker/u8:1
-	51 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kswapd0
-	52 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- vmstat
-	61 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kthrotld
-	62 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ipv6_addrconf
-	86 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ata_sff
-	88 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- scsi_eh_0
-	89 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- scsi_tmf_0
-	90 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- scsi_eh_1
-	91 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- scsi_tmf_1
-	96 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- bioset
-	100 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/1:1H
-	101 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.01 S  `- kworker/0:1H
-	110 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.02 S  `- kworker/2:1H
-	121 root      20   0    0,0m   0,0m   0,0  0,0   0:00.11 S  `- jbd2/sda4-8
-	122 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ext4-rsv-conver
-	150 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- iprt-VBoxWQueue
-	155 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- iprt-VBoxTscThr
-	160 root      20   0    0,0m   0,0m   0,0  0,0   0:00.16 S  `- kworker/2:2
-	162 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/3:1H
-	164 root      20   0    0,0m   0,0m   0,0  0,0   0:00.01 S  `- kworker/1:3
-	189 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- cfg80211
-	215 root     -51   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- irq/280-mei_me
-	241 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ath10k_wq
-	242 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ath10k_aux_wq
-	243 root      -2   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- i915/signal:0
-	245 root      -2   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- i915/signal:1
-	246 root      -2   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- i915/signal:2
-	247 root      -2   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- i915/signal:4
-	325 root     -51   0    0,0m   0,0m   0,0  0,0   0:01.28 S  `- irq/87-SYNA2B33
-	581 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/u9:0
-	582 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- hci0
-	583 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- hci0
-	585 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/u9:2
-	685 root      20   0    0,0m   0,0m   0,0  0,0   0:00.02 S  `- kworker/0:3
-	830 root      10 -10    0,0m   0,0m   0,0  0,0   0:00.00 S  `- krfcommd
-	2488 root      20   0    0,0m   0,0m   0,0  0,0   0:00.39 S  `- kworker/u8:0
-	3670 root      20   0    0,0m   0,0m   0,0  0,0   0:00.04 S  `- kworker/0:0
-	3676 root      20   0    0,0m   0,0m   0,0  0,0   0:00.02 S  `- kworker/1:0
-	3920 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/3:0
-	4146 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/u8:2
+top - 10:19:56 up 6 min,  1 user,  load average: 0.10, 0.06, 0.03
+Tasks:  82 total,   1 running,  81 sleeping,   0 stopped,   0 zombie
+Cpu(s):  0.2%us,  0.3%sy,  0.0%ni, 99.4%id,  0.1%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   5081940k total,   183712k used,  4898228k free,    17380k buffers
+Swap:   786428k total,        0k used,   786428k free,    53652k cached
 
-	top - 08:49:03 up 21 min,  1 user,  load average: 0,05, 0,20, 0,16
-	Tasks: 157 total,   1 running, 156 sleeping,   0 stopped,   0 zombie
-	%Cpu0  :   0,0/0,0     0[                                                                             ]
-	%Cpu1  :   0,7/0,0     1[|                                                                            ]
-	%Cpu2  :   0,0/0,7     1[|                                                                            ]
-	%Cpu3  :   0,0/0,0     0[                                                                             ]
-	GiB Mem :  9,6/7,590    [                                                                             ]
-	GiB Swap:  0,0/2,000    [                                                                             ]
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND                                    
+    1 root      20   0 24332 2224 1340 S    0  0.0   0:00.67 init                                       
+    2 root      20   0     0    0    0 S    0  0.0   0:00.00 kthreadd                                   
+    3 root      20   0     0    0    0 S    0  0.0   0:00.02 ksoftirqd/0                                
+    6 root      RT   0     0    0    0 S    0  0.0   0:00.00 migration/0                                
+    7 root      RT   0     0    0    0 S    0  0.0   0:00.00 watchdog/0                                 
+    8 root      RT   0     0    0    0 S    0  0.0   0:00.00 migration/1                                
+   10 root      20   0     0    0    0 S    0  0.0   0:00.01 ksoftirqd/1                                
+   11 root      20   0     0    0    0 S    0  0.0   0:00.09 kworker/0:1                                
+   12 root      RT   0     0    0    0 S    0  0.0   0:00.00 watchdog/1                                 
+   13 root      RT   0     0    0    0 S    0  0.0   0:00.00 migration/2                                
+   15 root      20   0     0    0    0 S    0  0.0   0:00.00 ksoftirqd/2                                
+   16 root      RT   0     0    0    0 S    0  0.0   0:00.00 watchdog/2                                 
+   17 root       0 -20     0    0    0 S    0  0.0   0:00.00 cpuset                                     
+   18 root       0 -20     0    0    0 S    0  0.0   0:00.00 khelper                                    
+   19 root      20   0     0    0    0 S    0  0.0   0:00.00 kdevtmpfs                                  
+   20 root       0 -20     0    0    0 S    0  0.0   0:00.00 netns                                      
+   22 root      20   0     0    0    0 S    0  0.0   0:00.00 sync_supers                                
+   23 root      20   0     0    0    0 S    0  0.0   0:00.00 bdi-default                                
+   24 root       0 -20     0    0    0 S    0  0.0   0:00.00 kintegrityd                                
+   25 root       0 -20     0    0    0 S    0  0.0   0:00.00 kblockd                                    
+   26 root       0 -20     0    0    0 S    0  0.0   0:00.00 ata_sff                                    
+   27 root      20   0     0    0    0 S    0  0.0   0:00.00 khubd                                      
+   28 root       0 -20     0    0    0 S    0  0.0   0:00.00 md                                         
+   30 root      20   0     0    0    0 S    0  0.0   0:00.00 khungtaskd                                 
+   31 root      20   0     0    0    0 S    0  0.0   0:00.00 kswapd0                                    
+   32 root      25   5     0    0    0 S    0  0.0   0:00.00 ksmd                                       
+   33 root      39  19     0    0    0 S    0  0.0   0:00.00 khugepaged                                 
+   34 root      20   0     0    0    0 S    0  0.0   0:00.00 fsnotify_mark                              
+   35 root      20   0     0    0    0 S    0  0.0   0:00.00 ecryptfs-kthrea                            
+   36 root       0 -20     0    0    0 S    0  0.0   0:00.00 crypto                                     
+   44 root       0 -20     0    0    0 S    0  0.0   0:00.00 kthrotld                                   
+   45 root      20   0     0    0    0 S    0  0.0   0:00.00 kworker/u:2                                
+   46 root      20   0     0    0    0 S    0  0.0   0:00.03 kworker/1:1                                
+   47 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_0                                  
+   48 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_1                                  
+   49 root      20   0     0    0    0 S    0  0.0   0:00.00 scsi_eh_2                                  
+   51 root      20   0     0    0    0 S    0  0.0   0:00.06 kworker/2:1                                
+   52 root      20   0     0    0    0 S    0  0.0   0:00.00 kworker/u:4                                
+   71 root       0 -20     0    0    0 S    0  0.0   0:00.00 devfreq_wq                                 
+   72 root      20   0     0    0    0 S    0  0.0   0:00.08 kworker/2:2                                
+  119 root      20   0     0    0    0 S    0  0.0   0:00.04 kworker/2:3                                
+  163 root      20   0     0    0    0 S    0  0.0   0:00.44 kworker/0:2                                
+  252 root       0 -20     0    0    0 S    0  0.0   0:00.00 kdmflush                                   
+  264 root       0 -20     0    0    0 S    0  0.0   0:00.00 kdmflush                                   
+  273 root      20   0     0    0    0 S    0  0.0   0:00.00 jbd2/dm-0-8                                
+  274 root       0 -20     0    0    0 S    0  0.0   0:00.00 ext4-dio-unwrit                            
+  365 root      20   0 17240  632  452 S    0  0.0   0:00.04 upstart-udev-br                            
+  368 root      20   0 21616 1436  816 S    0  0.0   0:00.04 udevd                                      
+  471 root      20   0 21460  852  380 S    0  0.0   0:00.01 udevd                                      
+  472 root      20   0 21540  876  328 S    0  0.0   0:00.00 udevd                                      
+  473 root       0 -20     0    0    0 S    0  0.0   0:00.00 iprt                                       
+  486 root      20   0     0    0    0 S    0  0.0   0:00.00 kworker/1:2                                
+  540 root       0 -20     0    0    0 S    0  0.0   0:00.00 kpsmoused                                  
+  602 root      20   0 15196  388  196 S    0  0.0   0:00.00 upstart-socket-                            
+  614 root      20   0 19204 1024  740 S    0  0.0   0:00.00 rpcbind                                    
+  669 root       0 -20     0    0    0 S    0  0.0   0:00.00 rpciod                                     
+  684 root       0 -20     0    0    0 S    0  0.0   0:00.00 nfsiod                                     
+  696 messageb  20   0 23824  704  456 S    0  0.0   0:00.01 dbus-daemon                                
+  700 syslog    20   0  243m 1468 1088 S    0  0.0   0:00.04 rsyslogd                                   
+  701 root      20   0 25544  436  212 S    0  0.0   0:00.00 rpc.idmapd                                 
+  706 statd     20   0 21508 1360  900 S    0  0.0   0:00.00 rpc.statd                                  
+  747 root      20   0  7268  588  104 S    0  0.0   0:00.00 dhclient3                                  
+  794 root      20   0 50052 2908 2304 S    0  0.1   0:00.00 sshd                                       
+  867 root      20   0 16028  964  800 S    0  0.0   0:00.00 getty                                      
+  875 root      20   0 16028  964  800 S    0  0.0   0:00.00 getty                                      
+  882 root      20   0 16028  960  800 S    0  0.0   0:00.00 getty                                      
+  886 root      20   0 16028  968  800 S    0  0.0   0:00.00 getty                                      
+  889 root      20   0 16028  956  800 S    0  0.0   0:00.00 getty                                      
+  891 root      20   0 19116  880  688 S    0  0.0   0:00.00 cron                                       
+  892 daemon    20   0 16912  376  216 S    0  0.0   0:00.00 atd                                        
+  894 root      20   0 15988  696  516 S    0  0.0   0:00.05 irqbalance                                 
+  912 root      20   0     0    0    0 S    0  0.0   0:00.00 flush-8:0                                  
+  913 root      20   0     0    0    0 S    0  0.0   0:00.02 flush-252:0                                
+ 1132 ntp       20   0 37792 2208 1576 S    0  0.0   0:00.06 ntpd                                       
+ 1181 root      20   0  209m  556  252 S    0  0.0   0:00.13 VBoxService                                
+ 1235 root      20   0  7268  600  104 S    0  0.0   0:00.00 dhclient                                   
+ 1237 root      20   0 16028  964  800 S    0  0.0   0:00.00 getty                                      
+ 1239 root      20   0 71376 3484 2700 S    0  0.1   0:00.03 sshd                                       
+ 1254 vagrant   20   0 71376 1964 1168 S    0  0.0   0:00.19 sshd                                       
+ 1255 vagrant   20   0 29444 8432 1720 S    0  0.2   0:00.29 bash                                       
+ 1427 root      20   0     0    0    0 S    0  0.0   0:00.00 kworker/2:0                                
+ 1528 vagrant   20   0 17356 1236  948 R    0  0.0   0:00.00 top                                        
 
-	PID USER      PR  NI    VIRT    RES  %CPU %MEM     TIME+ S COMMAND
-	1 root      20   0  153,2m   7,9m   0,0  0,1   0:01.10 S systemd
-	144 root      20   0   92,4m  15,8m   0,0  0,2   0:00.20 S  `- systemd-journal
-	154 root      20   0   85,1m   7,4m   0,0  0,1   0:00.25 S  `- systemd-udevd
-	192 root      20   0   31,3m   4,2m   0,0  0,1   0:00.01 S  `- bluetoothd
-	193 root      20   0   19,0m   2,7m   0,0  0,0   0:00.00 S  `- crond
-	194 avahi     20   0   48,0m   3,1m   0,0  0,0   0:00.26 S  `- avahi-daemon
-	221 avahi     20   0   47,9m   0,3m   0,0  0,0   0:00.00 S      `- avahi-daemon
-	195 root      20   0   40,0m   3,6m   0,0  0,0   0:00.00 S  `- bumblebeed
-	196 root      20   0  415,2m   9,0m   0,0  0,1   0:00.03 S  `- ModemManager
-	197 root      20   0   68,6m   5,7m   0,0  0,1   0:00.09 S  `- systemd-logind
-	199 dbus      20   0   38,6m   4,5m   0,0  0,1   0:01.56 S  `- dbus-daemon
-	238 root      20   0  553,4m  19,9m   0,0  0,3   0:04.46 S  `- NetworkManager
-	1695 root      20   0    9,1m   3,8m   0,0  0,0   0:00.00 S      `- dhclient
-	249 polkitd   20   0  521,5m  16,8m   0,0  0,2   0:00.64 S  `- polkitd
-	321 root      20   0  347,2m   8,4m   0,0  0,1   0:00.01 S  `- lightdm
-	520 root      20   0  351,5m  47,9m   0,7  0,6   0:16.41 S      `- Xorg
-	656 root      20   0  257,9m   7,1m   0,0  0,1   0:00.01 S      `- lightdm
-	678 arthur    20   0   15,5m   3,2m   0,0  0,0   0:00.02 S          `- sh
-	698 arthur    20   0  338,7m  15,3m   0,0  0,2   0:00.08 S              `- xfce4-session
-	719 arthur    20   0   15,5m   3,3m   0,0  0,0   0:00.00 S                  `- ff-theme-util
-	736 arthur    20   0    6,3m   0,8m   0,0  0,0   0:00.00 S                      `- inotifywait
-	720 arthur    20   0  400,5m  30,6m   0,0  0,4   0:00.16 S                  `- xfce4-clipman
-	726 arthur    20   0  546,9m  54,3m   0,0  0,7   0:00.43 S                  `- blueman-applet
-	729 arthur    20   0  376,4m  28,4m   0,0  0,4   0:01.19 S                  `- pamac-tray
-	733 arthur    20   0  329,3m  22,5m   0,0  0,3   0:00.11 S                  `- polkit-gnome-au
-	738 arthur    20   0  462,3m  37,1m   0,0  0,5   0:00.56 S                  `- msm_notifier
-	739 arthur    20   0  649,4m  30,0m   0,0  0,4   0:00.34 S                  `- pa-applet
-	752 arthur    20   0  405,2m  23,2m   0,0  0,3   0:00.11 S                  `- light-locker
-	762 arthur    20   0  931,0m  44,2m   0,0  0,6   0:02.12 S                  `- nm-applet
-	521 root      20   0  277,1m   6,2m   0,0  0,1   0:00.02 S  `- accounts-daemon
-	627 root      20   0   37,8m   6,4m   0,0  0,1   0:00.07 S  `- wpa_supplicant
-	664 arthur    20   0   80,9m   7,7m   0,0  0,1   0:00.04 S  `- systemd
-	665 arthur    20   0  132,2m   2,1m   0,0  0,0   0:00.00 S      `- (sd-pam)
-	689 arthur    20   0   38,3m   4,3m   0,0  0,1   0:00.20 S      `- dbus-daemon
-	702 arthur    20   0   55,7m   5,1m   0,0  0,1   0:00.04 S      `- xfconfd
-	707 arthur    20   0  161,6m   1,3m   0,0  0,0   0:00.03 S      `- gpg-agent
-	745 arthur    20   0  274,6m   6,8m   0,0  0,1   0:00.04 S      `- gvfsd
-	751 arthur    20   0  404,0m   7,6m   0,0  0,1   0:00.00 S      `- gvfsd-fuse
-	767 arthur     9 -11  872,6m  14,3m   0,0  0,2   0:02.77 S      `- pulseaudio
-	769 arthur    20   0  336,7m   6,1m   0,0  0,1   0:00.00 S      `- at-spi-bus-laun
-	776 arthur    20   0   37,8m   3,4m   0,0  0,0   0:00.07 S          `- dbus-daemon
-	781 arthur    20   0  213,3m   6,1m   0,0  0,1   0:00.30 S      `- at-spi2-registr
-	788 arthur    20   0  181,0m   4,9m   0,0  0,1   0:00.00 S      `- dconf-service
-	847 arthur    20   0  350,4m  10,0m   0,0  0,1   0:00.01 S      `- gvfs-udisks2-vo
-	861 arthur    20   0   35,3m   3,9m   0,0  0,1   0:00.00 S      `- obexd
-	863 arthur    20   0  259,0m   4,9m   0,0  0,1   0:00.00 S      `- gvfs-mtp-volume
-	867 arthur    20   0  357,3m   7,4m   0,0  0,1   0:00.00 S      `- gvfs-afc-volume
-	872 arthur    20   0  271,3m   5,6m   0,0  0,1   0:00.00 S      `- gvfs-gphoto2-vo
-	880 arthur    20   0  348,9m   6,8m   0,0  0,1   0:00.00 S      `- gvfsd-trash
-	886 arthur    20   0  187,0m   6,4m   0,0  0,1   0:00.00 S      `- gvfsd-metadata
-	1626 arthur    20   0  270,8m   5,6m   0,0  0,1   0:00.00 S      `- gnome-keyring-d
-	1639 arthur    20   0  495,1m   7,0m   0,0  0,1   0:00.02 S      `- gvfsd-network
-	1664 arthur    20   0  433,8m   7,6m   0,0  0,1   0:00.06 S      `- gvfsd-dnssd
-	1990 arthur    20   0   67,5m   5,1m   0,0  0,1   0:00.00 S      `- gconfd-2
-	3677 arthur    20   0  451,1m  29,0m   0,0  0,4   0:00.36 S      `- xfce4-notifyd
-	675 arthur    20   0  271,1m   9,1m   0,0  0,1   0:00.09 S  `- gnome-keyring-d
-	705 arthur    20   0   13,1m   0,4m   0,0  0,0   0:00.00 S  `- ssh-agent
-	710 arthur    20   0  540,4m  23,7m   0,0  0,3   0:03.27 S  `- xfwm4
-	714 arthur    20   0  403,0m  24,4m   0,0  0,3   0:00.57 S  `- xfce4-panel
-	832 arthur    20   0  396,8m  27,4m   0,0  0,4   0:01.26 S      `- panel-8-whisker
-	1766 arthur    20   0  732,5m  64,6m   0,0  0,8   0:07.14 S          `- terminator
-	2902 arthur    20   0   24,0m   4,1m   0,0  0,1   0:00.09 S              `- bash
-	4148 arthur    20   0   41,5m   3,5m   0,7  0,0   0:00.02 R                  `- top
-	4066 arthur    20   0   24,0m   4,0m   0,0  0,1   0:00.01 S              `- bash
-	4100 arthur    20   0   37,2m   7,9m   0,0  0,1   0:00.33 S                  `- vim
-	834 arthur    20   0  184,5m  14,9m   0,0  0,2   0:00.32 S      `- panel-6-systray
-	835 arthur    20   0  380,6m  19,9m   0,0  0,3   0:00.04 S      `- panel-2-actions
-	716 arthur    20   0  197,2m  14,8m   0,0  0,2   0:00.02 S  `- Thunar
-	718 arthur    20   0  495,7m  33,7m   0,0  0,4   0:00.55 S  `- xfdesktop
-	721 arthur    20   0  383,6m  16,7m   0,0  0,2   0:00.18 S  `- xfsettingsd
-	741 arthur    20   0  407,9m  31,4m   0,0  0,4   0:01.12 S  `- xfce4-power-man
-	782 rtkit     21   1  176,9m   2,6m   0,0  0,0   0:00.01 S  `- rtkit-daemon
-	799 root      20   0  302,3m   8,5m   0,0  0,1   0:00.15 S  `- upowerd
-	850 root      20   0  493,0m  10,4m   0,0  0,1   0:00.32 S  `- udisksd
-	1753 ntp       20   0  104,5m   4,2m   0,0  0,1   0:00.14 S  `- ntpd
-	2 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S kthreadd
-	3 root      20   0    0,0m   0,0m   0,0  0,0   0:00.05 S  `- ksoftirqd/0
-	5 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/0:0H
-	7 root      20   0    0,0m   0,0m   0,0  0,0   0:00.50 S  `- rcu_preempt
-	8 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- rcu_sched
-	9 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- rcu_bh
-	10 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- migration/0
-	11 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- lru-add-drain
-	12 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- watchdog/0
-	13 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- cpuhp/0
-	14 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- cpuhp/1
-	15 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- watchdog/1
-	16 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- migration/1
-	17 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ksoftirqd/1
-	19 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/1:0H
-	20 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- cpuhp/2
-	21 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- watchdog/2
-	22 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- migration/2
-	23 root      20   0    0,0m   0,0m   0,0  0,0   0:00.14 S  `- ksoftirqd/2
-	25 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/2:0H
-	26 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- cpuhp/3
-	27 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- watchdog/3
-	28 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- migration/3
-	29 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ksoftirqd/3
-	31 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/3:0H
-	32 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kdevtmpfs
-	33 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- netns
-	34 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- khungtaskd
-	35 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- oom_reaper
-	36 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- writeback
-	37 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kcompactd0
-	38 root      25   5    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ksmd
-	39 root      39  19    0,0m   0,0m   0,0  0,0   0:00.21 S  `- khugepaged
-	40 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- crypto
-	41 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kintegrityd
-	42 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- bioset
-	43 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kblockd
-	46 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/2:1
-	47 root      20   0    0,0m   0,0m   0,0  0,0   0:00.03 S  `- kworker/3:1
-	48 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- devfreq_wq
-	49 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- watchdogd
-	50 root      20   0    0,0m   0,0m   0,0  0,0   0:02.15 S  `- kworker/u8:1
-	51 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kswapd0
-	52 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- vmstat
-	61 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kthrotld
-	62 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ipv6_addrconf
-	86 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ata_sff
-	88 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- scsi_eh_0
-	89 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- scsi_tmf_0
-	90 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- scsi_eh_1
-	91 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- scsi_tmf_1
-	96 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- bioset
-	100 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/1:1H
-	101 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.01 S  `- kworker/0:1H
-	110 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.02 S  `- kworker/2:1H
-	121 root      20   0    0,0m   0,0m   0,0  0,0   0:00.11 S  `- jbd2/sda4-8
-	122 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ext4-rsv-conver
-	150 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- iprt-VBoxWQueue
-	155 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- iprt-VBoxTscThr
-	160 root      20   0    0,0m   0,0m   0,0  0,0   0:00.16 S  `- kworker/2:2
-	162 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/3:1H
-	164 root      20   0    0,0m   0,0m   0,0  0,0   0:00.01 S  `- kworker/1:3
-	189 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- cfg80211
-	215 root     -51   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- irq/280-mei_me
-	241 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ath10k_wq
-	242 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ath10k_aux_wq
-	243 root      -2   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- i915/signal:0
-	245 root      -2   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- i915/signal:1
-	246 root      -2   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- i915/signal:2
-	247 root      -2   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- i915/signal:4
-	325 root     -51   0    0,0m   0,0m   0,0  0,0   0:01.28 S  `- irq/87-SYNA2B33
-	581 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/u9:0
-	582 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- hci0
-	583 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- hci0
-	585 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/u9:2
-	685 root      20   0    0,0m   0,0m   0,0  0,0   0:00.02 S  `- kworker/0:3
-	830 root      10 -10    0,0m   0,0m   0,0  0,0   0:00.00 S  `- krfcommd
-	2488 root      20   0    0,0m   0,0m   0,0  0,0   0:00.39 S  `- kworker/u8:0
-	3670 root      20   0    0,0m   0,0m   0,0  0,0   0:00.04 S  `- kworker/0:0
-	3676 root      20   0    0,0m   0,0m   0,0  0,0   0:00.02 S  `- kworker/1:0
-	3920 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/3:0
-	4146 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/u8:2
-	Anexo 2 - $ top -b:
-	top - 08:49:05 up 21 min,  1 user,  load average: 0,05, 0,20, 0,16
-	Tasks: 157 total,   1 running, 156 sleeping,   0 stopped,   0 zombie
-	%Cpu0  :   0,0/0,0     0[                                                                             ]
-	%Cpu1  :   0,0/0,0     0[                                                                             ]
-	%Cpu2  :   0,0/0,0     0[                                                                             ]
-	%Cpu3  :   0,7/0,7     1[||                                                                           ]
-	GiB Mem :  9,6/7,590    [                                                                             ]
-	GiB Swap:  0,0/2,000    [                                                                             ]
-
-	PID USER      PR  NI    VIRT    RES  %CPU %MEM     TIME+ S COMMAND
-	1 root      20   0  153,2m   7,9m   0,0  0,1   0:01.10 S systemd
-	144 root      20   0   92,4m  15,8m   0,0  0,2   0:00.20 S  `- systemd-journal
-	154 root      20   0   85,1m   7,4m   0,0  0,1   0:00.25 S  `- systemd-udevd
-	192 root      20   0   31,3m   4,2m   0,0  0,1   0:00.01 S  `- bluetoothd
-	193 root      20   0   19,0m   2,7m   0,0  0,0   0:00.00 S  `- crond
-	194 avahi     20   0   48,0m   3,1m   0,0  0,0   0:00.26 S  `- avahi-daemon
-	221 avahi     20   0   47,9m   0,3m   0,0  0,0   0:00.00 S      `- avahi-daemon
-	195 root      20   0   40,0m   3,6m   0,0  0,0   0:00.00 S  `- bumblebeed
-	196 root      20   0  415,2m   9,0m   0,0  0,1   0:00.03 S  `- ModemManager
-	197 root      20   0   68,6m   5,7m   0,0  0,1   0:00.09 S  `- systemd-logind
-	199 dbus      20   0   38,6m   4,5m   0,0  0,1   0:01.56 S  `- dbus-daemon
-	238 root      20   0  553,4m  19,9m   0,0  0,3   0:04.46 S  `- NetworkManager
-	1695 root      20   0    9,1m   3,8m   0,0  0,0   0:00.00 S      `- dhclient
-	249 polkitd   20   0  521,5m  16,8m   0,0  0,2   0:00.64 S  `- polkitd
-	321 root      20   0  347,2m   8,4m   0,0  0,1   0:00.01 S  `- lightdm
-	520 root      20   0  351,5m  47,9m   0,0  0,6   0:16.41 S      `- Xorg
-	656 root      20   0  257,9m   7,1m   0,0  0,1   0:00.01 S      `- lightdm
-	678 arthur    20   0   15,5m   3,2m   0,0  0,0   0:00.02 S          `- sh
-	698 arthur    20   0  338,7m  15,3m   0,0  0,2   0:00.08 S              `- xfce4-session
-	719 arthur    20   0   15,5m   3,3m   0,0  0,0   0:00.00 S                  `- ff-theme-util
-	736 arthur    20   0    6,3m   0,8m   0,0  0,0   0:00.00 S                      `- inotifywait
-	720 arthur    20   0  400,5m  30,6m   0,0  0,4   0:00.16 S                  `- xfce4-clipman
-	726 arthur    20   0  546,9m  54,3m   0,0  0,7   0:00.43 S                  `- blueman-applet
-	729 arthur    20   0  376,4m  28,4m   0,0  0,4   0:01.19 S                  `- pamac-tray
-	733 arthur    20   0  329,3m  22,5m   0,0  0,3   0:00.11 S                  `- polkit-gnome-au
-	738 arthur    20   0  462,3m  37,1m   0,0  0,5   0:00.56 S                  `- msm_notifier
-	739 arthur    20   0  649,4m  30,0m   0,0  0,4   0:00.34 S                  `- pa-applet
-	752 arthur    20   0  405,2m  23,2m   0,0  0,3   0:00.11 S                  `- light-locker
-	762 arthur    20   0  931,0m  44,2m   0,0  0,6   0:02.12 S                  `- nm-applet
-	521 root      20   0  277,1m   6,2m   0,0  0,1   0:00.02 S  `- accounts-daemon
-	627 root      20   0   37,8m   6,4m   0,0  0,1   0:00.07 S  `- wpa_supplicant
-	664 arthur    20   0   80,9m   7,7m   0,0  0,1   0:00.04 S  `- systemd
-	665 arthur    20   0  132,2m   2,1m   0,0  0,0   0:00.00 S      `- (sd-pam)
-	689 arthur    20   0   38,3m   4,3m   0,0  0,1   0:00.20 S      `- dbus-daemon
-	702 arthur    20   0   55,7m   5,1m   0,0  0,1   0:00.04 S      `- xfconfd
-	707 arthur    20   0  161,6m   1,3m   0,0  0,0   0:00.03 S      `- gpg-agent
-	745 arthur    20   0  274,6m   6,8m   0,0  0,1   0:00.04 S      `- gvfsd
-	751 arthur    20   0  404,0m   7,6m   0,0  0,1   0:00.00 S      `- gvfsd-fuse
-	767 arthur     9 -11  872,6m  14,3m   0,0  0,2   0:02.77 S      `- pulseaudio
-	769 arthur    20   0  336,7m   6,1m   0,0  0,1   0:00.00 S      `- at-spi-bus-laun
-	776 arthur    20   0   37,8m   3,4m   0,0  0,0   0:00.07 S          `- dbus-daemon
-	781 arthur    20   0  213,3m   6,1m   0,0  0,1   0:00.30 S      `- at-spi2-registr
-	788 arthur    20   0  181,0m   4,9m   0,0  0,1   0:00.00 S      `- dconf-service
-	847 arthur    20   0  350,4m  10,0m   0,0  0,1   0:00.01 S      `- gvfs-udisks2-vo
-	861 arthur    20   0   35,3m   3,9m   0,0  0,1   0:00.00 S      `- obexd
-	863 arthur    20   0  259,0m   4,9m   0,0  0,1   0:00.00 S      `- gvfs-mtp-volume
-	867 arthur    20   0  357,3m   7,4m   0,0  0,1   0:00.00 S      `- gvfs-afc-volume
-	872 arthur    20   0  271,3m   5,6m   0,0  0,1   0:00.00 S      `- gvfs-gphoto2-vo
-	880 arthur    20   0  348,9m   6,8m   0,0  0,1   0:00.00 S      `- gvfsd-trash
-	886 arthur    20   0  187,0m   6,4m   0,0  0,1   0:00.00 S      `- gvfsd-metadata
-	1626 arthur    20   0  270,8m   5,6m   0,0  0,1   0:00.00 S      `- gnome-keyring-d
-	1639 arthur    20   0  495,1m   7,0m   0,0  0,1   0:00.02 S      `- gvfsd-network
-	1664 arthur    20   0  433,8m   7,6m   0,0  0,1   0:00.06 S      `- gvfsd-dnssd
-	1990 arthur    20   0   67,5m   5,1m   0,0  0,1   0:00.00 S      `- gconfd-2
-	3677 arthur    20   0  451,1m  29,0m   0,0  0,4   0:00.36 S      `- xfce4-notifyd
-	675 arthur    20   0  271,1m   9,1m   0,0  0,1   0:00.09 S  `- gnome-keyring-d
-	705 arthur    20   0   13,1m   0,4m   0,0  0,0   0:00.00 S  `- ssh-agent
-	710 arthur    20   0  540,4m  23,7m   0,0  0,3   0:03.27 S  `- xfwm4
-	714 arthur    20   0  403,0m  24,4m   0,0  0,3   0:00.57 S  `- xfce4-panel
-	832 arthur    20   0  396,8m  27,4m   0,0  0,4   0:01.26 S      `- panel-8-whisker
-	1766 arthur    20   0  732,5m  64,6m   0,7  0,8   0:07.15 S          `- terminator
-	2902 arthur    20   0   24,0m   4,1m   0,0  0,1   0:00.09 S              `- bash
-	4148 arthur    20   0   41,5m   3,5m   0,7  0,0   0:00.03 R                  `- top
-	4066 arthur    20   0   24,0m   4,0m   0,0  0,1   0:00.01 S              `- bash
-	4100 arthur    20   0   37,2m   7,9m   0,0  0,1   0:00.33 S                  `- vim
-	834 arthur    20   0  184,5m  14,9m   0,0  0,2   0:00.32 S      `- panel-6-systray
-	835 arthur    20   0  380,6m  19,9m   0,0  0,3   0:00.04 S      `- panel-2-actions
-	716 arthur    20   0  197,2m  14,8m   0,0  0,2   0:00.02 S  `- Thunar
-	718 arthur    20   0  495,7m  33,7m   0,0  0,4   0:00.55 S  `- xfdesktop
-	721 arthur    20   0  383,6m  16,7m   0,0  0,2   0:00.18 S  `- xfsettingsd
-	741 arthur    20   0  407,9m  31,4m   0,0  0,4   0:01.12 S  `- xfce4-power-man
-	782 rtkit     21   1  176,9m   2,6m   0,0  0,0   0:00.01 S  `- rtkit-daemon
-	799 root      20   0  302,3m   8,5m   0,0  0,1   0:00.15 S  `- upowerd
-	850 root      20   0  493,0m  10,4m   0,0  0,1   0:00.32 S  `- udisksd
-	1753 ntp       20   0  104,5m   4,2m   0,0  0,1   0:00.14 S  `- ntpd
-	2 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S kthreadd
-	3 root      20   0    0,0m   0,0m   0,0  0,0   0:00.05 S  `- ksoftirqd/0
-	5 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/0:0H
-	7 root      20   0    0,0m   0,0m   0,0  0,0   0:00.50 S  `- rcu_preempt
-	8 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- rcu_sched
-	9 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- rcu_bh
-	10 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- migration/0
-	11 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- lru-add-drain
-	12 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- watchdog/0
-	13 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- cpuhp/0
-	14 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- cpuhp/1
-	15 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- watchdog/1
-	16 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- migration/1
-	17 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ksoftirqd/1
-	19 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/1:0H
-	20 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- cpuhp/2
-	21 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- watchdog/2
-	22 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- migration/2
-	23 root      20   0    0,0m   0,0m   0,0  0,0   0:00.14 S  `- ksoftirqd/2
-	25 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/2:0H
-	26 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- cpuhp/3
-	27 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- watchdog/3
-	28 root      rt   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- migration/3
-	29 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ksoftirqd/3
-	31 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/3:0H
-	32 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kdevtmpfs
-	33 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- netns
-	34 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- khungtaskd
-	35 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- oom_reaper
-	36 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- writeback
-	37 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kcompactd0
-	38 root      25   5    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ksmd
-	39 root      39  19    0,0m   0,0m   0,0  0,0   0:00.21 S  `- khugepaged
-	40 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- crypto
-	41 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kintegrityd
-	42 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- bioset
-	43 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kblockd
-	46 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/2:1
-	47 root      20   0    0,0m   0,0m   0,0  0,0   0:00.03 S  `- kworker/3:1
-	48 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- devfreq_wq
-	49 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- watchdogd
-	50 root      20   0    0,0m   0,0m   0,0  0,0   0:02.15 S  `- kworker/u8:1
-	51 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kswapd0
-	52 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- vmstat
-	61 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kthrotld
-	62 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ipv6_addrconf
-	86 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ata_sff
-	88 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- scsi_eh_0
-	89 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- scsi_tmf_0
-	90 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- scsi_eh_1
-	91 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- scsi_tmf_1
-	96 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- bioset
-	100 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/1:1H
-	101 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.01 S  `- kworker/0:1H
-	110 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.02 S  `- kworker/2:1H
-	121 root      20   0    0,0m   0,0m   0,0  0,0   0:00.11 S  `- jbd2/sda4-8
-	122 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ext4-rsv-conver
-	150 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- iprt-VBoxWQueue
-	155 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- iprt-VBoxTscThr
-	160 root      20   0    0,0m   0,0m   0,0  0,0   0:00.16 S  `- kworker/2:2
-	162 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/3:1H
-	164 root      20   0    0,0m   0,0m   0,0  0,0   0:00.01 S  `- kworker/1:3
-	189 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- cfg80211
-	215 root     -51   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- irq/280-mei_me
-	241 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ath10k_wq
-	242 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- ath10k_aux_wq
-	243 root      -2   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- i915/signal:0
-	245 root      -2   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- i915/signal:1
-	246 root      -2   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- i915/signal:2
-	247 root      -2   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- i915/signal:4
-	325 root     -51   0    0,0m   0,0m   0,0  0,0   0:01.28 S  `- irq/87-SYNA2B33
-	581 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/u9:0
-	582 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- hci0
-	583 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- hci0
-	585 root       0 -20    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/u9:2
-	685 root      20   0    0,0m   0,0m   0,0  0,0   0:00.02 S  `- kworker/0:3
-	830 root      10 -10    0,0m   0,0m   0,0  0,0   0:00.00 S  `- krfcommd
-	2488 root      20   0    0,0m   0,0m   0,0  0,0   0:00.39 S  `- kworker/u8:0
-	3670 root      20   0    0,0m   0,0m   0,0  0,0   0:00.04 S  `- kworker/0:0
-	3676 root      20   0    0,0m   0,0m   0,0  0,0   0:00.02 S  `- kworker/1:0
-	3920 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/3:0
-	4146 root      20   0    0,0m   0,0m   0,0  0,0   0:00.00 S  `- kworker/u8:2

@@ -52,6 +52,7 @@ Dentro do escopo do MPI (`MPI_Init()`, `MPI_Finalize()`) foi dividido 2 comporta
 Com essa implementação a solução usou cerca de 2.7GB de RAM e teve desempenho 2x mais rápido que a solução sequencial.
 
 Os dados coletados das execuções podem ser verificados nos [Arquivo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/devel/mpi/doc/anexo_mpi.md)
+Todos os testes nos anexos foram feitos com **5** processos.
 
 ## Códigos
 
