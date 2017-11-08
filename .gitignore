@@ -5,6 +5,7 @@
 *.o
 *.out
 *.odt
+*.txt
 
 # Project 2
 project2/.arb_file
