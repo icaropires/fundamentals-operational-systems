@@ -1,72 +1,103 @@
-Computador 1:
-	Informações:
-		Sistema Operacional: Ubuntu 16.04
-		Processador: Intel® Core™ i5-4210U CPU @ 1.70GHz × 4 
-		Memória: 7,7 GB
-		Estado do computador antes das execuções: Anexo 1
+# Relatório de execução da versão sequencial
 
-	Execução - $ time ./bin:
+## Computador 1:
+### Informações:
+	Sistema Operacional: Ubuntu 16.04
+	Processador: Intel® Core™ i5-4210U CPU @ 1.70GHz × 4 
+	Memória: 7,7 GB
+	Estado do computador antes das execuções: Anexo 1
 
-		Primeira:
-			Max: 500000000.000000
-			Min: 0.000000
+### Execução
+#### Comando
+``` sh
+$ time ./bin:
+```
+### Saídas
+#### Primeira:
+```
+Max: 500000000.000000
+Min: 0.000000
 
-			real	0m10.770s
-			user	0m10.416s
-			sys	0m0.352s
+real	0m10.770s
+user	0m10.416s
+sys	0m0.352s
+```
 
-		Segunda:
-			Max: 500000000.000000
-			Min: 0.000000
+#### Segunda:
+```
+Max: 500000000.000000
+Min: 0.000000
 
-			real	0m10.642s
-			user	0m10.360s
-			sys	0m0.280s
+real	0m10.642s
+user	0m10.360s
+sys	0m0.280s
+```
 
-		Terceira:
-			Max: 500000000.000000
-			Min: 0.000000
+#### Terceira:
+```
+Max: 500000000.000000
+Min: 0.000000
 
-			real	0m10.752s
-			user	0m10.480s
-			sys	0m0.272s
-
-
-Computador 2:
-	Informaçõe Este computador é uma VM com 3 CPUs disponíveis.
-		Sistema Operacional: Ubuntu
-		Processador: Intel® Cor i7-7200U CPU @ 2.40GHz 4 
-		Memória:5,120 GB
-		Estado do computador antes das execuções: Anexo 2
-
-	Execução - $ time ./bin:
-
-		Primeira:
-			Max: 500000000.000000
-			Min: 0.000000
-
-			real	0m9.569s
-			user	0m8.597s
-			sys	0m0.940s
-
-		Segunda:
-			Max: 500000000.000000
-			Min: 0.000000
-
-			real	0m9.584s
-			user	0m8.557s
-			sys	0m0.988s
-
-		Terceira:
-			Max: 500000000.000000
-			Min: 0.000000
-
-			real	0m9.640s
-			user	0m8.701s
-			sys	0m0.908s
+real	0m10.752s
+user	0m10.480s
+sys	0m0.272s
+```
 
 
-Anexo 1 - $ top -b:
+## Computador 2:
+### Informações:
+	VM com 3 CPUs disponíveis.
+	Sistema Operacional: Ubuntu
+	Processador: Intel® Cor i7-7200U CPU @ 2.40GHz 4 
+	Memória:5,120 GB
+	Estado do computador antes das execuções: Anexo 2
+
+### Execução
+
+#### Comando
+``` sh
+$ time ./bin:
+```
+### Saídas
+
+#### Primeira:
+```
+Max: 500000000.000000
+Min: 0.000000
+
+real	0m9.569s
+user	0m8.597s
+sys	0m0.940s
+```
+
+#### Segunda:
+```
+Max: 500000000.000000
+Min: 0.000000
+
+real	0m9.584s
+user	0m8.557s
+sys	0m0.988s
+```
+
+#### Terceira:
+```
+Max: 500000000.000000
+Min: 0.000000
+
+real	0m9.640s
+user	0m8.701s
+sys	0m0.908s
+```
+
+
+### Anexo 1
+#### Comando
+``` sh
+$ top -b:
+```
+### Saída
+```
 	top - 19:56:16 up 17:41,  3 users,  load average: 0,04, 0,09, 0,15
 	Tasks: 224 total,   1 running, 223 sleeping,   0 stopped,   0 zombie
 	%Cpu(s):  8,2 us,  2,3 sy,  0,1 ni, 88,4 id,  0,9 wa,  0,0 hi,  0,1 si,  0,0 st
@@ -298,9 +329,15 @@ Anexo 1 - $ top -b:
 	16852 root      20   0       0      0      0 S   0,0  0,0   0:00.00 kworker/2:1
 	16855 root      20   0       0      0      0 S   0,0  0,0   0:00.00 kworker/3:2
 	16865 icaro     20   0   33572   3412   2856 R   0,0  0,0   0:00.00 top
+```
 
-Anexo 2: $ top -b:
-
+### Anexo 2
+#### Comando
+``` sh
+$ top -b:
+```
+### Saída
+```
 top - 10:19:56 up 6 min,  1 user,  load average: 0.10, 0.06, 0.03
 Tasks:  82 total,   1 running,  81 sleeping,   0 stopped,   0 zombie
 Cpu(s):  0.2%us,  0.3%sy,  0.0%ni, 99.4%id,  0.1%wa,  0.0%hi,  0.0%si,  0.0%st
@@ -390,4 +427,4 @@ Swap:   786428k total,        0k used,   786428k free,    53652k cached
  1255 vagrant   20   0 29444 8432 1720 S    0  0.2   0:00.29 bash                                       
  1427 root      20   0     0    0    0 S    0  0.0   0:00.00 kworker/2:0                                
  1528 vagrant   20   0 17356 1236  948 R    0  0.0   0:00.00 top                                        
-
+ ```

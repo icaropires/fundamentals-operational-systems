@@ -1,4 +1,4 @@
-# Diário de Bordo MPI
+# Relatório
 
 ## Dados
 
@@ -26,7 +26,7 @@ Para que fosse possível a solução do projeto, foi necessário alocar o vetor 
 
 Só foi possível rodar o projeto em computadores ou VMs com memória acima de 4Gb, todos os testes com configurações inferiores a esta não tiveram sucesso.
 
-Os dados coletados das execuções podem ser verificados nos [Arquivo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/devel/mpi/doc/anexo_sequencial.md).
+Os dados coletados das execuções podem ser verificados em [Execuções do sequencial](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/devel/mpi/doc/anexo_sequencial.md). Ou diretamente no arquivo anexo_sequencial.md.
 
 ### Solução com MPI
 
@@ -51,7 +51,7 @@ Dentro do escopo do MPI (`MPI_Init()`, `MPI_Finalize()`) foi dividido 2 comporta
 
 Com essa implementação a solução usou cerca de 2.7GB de RAM e teve desempenho 2x mais rápido que a solução sequencial.
 
-Os dados coletados das execuções podem ser verificados nos [Arquivo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/devel/mpi/doc/anexo_mpi.md)
+Os dados coletados das execuções podem ser verificados em [Execuções do MPI local](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/devel/mpi/doc/anexo_mpi.md). Ou diretamente no arquivo anexo_mpi.md
 Todos os testes nos anexos foram feitos com **5** processos.
 
 ### Solução com MPI distribuída
@@ -70,7 +70,7 @@ Após a instação e configuração feitas nas máquinas virtuais foram executad
 
 O resultado foi positivo para os 2 primeiros casos, porém mesmo após esperar 5 minutos de execução o resultado não foi alcançado.
 
-Os dados coletados das execuções podem ser verificados nos [Arquivo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/devel/mpi/doc/anexo_distribuido.md).
+Os dados coletados das execuções podem ser verificados em [Execuções do MPI em LAN](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/devel/mpi/doc/anexo_distribuido.md). Ou diretamente no arquivo anexo_distribuídos.
 
 ## Códigos
 

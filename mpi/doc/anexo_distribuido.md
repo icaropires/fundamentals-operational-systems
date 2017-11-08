@@ -1,48 +1,62 @@
-Computador 1:
-	Informaçõe Este computador é uma VM com 3 CPUs disponíveis.
-		Sistema Operacional: Ubuntu
-		Processador: Intel® Cor i7-7200U CPU @ 2.40GHz 4 
-		Memória:5,120 GB
-		Estado da VM antes das execuções: Anexo 1
+# Execuções MPI em LAN
 
-	Execução - $ time ./bin:
+## Computador 1:
+### Informações:
+	VM com 3 CPUs disponíveis.
+	Sistema Operacional: Ubuntu
+	Processador: Intel® Cor i7-7200U CPU @ 2.40GHz 4 
+	Memória:5,120 GB
+	Estado do computador antes das execuções: Anexo 2
 
-		Apenas no master:
-			$ time mpirun -np 4 -host localhost ./mpi 
-			Max: 500000000.000000
-			Min: 2.000000
-			
-			real	0m8.987s
-			user	0m11.849s
-			sys	0m3.992s
-					Apenas no client:
-			$ time mpirun -np 4 -host client ./mpi 
-			Max: 500000000.000000
-			Min: 1.000000
-			
-			real	0m10.091s
-			user	0m0.012s
-			sys	0m0.012s
+### Execução apenas no master
 
-		2 VMs:
-			$ time mpirun -np 4 -host client,localhost ./mpi 
-			^Cmpirun: killing job...
-			
-			--------------------------------------------------------------------------
-			mpirun was unable to cleanly terminate the daemons on the nodes shown
-			below. Additional manual cleanup may be required - please refer to
-			the "orte-clean" tool for assistance.
-			--------------------------------------------------------------------------
-				client
-			
-			real	3m18.363s
-			user	0m0.028s
-			sys	0m0.036s
+#### Comando
+``` sh
+$ time mpirun -np 4 -host localhost ./mpi 
+```
+### Saída
+```
+Max: 500000000.000000
+Min: 2.000000
+
+real	0m8.987s
+user	0m11.849s
+sys	0m3.992s
+```
+
+### Execução em duas VM's
+
+#### Comando
+``` sh
+$ time mpirun -np 4 -host localhost ./mpi 
+```
+
+### Saída
+__saída foi interrompida, pois o processo não encerrava sozinho__
+
+```
+^Cmpirun: killing job...
+
+--------------------------------------------------------------------------
+mpirun was unable to cleanly terminate the daemons on the nodes shown
+below. Additional manual cleanup may be required - please refer to
+the "orte-clean" tool for assistance.
+--------------------------------------------------------------------------
+	client
+
+real	3m18.363s
+user	0m0.028s
+sys	0m0.036s
+```
 
 
-Anexo 1 - $ top -b:
+### Anexo 1
+#### Comando
+``` sh
+$ top -b:
+```
 
-
+```
 top - 23:32:14 up  1:23,  2 users,  load average: 0.17, 0.07, 0.14
 Tasks:  92 total,   1 running,  91 sleeping,   0 stopped,   0 zombie
 Cpu(s): 14.1%us,  0.2%sy,  0.0%ni, 85.7%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
@@ -142,4 +156,4 @@ Swap:   786428k total,        0k used,   786428k free,    54128k cached
  3019 root      20   0     0    0    0 S    0  0.0   0:00.02 kworker/0:2                                                                                                                                           
  3020 root      20   0     0    0    0 S    0  0.0   0:00.02 kworker/1:2                                                                                                                                           
  3021 root      20   0     0    0    0 S    0  0.0   0:00.01 kworker/0:0                                                                                                                                           
-
+ ```

@@ -1,57 +1,91 @@
-Computador 1:
-	Informações:
-		Sistema Operacional: Ubuntu 16.04
-		Processador: Intel® Core™ i5-4210U CPU @ 1.70GHz × 4 
-		Memória: 7,7 GB
-		Estado do computador antes das execuções: Anexo 1
+# Execuções do MPI local
 
-	Execução - $ time ./bin:
+## Computador 1:
+### Informações:
+	VM com 3 CPUs disponíveis.
+	Sistema Operacional: Ubuntu
+	Processador: Intel® Cor i7-7200U CPU @ 2.40GHz 4 
+	Memória:5,120 GB
+	Estado do computador antes das execuções: Anexo 2
 
-		Primeira:
+### Execução apenas no master
 
-		Segunda:
+#### Comando
+``` sh
+$ time mpirun -np 5 -host localhost ./mpi 
+```
+### Saídas
+#### Primeira:
 
-		Terceira:
+#### Segunda:
 
-
-Computador 2:
-	Informaçõe Este computador é uma VM com 3 CPUs disponíveis.
-		Sistema Operacional: Ubuntu
-		Processador: Intel® Cor i7-7200U CPU @ 2.40GHz 4 
-		Memória:5,120 GB
-		Estado do computador antes das execuções: Anexo 2
-
-	Execução - $ time ./bin:
-
-		Primeira:
-			Max: 500000000.000000
-			Min: 0.000000
-
-			real	0m6.695s
-			user	0m13.993s
-			sys	0m2.884s
-
-		Segunda:
-			Max: 500000000.000000
-			Min: 0.000000
-
-			real	0m6.725s
-			user	0m13.717s
-			sys	0m3.112s
+#### Terceira:
 
 
-		Terceira:
-			Max: 500000000.000000
-			Min: 1.000000
+## Computador 2:
+### Informações:
+	VM com 3 CPUs disponíveis.
+	Sistema Operacional: Ubuntu
+	Processador: Intel® Cor i7-7200U CPU @ 2.40GHz 4 
+	Memória:5,120 GB
+	Estado do computador antes das execuções: Anexo 2
 
-			real	0m6.682s
-			user	0m13.857s
-			sys	0m2.952s
+### Execução
 
-Anexo 1 - $ top -b:
+#### Comando
+``` sh
+$ time ./bin:
+```
+### Saídas
 
-Anexo 2: $ top -b:
+#### Primeira:
+```
+Max: 500000000.000000
+Min: 0.000000
 
+real	0m6.695s
+user	0m13.993s
+sys	0m2.884s
+```
+
+#### Segunda:
+```
+Max: 500000000.000000
+Min: 0.000000
+
+real	0m6.725s
+user	0m13.717s
+sys	0m3.112s
+```
+
+#### Terceira:
+```
+Max: 500000000.000000
+Min: 1.000000
+
+real	0m6.682s
+user	0m13.857s
+sys	0m2.952s
+```
+
+### Anexo 2
+#### Comando
+``` sh
+$ top -b:
+```
+
+### Saída
+```
+```
+
+### Anexo 2
+#### Comando
+``` sh
+$ top -b:
+```
+
+### Saída
+```
 top - 10:19:56 up 6 min,  1 user,  load average: 0.10, 0.06, 0.03
 Tasks:  82 total,   1 running,  81 sleeping,   0 stopped,   0 zombie
 Cpu(s):  0.2%us,  0.3%sy,  0.0%ni, 99.4%id,  0.1%wa,  0.0%hi,  0.0%si,  0.0%st
@@ -141,4 +175,4 @@ Swap:   786428k total,        0k used,   786428k free,    53652k cached
  1255 vagrant   20   0 29444 8432 1720 S    0  0.2   0:00.29 bash                                       
  1427 root      20   0     0    0    0 S    0  0.0   0:00.00 kworker/2:0                                
  1528 vagrant   20   0 17356 1236  948 R    0  0.0   0:00.00 top                                        
-
+```
