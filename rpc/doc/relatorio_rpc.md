@@ -23,6 +23,8 @@ Este projeto consiste na implementação de um exemplo de RPC, a aplicação aqui de
 
 ### Exemplo base
 
+[Código](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/tree/rpc/rpc/exemplo_base)
+
 * A primeira parte do projeto consiste em aplicar o exemplo de RPC dado na apostila, para isso foi utilizado 2 VMs com as dependÃªncias instaladas. O tutorial abaixo foi usado para configurar o NFS nas VMs:
 
 [Tutorial](http://mpitutorial.com/tutorials/running-an-mpi-cluster-within-a-lan/)
@@ -40,6 +42,8 @@ Este projeto consiste na implementação de um exemplo de RPC, a aplicação aqui de
 * Após os passos anteriores os comandos de execução do projeto foram feitos.
 
 ### Exercício 1
+
+[Código](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/tree/rpc/rpc/ex1)
 
 As seguintes mudanças foram observadas:
 
@@ -63,6 +67,8 @@ As seguintes mudanças foram observadas:
 É observável que aa nova versão está usando outra porta.
 
 ### Exercício 2
+
+[Código](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/tree/rpc/rpc/ex2)
 
 * Para fazer a multiplicação e a divisão os seguintes arquivos foram alterados do exemplo base:
 
@@ -109,6 +115,41 @@ Valor 0 inválido!
 1 / 2 = 0
 ```
 
+## FIBONACII
+
+[Código](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/tree/rpc/rpc/fibonacci)
+
+Para finalizar também foi construído o algorítmo de fibonacci utilizando **RPC**. Os seguintes passos foram feitos:
+
+1. Criacção do arquivo .x .
+2. Os arquivos `fibonacci_client` e `fibonacci_server` foram editados para adicionar a lógica do algorítmo e efetuar a comunicação entre eles.
+3. Os seguintes resultados foram alcançados:
+
+#### Server
+
+```
+Requisicao de fibonacci para 5 
+Requisicao de fibonacci para 7 
+Requisicao de fibonacci para 17 
+
+```
+#### Client
+
+```
+./fibonacci_client localhost 5
+Resultado: 13 
+```
+
+```
+./fibonacci_client localhost 7
+Resultado: 34 
+```
+
+```
+./fibonacci_client localhost 17
+Resultado: 4181 
+```
+
 ## Conclusão
 
 A implementação do projeto utilizando RPC foi bem mais simples do que o projeto de MPI, mesmo a complexidade dos problemas serem diferentes, foi notável que as facilitações que o RPC traz ajuda na contrução de aplicações em que suas "partes" estejam distribuídas.
@@ -117,9 +158,8 @@ A implementação do projeto utilizando RPC foi bem mais simples do que o projeto 
 
 * Sever:
 
-./calcula_server
+./fibonacci_server
 
 * Client
 
-./calcula_client [ip do server] nº1 nº2
-
+./fibonacci_client [ip do server] nº
