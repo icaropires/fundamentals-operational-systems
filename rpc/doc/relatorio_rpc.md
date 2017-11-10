@@ -1,4 +1,4 @@
-# Relat√≥rioRPC
+# Relat√≥rio RPC
 
 ## Dados
 
@@ -7,31 +7,31 @@
 * Alunos:
 
 	* Nome: Arthur Temporim
-	* MatrÌcula: 14/0016759
+	* Matr√≠cula: 14/0016759
 
-	* Nome: Õcaro Pires
-	* MatrÌcula: 15/0129815
-* RepositÛrio:
+	* Nome: √çcaro Pires
+	* Matr√≠cula: 15/0129815
+* Reposit√≥rio:
 
 	* [GitHub](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais)
 
-## IntroduÁ„o
+## Introdu√ß√£o
 
-Este projeto consiste na implementaÁ„o de um exemplo de RPC, a aplicaÁ„o aqui descrita È capaz de somar e subtrair 2 n˙meros inseridos pelo usu·rio, e por meio do RPC, efetuar a comunicaÁ„o entre o **client** e o **server** para efetuar os calculos desejados.
+Este projeto consiste na implementa√ß√£o de um exemplo de RPC, a aplica√ß√£o aqui descrita √© capaz de somar e subtrair 2 n√∫meros inseridos pelo usu√°rio, e por meio do RPC, efetuar a comunica√ß√£o entre o **client** e o **server** para efetuar os calculos desejados.
 
-## DescriÁ„o da SoluÁ„o
+## Descri√ß√£o da Solu√ß√£o
 
 ### Exemplo base
 
-[CÛdigo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/tree/rpc/rpc/exemplo_base)
+[C√≥digo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/tree/rpc/rpc/exemplo_base)
 
-* A primeira parte do projeto consiste em aplicar o exemplo de RPC dado na apostila, para isso foi utilizado 2 VMs com as depend√™ncias instaladas. O tutorial abaixo foi usado para configurar o NFS nas VMs:
+* A primeira parte do projeto consiste em aplicar o exemplo de RPC dado na apostila, para isso foi utilizado 2 VMs com as depend√É¬™ncias instaladas. O tutorial abaixo foi usado para configurar o NFS nas VMs:
 
 [Tutorial](http://mpitutorial.com/tutorials/running-an-mpi-cluster-within-a-lan/)
 
 * Depois os passos do enunciado do projeto foram seguidos.
 
-* Houve um problema com o RPC ent„o os seguintes comandos foram usados para solucionar:
+* Houve um problema com o RPC ent√£o os seguintes comandos foram usados para solucionar:
 
 `sudo -i service portmap stop`
 
@@ -39,17 +39,17 @@ Este projeto consiste na implementaÁ„o de um exemplo de RPC, a aplicaÁ„o aqui de
 
 `sudo -i service portmap start`
 
-* ApÛs os passos anteriores os comandos de execuÁ„o do projeto foram feitos.
+* Ap√≥s os passos anteriores os comandos de execu√ß√£o do projeto foram feitos.
 
-### ExercÌcio 1
+### Exerc√≠cio 1
 
-[CÛdigo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/tree/rpc/rpc/ex1)
+[C√≥digo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/tree/rpc/rpc/ex1)
 
-As seguintes mudanÁas foram observadas:
+As seguintes mudan√ßas foram observadas:
 
-1. Os mÈtodos no calcula_server.c e em outros arquivos que tinham o n˙mero **100** agora possuem o n˙mero **101** pois este foi o novo n˙mero da vers„o.
+1. Os m√©todos no calcula_server.c e em outros arquivos que tinham o n√∫mero **100** agora possuem o n√∫mero **101** pois este foi o novo n√∫mero da vers√£o.
 
-2. ApÛs gerar o novo bin·rio, e rodar o comando `rpcinfo -p` a seguinte saÌda foi gerada:
+2. Ap√≥s gerar o novo bin√°rio, e rodar o comando `rpcinfo -p` a seguinte sa√≠da foi gerada:
 
 ```
    program vers proto   port  service
@@ -64,20 +64,20 @@ As seguintes mudanÁas foram observadas:
   55555555  101   udp  50283
   55555555  101   tcp  36185
 ```
-… observ·vel que aa nova vers„o est· usando outra porta.
+√â observ√°vel que aa nova vers√£o est√° usando outra porta.
 
-### ExercÌcio 2
+### Exerc√≠cio 2
 
-[CÛdigo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/tree/rpc/rpc/ex2)
+[C√≥digo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/tree/rpc/rpc/ex2)
 
-* Para fazer a multiplicaÁ„o e a divis„o os seguintes arquivos foram alterados do exemplo base:
+* Para fazer a multiplica√ß√£o e a divis√£o os seguintes arquivos foram alterados do exemplo base:
 
 1. calcula_client.c
 2. calcula_server.c
 
-* N„o foi possÌvel usar o nome **div** para a funÁ„o de divis„o. Para contornar este erro, esta funÁ„o foi alterada para **divi**.
+* N√£o foi poss√≠vel usar o nome **div** para a fun√ß√£o de divis√£o. Para contornar este erro, esta fun√ß√£o foi alterada para **divi**.
 
-* os seguintes resultados foram alcanÁados:
+* os seguintes resultados foram alcan√ßados:
 
 #### Server
 
@@ -97,14 +97,14 @@ Requisicao de divisao para 1 e 2
 ./calcula_client localhost 0 0
 0 + 0 = 0
 0 - 0 = 0
-Valor 0 inv·lido!
+Valor 0 inv√°lido!
 ```
 
 ```
 ./calcula_client localhost 1 0
 1 + 0 = 1
 1 - 0 = 1
-Valor 0 inv·lido!
+Valor 0 inv√°lido!
 ```
 
 ```
@@ -117,13 +117,13 @@ Valor 0 inv·lido!
 
 ## FIBONACII
 
-[CÛdigo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/tree/rpc/rpc/fibonacci)
+[C√≥digo](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/tree/rpc/rpc/fibonacci)
 
-Para finalizar tambÈm foi construÌdo o algorÌtmo de fibonacci utilizando **RPC**. Os seguintes passos foram feitos:
+Para finalizar tamb√©m foi constru√≠do o algor√≠tmo de fibonacci utilizando **RPC**. Os seguintes passos foram feitos:
 
-1. CriacÁ„o do arquivo .x .
-2. Os arquivos `fibonacci_client` e `fibonacci_server` foram editados para adicionar a lÛgica do algorÌtmo e efetuar a comunicaÁ„o entre eles.
-3. Os seguintes resultados foram alcanÁados:
+1. Criac√ß√£o do arquivo .x .
+2. Os arquivos `fibonacci_client` e `fibonacci_server` foram editados para adicionar a l√≥gica do algor√≠tmo e efetuar a comunica√ß√£o entre eles.
+3. Os seguintes resultados foram alcan√ßados:
 
 #### Server
 
@@ -150,11 +150,11 @@ Resultado: 34
 Resultado: 4181 
 ```
 
-## Conclus„o
+## Conclus√£o
 
-A implementaÁ„o do projeto utilizando RPC foi bem mais simples do que o projeto de MPI, mesmo a complexidade dos problemas serem diferentes, foi not·vel que as facilitaÁıes que o RPC traz ajuda na contruÁ„o de aplicaÁıes em que suas "partes" estejam distribuÌdas.
+A implementa√ß√£o do projeto utilizando RPC foi bem mais simples do que o projeto de MPI, mesmo a complexidade dos problemas serem diferentes, foi not√°vel que as facilita√ß√µes que o RPC traz ajuda na contru√ß√£o de aplica√ß√µes em que suas "partes" estejam distribu√≠das.
 
-# InstruÁıes para execuÁ„o
+# Instru√ß√µes para execu√ß√£o
 
 * Sever:
 
@@ -162,4 +162,4 @@ A implementaÁ„o do projeto utilizando RPC foi bem mais simples do que o projeto 
 
 * Client
 
-./fibonacci_client [ip do server] n∫
+./fibonacci_client [ip do server] n¬∫
