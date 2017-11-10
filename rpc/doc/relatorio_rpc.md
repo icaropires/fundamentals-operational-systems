@@ -62,6 +62,53 @@ As seguintes mudanças foram observadas:
 ```
 É observável que aa nova versão está usando outra porta.
 
+### Exercício 2
+
+* Para fazer a multiplicação e a divisão os seguintes arquivos foram alterados do exemplo base:
+
+1. calcula_client.c
+2. calcula_server.c
+
+* Não foi possível usar o nome **div** para a função de divisão. Para contornar este erro, esta função foi alterada para **divi**.
+
+* os seguintes resultados foram alcançados:
+
+#### Server
+
+```
+Requisicao de adicao para 0 e 0
+Requisicao de subtracao para 0 e 0
+Requisicao de adicao para 1 e 0
+Requisicao de subtracao para 1 e 0
+Requisicao de adicao para 1 e 2
+Requisicao de subtracao para 1 e 2
+Requisicao de multiplicacao para 1 e 2
+Requisicao de divisao para 1 e 2
+```
+#### Client
+
+```
+./calcula_client localhost 0 0
+0 + 0 = 0
+0 - 0 = 0
+Valor 0 inválido!
+```
+
+```
+./calcula_client localhost 1 0
+1 + 0 = 1
+1 - 0 = 1
+Valor 0 inválido!
+```
+
+```
+./calcula_client localhost 1 2
+1 + 2 = 3
+1 - 2 = -1
+1 * 2 = 2
+1 / 2 = 0
+```
+
 ## Conclusão
 
 A implementação do projeto utilizando RPC foi bem mais simples do que o projeto de MPI, mesmo a complexidade dos problemas serem diferentes, foi notável que as facilitações que o RPC traz ajuda na contrução de aplicações em que suas "partes" estejam distribuídas.
