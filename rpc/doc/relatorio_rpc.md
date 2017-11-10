@@ -21,6 +21,8 @@ Este projeto consiste na implementação de um exemplo de RPC, a aplicação aqui de
 
 ## Descrição da Solução
 
+### Exemplo base
+
 * A primeira parte do projeto consiste em aplicar o exemplo de RPC dado na apostila, para isso foi utilizado 2 VMs com as dependÃªncias instaladas. O tutorial abaixo foi usado para configurar o NFS nas VMs:
 
 [Tutorial](http://mpitutorial.com/tutorials/running-an-mpi-cluster-within-a-lan/)
@@ -37,6 +39,28 @@ Este projeto consiste na implementação de um exemplo de RPC, a aplicação aqui de
 
 * Após os passos anteriores os comandos de execução do projeto foram feitos.
 
+### Exercício 1
+
+As seguintes mudanças foram observadas:
+
+1. Os métodos no calcula_server.c e em outros arquivos que tinham o número **100** agora possuem o número **101** pois este foi o novo número da versão.
+
+2. Após gerar o novo binário, e rodar o comando `rpcinfo -p` a seguinte saída foi gerada:
+
+```
+   program vers proto   port  service
+    100000    4   tcp    111  portmapper
+    100000    3   tcp    111  portmapper
+    100000    2   tcp    111  portmapper
+    100000    4   udp    111  portmapper
+    100000    3   udp    111  portmapper
+    100000    2   udp    111  portmapper
+  55555555  100   udp  58402
+  55555555  100   tcp  40215
+  55555555  101   udp  50283
+  55555555  101   tcp  36185
+```
+É observável que aa nova versão está usando outra porta.
 
 ## Conclusão
 
