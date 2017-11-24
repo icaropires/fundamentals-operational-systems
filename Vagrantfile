@@ -74,17 +74,22 @@ Vagrant.configure(2) do |config|
 	sudo apt-get install nfs-kernel-server -y # master
 	sudo apt-get install nfs-common -y # slave
 	sudo apt-get install scala -y
+	sudo apt-get install make -y
+
+	# For building drivers
+	sudo apt-get install apt-get install linux-headers-$(uname -r) -y
+	sudo ln -s /usr/src/linux-headers-$(uname -r)/ /lib/modules/$(uname -r)/build
 
 	sudo apt-get install apt-transport-https -y
 
-	# Install sbt
-	echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+	# Install sbt - Hadoop/Spark
+	echo "deb https://dl.bintray.com/sbt/debian/" | sudo tee -a /etc/apt/sources.list.d/sbt.list
 	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
 	sudo apt-get update
 	sudo apt-get install gc -y
 	sudo apt-get install sbt -y
 
-	# Add distributed user
+	# Add distributed user - Hadoop/Spark
 	sudo adduser distributed --gecos "" --disabled-password
 	sudo adduser distributed sudo
 	echo "distributed:dist" | sudo chpasswd
