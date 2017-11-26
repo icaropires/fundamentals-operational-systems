@@ -12,12 +12,9 @@ irq_handler_t irq_handler (int irq, void *dev_id, struct pt_regs *regs) {
 
 	scancode = inb(0x60); // Read keyboard status getting scancode from specific input port.
 
-	if((scancode == 0x01) || (scancode == 0x81)) {
-		printk ("\nYou pressed Esc !\n");
-	} else {
-		printk("Not mapped key!\n");
-		printk("Key was: %d\n\n", scancode);
-	}
+	printk("Not mapped key!\n");
+	printk("Key was: %#2x in hexadecimal\n", scancode);
+	printk("Key was: %d in decimal\n\n", scancode);
 
 	return (irq_handler_t) IRQ_HANDLED;
 }
