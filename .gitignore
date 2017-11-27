@@ -9,6 +9,7 @@
 
 # Keylogger
 keylogger/io/*
+to_int_translator
 __pycache__
 
 # Virtual Machine

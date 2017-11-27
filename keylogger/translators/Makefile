@@ -2,7 +2,7 @@
 
 OBJ_DIR = obj
 SRC_DIR = src
-BIN_DIR = bin
+BIN_DIR = bins
 INC_DIR = inc
 
 CFLAGS = -std=c11
@@ -16,6 +16,8 @@ FUNCTIONS_SRC_FILE = functions.c
 
 CC = gcc
 
+PWD := $(shell pwd)
+
 default:
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(INCLUDES) -c $(SRC_DIR)/$(MAIN_SRC_FILE) $(CFLAGS) -o $(OBJ_DIR)/$(MAIN_OBJ_NAME)
@@ -25,4 +27,4 @@ default:
 clean:
 	rm -f $(BIN_DIR)/$(BIN_NAME)
 	rm -rf $(OBJ_DIR) $(SRC_DIR)/__pycache__
-	@echo "\nAttention: Don't delete bin folder, it contains a python script!"
+	echo "\nAttention: Don't delete bins folder, it contains a python script!"
