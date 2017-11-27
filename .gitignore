@@ -5,10 +5,7 @@
 *.o
 *.out
 *.odt
-
-# Project 2
-project2/.arb_file
-project2/.log
+.*
 
 # Virtual Machine
 .vagrant
