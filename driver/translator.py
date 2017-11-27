@@ -26,13 +26,14 @@ def build_keymap_dict(key_map):
     return key_dict
 
 def substitute_keys(key_dict, data):
-    print('Starting to substitue keys...')
+    print('Starting to substitute keys...')
+
     new_data = []
     new_data += [key_dict[data[0]]]
 
     for i in range(1, len(data)):
-        if not i%100: # Print status on 100's keys
-            print('Substitued {:.2f}% of the keys...'.format(i/len(data)))
+        if not i%10: # Print status on 10's keys
+            print('Substituted {:.2f}% of the keys...'.format(i/len(data)))
 
         key = data[i]
         prev_key = data[i - 1]
@@ -52,7 +53,7 @@ def substitute_keys(key_dict, data):
         except KeyError:
             a = 2 + 2 # Nothing
 
-    print('Ended substituting keys')
+    print('Keys substituted successfully')
     return new_data
 
 def write_result(data):
