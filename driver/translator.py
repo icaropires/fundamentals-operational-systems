@@ -7,6 +7,7 @@ from sys import argv, stderr
 UNPRESS_INTERVAL = 128  # Unpress scancode will be +128 the press scancode
 
 SPACE = '57'
+ENTER = '28'
 
 CAPS_LOCK = '58'
 CAPS_LOCK_UNPRESS = '186'
