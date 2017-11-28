@@ -1,4 +1,9 @@
 from sys import stderr
+from scancode_constants import (UNPRESS_INTERVAL,
+                                SPACE,
+                                ENTER,
+                                CAPS_LOCK,
+                                IGNORED_KEYS)
 
 INTERVAL_PRINT_STATUS = 30 # Print substituting status from each n keys
                            # processed   
