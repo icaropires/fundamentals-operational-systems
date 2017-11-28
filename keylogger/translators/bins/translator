@@ -4,9 +4,11 @@ import subprocess
 import os
 from sys import argv, stderr, path
 
-SRC_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC_PATH = os.path.join(SRC_PATH, 'src')
+PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SRC_PATH = os.path.join(PATH, 'src')
 path.append(SRC_PATH)
+
+BINS_PATH = os.path.join(PATH, 'bins')
 
 from functions import build_keymap_dict, substitute_keys, write_result
 from scancode_constants import (UNPRESS_INTERVAL,
@@ -15,14 +17,15 @@ from scancode_constants import (UNPRESS_INTERVAL,
                                 CAPS_LOCK_EXTRA_CODE,
                                 IGNORED_KEYS)
 
-TO_INT_TRANSLATOR = './to_int_translator' # Program which will translate the
-                                          # unsigned char file to integer
+TO_INT_TRANSLATOR = 'to_int_translator' # Program which will translate the
+                                        # unsigned char file to integer
 
 INTEGER_SCANCODES_FILE = '../../io/integer_scancodes_file' # File after
                                                            # to int translation
 
 
-error = subprocess.call([TO_INT_TRANSLATOR, argv[2]])
+execute_to_int_translator = os.path.join('.', BINS_PATH, TO_INT_TRANSLATOR)
+error = subprocess.call([execute_to_int_translator, argv[2]])
 
 if not error:
     with open(INTEGER_SCANCODES_FILE) as file:
