@@ -5,11 +5,12 @@
 *.o
 *.out
 *.odt
-*.txt
+.*
 
-# Project 2
-project2/.arb_file
-project2/.log
+# Keylogger
+keylogger/io/*
+to_int_translator
+__pycache__
 
-# MPI
-mpi/.vagrant
+# Virtual Machine
+.vagrant
