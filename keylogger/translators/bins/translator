@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import subprocess
 import os
 from sys import argv, stderr, path
 
@@ -10,33 +9,23 @@ path.append(SRC_PATH)
 
 BINS_PATH = os.path.join(PATH, 'bins')
 
-from functions import build_keymap_dict, substitute_keys, write_result
+from functions import(
+    build_keymap_dict,
+    substitute_keys,
+    write_result,
+    get_scancodes
+)
 
-TO_INT_TRANSLATOR = 'to_int_translator' # Program which will translate the
-                                        # unsigned char file to integer
-TO_INT_TRANSLATOR = os.path.join(BINS_PATH, TO_INT_TRANSLATOR)
-
-INTEGER_SCANCODES_FILE = '../../io/integer_scancodes_file' # File after
-                                                           # to int translation
-
-error = subprocess.check_call([TO_INT_TRANSLATOR, argv[2]])
-
-if not error:
-    with open(INTEGER_SCANCODES_FILE) as file:
-        data = file.read()
-
-    with open(argv[1]) as file:
-        key_map = file.readlines()
-        key_map = [line.strip() for line in key_map][1:]
-else:
-    print('Is not possible to translate the file, problem while translating' +
-          ' from int.', file=stderr)
-    exit(1)
+with open(argv[1]) as file:
+    key_map = file.readlines()
+    key_map = [line.strip() for line in key_map][1:]
 
 key_dict = build_keymap_dict(key_map)
 
-data = data.split()
-translated_data = substitute_keys(key_dict, data)
+scancodes = get_scancodes(argv[2])
+scancodes = scancodes.split('\n')
+
+translated_data = substitute_keys(key_dict, scancodes)
 translated_data = ''.join(translated_data)
 
 write_result(translated_data)
