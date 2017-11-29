@@ -7,16 +7,30 @@ KEY_MAP_PREFIX='../maps/key_map_'
 PRESSED_KEYS='../io/.pressed_keys'
 
 KERNEL_VERSION=$(uname -r)
+RETURN_CODE_KERNEL_VERISON=$(echo $KERNEL_VERSION | grep generic)
+
 
 if [ "$#" -eq 2 ]; then
-	tail -n$2 /var/log/kern.log > io/.pressed_keys
+	if [ RETURN_CODE_KERNEL_VERISON -ne 0 ]; then
+		journalctl > /tmp/.pressed_keys_tmp
+		tail -n$2 /tmp/.pressed_keys_tmp > io/.pressed_keys
+	else
+		tail -n$2  > io/.pressed_keys
+	fi
+
 	if [ $? -ne 0 ]; then echo 'There was a problem loading kernel logs'; exit 1; fi
 
 	cd $TRANSLATOR_BIN && $RUN_TRANSLATOR $KEY_MAP_PREFIX$1 $PRESSED_KEYS
 	if [ $? -ne 0 ]; then echo 'There was a problem running translator'; exit 1; fi
 
 elif [ "$#" -eq 1 ]; then
-	cat /var/log/kern.log > io/.pressed_keys
+	if [ RETURN_CODE_KERNEL_VERISON -ne 0 ]; then
+		journalctl > /tmp/.pressed_keys_tmp
+		cat /tmp/.pressed_keys_tmp > io/.pressed_keys
+	else
+		cat /var/log/kern.log > io/.pressed_keys
+	fi
+
 	if [ $? -ne 0 ]; then echo 'There was a problem loading kernel logs'; exit 1; fi
 
 	cd $TRANSLATOR_BIN && $RUN_TRANSLATOR $KEY_MAP_PREFIX$1 $PRESSED_KEYS
