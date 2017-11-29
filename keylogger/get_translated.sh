@@ -7,11 +7,12 @@ KEY_MAP_PREFIX='../maps/key_map_'
 PRESSED_KEYS='../io/.pressed_keys'
 
 KERNEL_VERSION=$(uname -r)
-RETURN_CODE_KERNEL_VERISON=$(echo $KERNEL_VERSION | grep generic)
 
+echo $KERNEL_VERSION | grep generic
+RETURN_CODE_KERNEL_VERSION=$?
 
 if [ "$#" -eq 2 ]; then
-	if [ RETURN_CODE_KERNEL_VERISON -ne 0 ]; then
+	if [ $RETURN_CODE_KERNEL_VERSION -ne 0 ]; then
 		journalctl > /tmp/.pressed_keys_tmp
 		tail -n$2 /tmp/.pressed_keys_tmp > io/.pressed_keys
 	else
@@ -24,7 +25,7 @@ if [ "$#" -eq 2 ]; then
 	if [ $? -ne 0 ]; then echo 'There was a problem running translator'; exit 1; fi
 
 elif [ "$#" -eq 1 ]; then
-	if [ RETURN_CODE_KERNEL_VERISON -ne 0 ]; then
+	if [ $RETURN_CODE_KERNEL_VERSION -ne 0 ]; then
 		journalctl > /tmp/.pressed_keys_tmp
 		cat /tmp/.pressed_keys_tmp > io/.pressed_keys
 	else
