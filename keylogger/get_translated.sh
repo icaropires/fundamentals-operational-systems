@@ -1,33 +1,55 @@
 #!/bin/sh
 
-TRANSLATORS_BINS='translators/bins'
+TRANSLATOR_BIN='translator/'
 KEY_MAP_PREFIXE='maps/keys_map_'
 RUN_TRANSLATOR='./translator'
-KEY_MAP_PREFIX='../../maps/key_map_'
+KEY_MAP_PREFIX='../maps/key_map_'
+PRESSED_KEYS='../io/.pressed_keys'
+
+KERNEL_VERSION=$(uname -r)
+
+echo $KERNEL_VERSION | grep generic
+RETURN_CODE_KERNEL_VERSION=$?
 
 if [ "$#" -eq 2 ]; then
-	cd $TRANSLATORS_BINS && $RUN_TRANSLATOR $KEY_MAP_PREFIX$1 ../../$2
-elif [ "$#" -eq 1 ]; then
-	sudo rm -f io/.pressed_keys
-
-	sudo cp /tmp/.pressed_keys $PWD/io/.pressed_keys
-
-	if [ $? -ne 0 ]; then
-	   echo 'There was a problem getting file /tmp/.pressed_keys'
-	   exit 1 
+	if [ $RETURN_CODE_KERNEL_VERSION -ne 0 ]; then
+		journalctl > /tmp/.pressed_keys_tmp
+		tail -n$2 /tmp/.pressed_keys_tmp > io/.pressed_keys
+	else
+		tail -n$2  > io/.pressed_keys
 	fi
 
-	cd $TRANSLATORS_BINS && $RUN_TRANSLATOR $KEY_MAP_PREFIX$1 ../../io/.pressed_keys
+	if [ $? -ne 0 ]; then echo 'There was a problem loading kernel logs'; exit 1; fi
+
+	cd $TRANSLATOR_BIN && $RUN_TRANSLATOR $KEY_MAP_PREFIX$1 $PRESSED_KEYS
+	if [ $? -ne 0 ]; then echo 'There was a problem running translator'; exit 1; fi
+
+elif [ "$#" -eq 1 ]; then
+	if [ $RETURN_CODE_KERNEL_VERSION -ne 0 ]; then
+		journalctl > /tmp/.pressed_keys_tmp
+		cat /tmp/.pressed_keys_tmp > io/.pressed_keys
+	else
+		cat /var/log/kern.log > io/.pressed_keys
+	fi
+
+	if [ $? -ne 0 ]; then echo 'There was a problem loading kernel logs'; exit 1; fi
+
+	cd $TRANSLATOR_BIN && $RUN_TRANSLATOR $KEY_MAP_PREFIX$1 $PRESSED_KEYS
+	if [ $? -ne 0 ]; then echo 'There was a problem running translator'; exit 1; fi
+
 else
-	echo -e 'You should provide at least 1 parameter, the keyboard language. To check available options, look at the ending of names of files under directory maps. It must be all uppercase!\n'
-	echo 'Also, you can provide 2, the language of keyboard and file to be translated'
+	echo 'You should provide at least 1 parameter, the keyboard language. To check available options, look at the ending of names of files under directory maps. It must be all uppercase!\n'
+
+	echo 'Also, you can provide 2, the language of keyboard and how much lines process from the kernel log'
+
 	exit 1
 fi
 
 cd -
 
-echo -e '\n'
+echo '\n'
 cat io/results.txt
-echo -e '\n'
+if [ $? -ne 0 ]; then echo 'There was a problem reading results file'; exit 1; fi
+echo '\n'
 
-echo -e '\nFinished!\nIf everything was ok, your result file is io/results.txt'
+echo '\nFinished!\nIf everything was ok, your result file is io/results.txt'

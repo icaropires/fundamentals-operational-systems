@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+import os
+from sys import argv, stderr, path
+
+from functions import(
+    build_keymap_dict,
+    substitute_keys,
+    write_result,
+    get_scancodes
+)
+
+with open(argv[1]) as file:
+    key_map = file.readlines()
+    key_map = [line.strip() for line in key_map][1:]
+
+key_dict = build_keymap_dict(key_map)
+
+scancodes = get_scancodes(argv[2])
+scancodes = scancodes.split('\n')
+
+translated_data = substitute_keys(key_dict, scancodes)
+translated_data = ''.join(translated_data)
+
+write_result(translated_data)
+
+print('Translation completed!!!')
