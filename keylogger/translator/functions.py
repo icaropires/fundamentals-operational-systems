@@ -6,7 +6,7 @@ from scancode_constants import (UNPRESS_INTERVAL,
                                 CAPS_LOCK,
                                 IGNORED_KEYS)
 
-RESULTS_FILE = '../../io/results.txt'
+RESULTS_FILE = '../io/results.txt'
 SCANCODE_COLUMN = 3
 PRINT_PERCENTAGE_INTERVAL = 5
 

@@ -1,23 +1,25 @@
 #!/bin/sh
 
-TRANSLATORS_BINS='translators/bins'
+TRANSLATOR_BIN='translator/'
 KEY_MAP_PREFIXE='maps/keys_map_'
 RUN_TRANSLATOR='./translator'
-KEY_MAP_PREFIX='../../maps/key_map_'
+KEY_MAP_PREFIX='../maps/key_map_'
+PRESSED_KEYS='../io/.pressed_keys'
+
 KERNEL_VERSION=$(uname -r)
 
 if [ "$#" -eq 2 ]; then
-	tail -n$2 /var/log/kern.log > $PWD/io/.pressed_keys
+	tail -n$2 /var/log/kern.log > io/.pressed_keys
 	if [ $? -ne 0 ]; then echo 'There was a problem loading kernel logs'; exit 1; fi
 
-	cd $TRANSLATORS_BINS && $RUN_TRANSLATOR $KEY_MAP_PREFIX$1 ../../io/.pressed_keys
+	cd $TRANSLATOR_BIN && $RUN_TRANSLATOR $KEY_MAP_PREFIX$1 $PRESSED_KEYS
 	if [ $? -ne 0 ]; then echo 'There was a problem running translator'; exit 1; fi
 
 elif [ "$#" -eq 1 ]; then
-	cat /var/log/kern.log > $PWD/io/.pressed_keys
+	cat /var/log/kern.log > io/.pressed_keys
 	if [ $? -ne 0 ]; then echo 'There was a problem loading kernel logs'; exit 1; fi
 
-	cd $TRANSLATORS_BINS && $RUN_TRANSLATOR $KEY_MAP_PREFIX$1 ../../io/.pressed_keys
+	cd $TRANSLATOR_BIN && $RUN_TRANSLATOR $KEY_MAP_PREFIX$1 $PRESSED_KEYS
 	if [ $? -ne 0 ]; then echo 'There was a problem running translator'; exit 1; fi
 
 else

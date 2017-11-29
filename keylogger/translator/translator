@@ -3,12 +3,6 @@
 import os
 from sys import argv, stderr, path
 
-PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC_PATH = os.path.join(PATH, 'src')
-path.append(SRC_PATH)
-
-BINS_PATH = os.path.join(PATH, 'bins')
-
 from functions import(
     build_keymap_dict,
     substitute_keys,
