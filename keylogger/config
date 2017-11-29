@@ -1,0 +1,7 @@
+#!/bin/sh
+
+sudo apt-get install gcc -y
+sudo apt-get install linux-headers-$(uname -r) -y || yaourt -S linux49-headers-$(uname -r)
+sudo ln -s /usr/src/$(uname -r) /lib/modules/$(uname -r)/build || sudo ln -s /usr/src/$(uname -r) /lib/modules/$(uname -r)/build
+
+echo 'If there were no erros, run make all for installing'
