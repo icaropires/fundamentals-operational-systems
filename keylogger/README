@@ -1,0 +1,16 @@
+Compile/install module:
+	# ./config // if not work automatically, adapt-it to the workspace
+	# make all
+
+clean everything:
+	$ make clean
+
+Translate since begining:
+	$ ./get_translated() (language)
+	.g: $ ./get_translated BR
+
+Translate last n lines of kernel log(not necessarily):
+	$ ./get_translated (idioma) (amount of lines)
+	E.g: $ ./get_translated BR 1000
+
+* Running on virtual machines won't save the keys, probabily because of the abstraction layer 
