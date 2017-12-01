@@ -10,10 +10,10 @@
 
 * **Integrantes**:
 
-	|Nome|Github|
-	|----|------|
-	|Arthur Temporim|[arthurTemporim](https://github.com/arthurTemporim/)|
-	|Ícaro Pires|[icaropires](https://github.com/icaropires/)|
+	|Nome|Matrícula|Github|
+	|----|---------|------|
+	|Arthur Temporim|14/xxxxxx|[arthurTemporim](https://github.com/arthurTemporim/)|
+	|Ícaro Pires|15/0129815|[icaropires](https://github.com/icaropires/)|
 
 
 ## Introdução
@@ -95,11 +95,13 @@ Um detalhe importante a se notar, é que nessa parte foi considerado que o dispo
 
 Um detalhe que ainda não foi citado é o de que a função que foi usada para gravar as teclas digitadas no arquivo só suportava que fossem gravados chars, ou seja, tínhamos a disposição um byte e poderíamos gravar valores apenas até 255 (já desconsiderando valores sinalizados).
 
-Felizmente os scancodes das teclas principais ficam todas abaixo desse limiar, ficando acima dele apenas algumas funções especiais de teclados modernos, como teclas multimídia. Outro problema derivado disso, é que o arquivo estaria todo gravado com chars ao invés de inteiros que representariam os scancodes, dificultando a tradução.
+Felizmente, os scancodes das teclas principais ficam todas abaixo desse limiar, ficando acima dele apenas algumas funções especiais de teclados modernos, como teclas multimídia. Outro problema derivado disso, é que o arquivo estaria todo gravado com chars ao invés de inteiros que representariam os scancodes, dificultando a tradução.
 
 #### Tradutores
 
-Tendo o arquivo com os scancodes das teclas digitadas, precisávamos agora traduzir esse arquivo para ASCII para que alguém consigo lê-lo. Como o arquivo foi gravado com chars, escolhemos a linguagem **C** para realizar a primeira etapa da tradução, devido sua característica em tratar tudo como números. De fato essa característica facilitou o trabalho, foi necessário apenas ler as entradas do arquivo formatadas para unsigned int e salvando-as num inteiro e já tínhamos os scancodes representados em inteiros. E por fim, gravávamos o conteúdo, já em inteiro, num segundo arquivo (para preservar os dados originais).
+Tendo o arquivo com os scancodes das teclas digitadas, precisávamos agora traduzir esse arquivo para ASCII para que alguém consigo lê-lo. Como o arquivo foi gravado com chars, escolhemos a linguagem **C** para realizar a primeira etapa da tradução, devido sua característica em tratar tudo como números.
+
+De fato, essa característica facilitou o trabalho, foi necessário apenas ler as entradas do arquivo formatadas para unsigned int e salvá-las num inteiro. Com isso, já tínhamos os scancodes representados em inteiros. Por fim, gravávamos o conteúdo, já em inteiro, num segundo arquivo (para preservar os dados originais).
 
 Numa segunda etapa, escrevemos um programa em python que:
 
@@ -113,13 +115,13 @@ Numa segunda etapa, escrevemos um programa em python que:
 
 Python foi utilizado por sua facilidade em lidar com esse tipo de tarefa e tratamentos, além de que não é necessário um desempenho extramente rápido como o do C.
 
-Para obter o mapeamento das teclas para scancodes, utilizamos o programa evtest. Dado o dispositivo, ele gera uma lista com os scancodes e nome associado a cada scancode. Salvamos esses dados num arquivo e adicionamos nesse arquivo algumas informações que poderiam ser úteis, como a representação em hexadecimal do scancode (para checar se os valores em decimal estavam corretos), e os "nicks" das teclas. Porque dessa forma consegueríamos mapear uma tecla KEY_A para apenas "a" e uma tecla ENTER para a quebra de linha, gerando assim uma saída mais fácil de ser interpretada.
+Para obter o mapeamento das teclas para scancodes, utilizamos o programa evtest. Dado o dispositivo, ele gera uma lista com os scancodes e nome associado a cada scancode. Salvamos esses dados num arquivo e adicionamos nele algumas informações que poderiam ser úteis, como a representação em hexadecimal do scancode (para checar se os valores em decimal estavam corretos), e os "nicks" das teclas. Dessa forma consegueríamos mapear uma tecla KEY_A para apenas "a" e uma tecla ENTER para a quebra de linha, gerando assim uma saída mais fácil de ser interpretada.
 
 Também adaptamos essa lista gerada para que fosse compatível o mapeamento de teclado brasileiro ABNT-2. As duas versões foram mantidas e o usuário consegue traduzir a entrada crua usando o padrão brasileiro para mapeamento do teclado ou o americano.
 
 #### Usabilidade
 
-Claro que a intenção não era produzir um software comercial, mas como foram utilizados vários mini-programas independentes, também escrevemos um script em bash que lidaria com os outros programas e só esperaria que o usuário lhe informasse qual idioma do mapeamento de teclas e qual arquivo desejasse traduzir, se não seria usado o default.
+Claro que a intenção não era produzir um software comercial, mas como foram utilizados vários mini-programas independentes, também escrevemos um script em bash que lidaria com eles e para isso, só precisaria que o usuário lhe informasse qual idioma do mapeamento de teclas e qual arquivo desejasse traduzir, se não seria usado o default.
 
 ### 7. Testes
 
@@ -141,17 +143,17 @@ OBS: Não foram utilizadas máquinas virtuais, pois o interrup_handler não capt
 
 ### 8. Evolução
 
-Após a versão inicial finalizada e todas as partes do Keylogger estarem finalizadas, mais estudos foram feitos e uma solução mais eficiente surgiu. O processo de evolução foi iniciado para a implementação desta nova solução que será descrita no tópico de **solução**.
+Tentamos de várias formas resolver o problema de compatibilidade com o Ambiente Ubuntu e descobrimos que essa incompatibilidade era na chamada da função vfs_write(). Após várias tentativas sem sucesso de solucionar esse problema (provavelmente seria alguma incompatibilidade na versão do kernel), desistimos dessa abordagem de escrever num arquivo.
 
-## Solução
+Decidimos utilizar o próprio log do kernel para armazenar os dados das teclas pressionadas, visto que para imprimir no log do kernel apenas a função printk() utilizada no interrupt_handler já é suficiente. Não utilizamos essa abordagem antes pois imaginos que separar os dados de scancodes do restante dos logs seria mais custoso pra executar e mais trabalhoso para implementar, o que não se mostrou verdade comparado a estratégia de escrever no arquivo.
 
-### Versão Beta
+Para separar os dados dos scancodes do restante dos logs, utilizamos funções do próprio bash, como grep, sed e cut. Para facilitar o procedimento e manter os dados disfarçados no ambiente, para continuar coerente com a situação hipotética do vírus, imprimos os scancodes como uso se fossem mW de bateria sendo gastos.
 
-A solução implementada foi a criação de um device driver que, após instalado, fica armazenando um um arquivo oculto todas as teclas pressionadas pelo computador "infectado", inclusive quando são liberadas no caso de teclas como **capslock** e **shift**.
+Para que o restante do mecanismo se adaptasse ao novo sistema, removemos os códigos de tratamento de arquivos do módulo, apagamos o tradutor em C e embutimos as chamadas das funções do bash no tradutor em python, assim, eliminamos uma das etapas. Foi também adaptado o script em bash, na prática a principal diferença é que agora, o segundo parâmetro passado a ele se refere a quantidade de linhas do log do kernel que ele deseja processar.
 
-Após as informações serem armazenadas, um script python é executado para fazer a tradução dos dados armazenados.
+Dessa forma, o keylogger passou a funcionar em ambos ambientes, apenas com a diferença de que foi feita uma alteração no script em bash para que ele leia diretamente o arquivo de log no caso do Ambiente Ubuntu (este arquivo está em /var/log/.kern_log) e para o Ambiente Manjaro, ele execute o comando journalctl.
 
-### Versão Alpha
+OBS: Muito provavelmente o keylogger pode ser executado em todas as distribuições variantes do Debian e Arch com poucas ou nenhuma alteração, testes são necessários.
 
 ## Instruções
 
