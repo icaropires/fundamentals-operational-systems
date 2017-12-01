@@ -10,10 +10,10 @@
 
 * **Integrantes**:
 
-	|Nome|Matrícula|Github|
-	|----|---------|------|
-	|Arthur Temporim|14/xxxxxx|[arthurTemporim](https://github.com/arthurTemporim/)|
-	|Ícaro Pires|15/0129815|[icaropires](https://github.com/icaropires/)|
+|Nome|Matrícula|Github|
+|----|---------|------|
+|Arthur Temporim|14/0016759|[arthurTemporim](https://github.com/arthurTemporim/)|
+|Ícaro Pires|15/0129815|[icaropires](https://github.com/icaropires/)|
 
 
 ## Introdução
@@ -137,9 +137,9 @@ Os testes foram realizados em dois ambientes:
 ##### Ambiente Manjaro:
 
 	Distribuição: Manjaro
-	Versão do kernel: 4.9.65-1-MANJARO 
+	Versão do kernel: 4.9.65-1-MANJARO
 
-OBS: Não foram utilizadas máquinas virtuais, pois o interrup_handler não captava as teclas digitadas a partir dela. 
+OBS: Não foram utilizadas máquinas virtuais, pois o interrup_handler não captava as teclas digitadas a partir dela.
 
 ### 8. Evolução
 
@@ -161,11 +161,53 @@ Neste tópico é descrito como instalar e utilizar o Keylogger.
 
 ### Instalação
 
+Para facilitar a utilização do driver, um **Makefile** e **Bash scripts** foram criados. Segue abaixo os passos necessários para instalação:
+
+* **Dependências**
+* Seguir tutorial do capítulo 2 do Livro **Linux Device Drivers**
+
+ou
+
+* Seguir [Tutorial](freesoftwaremagazine.com/articles/drivers_linux/) da Free Software magazine.
+
+ou
+
+* Utilizar o [script](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/master/keylogger/config) criado para configurar computadores com ambiente "Debian like" e "Arch like". Para executalo execute o comando abaixo na pasta raiz do keylogger:
+
+* `./config`
+
 ### Uso
 
+* **Ativação**
+Para o Keylogger começar a coletar os dados basta executar o comando abaixo na pasta raiz do projeto:
+
+* `./make all`
+
+	* O comando acima compila os arquivos do driver e já o executa. Após ser informado a senha de sudo todas as teclas digitadas serão salvas.
+	* Será impresso no log do kernel a seguinte mensagem `Battery spent n mw` que é o valor referente as teclas digitadas.
+
+* **Tradução**
+A coleta das teclas é feita utilizando `unsigned char` logo é necessário traduzir o arquivo para ver de forma fácil os dados coletados. Para conseguir ler as informações foi feito um [script](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/master/keylogger/get_translated):
+
+* `./get_translated`
+
+	* Esse script pega o log do kernel salva na no arquivo `io/.pressed_keys` e executa o script python `translator`. O script também ja imprime o resutlado no terminal e avisa caso algum erro ocorra em qualquer passo.
+
+
 ### Monitoramento
+É possível verificar as teclas quais teclas são digitadas sem precisar executar o script de tradução:
+
+* `dmesg -we`
+
+	* Este comando imprime o log do kernel à medida que ele é gerado, então é possível verificar os valores das teclas à medida que é digitado.
 
 ### Remoção
+Caso você não queira mais coletar as teclas digitadas basta:
+
+* `sudo rmmod keylogger`
+
+	* Este comando remove o driver do sistema.
+
 
 ## Referências
 
