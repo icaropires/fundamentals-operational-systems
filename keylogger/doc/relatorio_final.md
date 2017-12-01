@@ -1,7 +1,5 @@
 # Keylogger
 
-## Integrantes
-
 * Disciplina:
 
 Fundamento de Sistemas Operacionais
@@ -10,79 +8,25 @@ Fundamento de Sistemas Operacionais
 
 Fernando W Cruz
 
+* Integrantes:
+
 |Nome|Github|
 |----|------|
 |Arthur Temporim|[arthurTemporim](https://github.com/arthurTemporim/)|
 |Ícaro Pires|[icaropires](https://github.com/icaropires/)|
 
-### Introdução
 
-Relatório do projeto final da disciplina de FSO. Neste documento é descrito a construção de um device driver capaz de coletar todas as teclas digitadas pela máquina infectada e armazenar em um arquivo.
+## Introdução
 
-#### 1. O que é Vírus?
+Não nos rensponsábilizamos por qualquer tipo de dano no uso deste software.
+
+### O que é Vírus?
 
 Vírus são softwares maliciosos que após entrar na máquina host, tem a função de se propagarem por meio da rede ou de se multiplicarem e também causar danos ao sistema. Outra caracterísca dos vírus, é que eles precisam de uma ação do usuário para ser disparado e começar a agir.
 
-#### 2. Como construir Device Drivers?
+Relatório do projeto final da disciplina de FSO. Neste documento é descrito a construção de um device driver capaz de coletar todas as teclas digitadas pela máquina infectada e armazenar em um arquivo.
 
-Este tutorial foi feito com base no livro **"LINUX DEVICE DRIVERS"** de Jonathan Corbet, Alessandro, Rubini, and Greg Kroah-Hartman.
-
-1. Cria o arquivo Hello World:
-
-```
-#include <linux/init.h>
-#include <linux/module.h>
-MODULE_LICENSE("Dual BSD/GPL");
-static int hello_init(void)
-{
- printk(KERN_ALERT "Hello, world\n");
- return 0;
-}
-static void hello_exit(void)
-{
- printk(KERN_ALERT "Goodbye, cruel world\n");
-}
-module_init(hello_init);
-module_exit(hello_exit);
-```
-
-#### 3. Keylogger
-
-#### 4. Resultados
-
-### Discussão
-
-#### 1. Metodologia
-
-Foi utilizado a metodologia do **kanban** para o gerenciamento de tarefas e reuniões presenciais e remotas por meio de [Hangouts](https://hangouts.google.com/) para a construção do projeto.
-
-#### 2. Solução
-
-A solução implementada foi a criação de um device driver que, após instalado, fica armazenando um um arquivo oculto todas as teclas pressionadas pelo computador "infectado", inclusive quando são liberadas no caso de teclas como **capslock** e **shift**.
-
-Após as informações serem armazenadas, um script python é executado para fazer a tradução dos dados armazenados.
-
-#### 3. Opniões
-
-1. Arthur Temporim
-
-É possível construir várias ferramentas com o conhecimentos adquiridos com o tema de "drivers". Neste projeto consegui aprender o comportamento do sistema linux com a pespectiva de interação com os dispositivos de I/O, por exemplo.
-
-2. Ícaro Píres
-
-#### 4. Manipulação do Keylogger
-
-Para utilizar o driver construído deve:
-
-* Instalação
-
-* Acompanhamento
-
-* Leitura dos resultados
-
-* Remoção
-
-#### 5. Vírus
+### Tipos de Vírus
 
 1. Setor de boot
 
@@ -104,7 +48,45 @@ Existem recomendações como:
 
 * Instalar antispywares para remover ou detectar vírus.
 
-### Referências
+## Metodologia
+
+1. Estudo inicial sobre Device Drivers e Vírus
+
+2. Definição do projeto
+
+3. Estudo da implementação
+
+4. Definição do escopo
+
+5. Planejamento do projeto
+
+6. Implementação
+
+7. Testes
+
+8. Evolução
+
+## Solução
+
+A solução implementada foi a criação de um device driver que, após instalado, fica armazenando um um arquivo oculto todas as teclas pressionadas pelo computador "infectado", inclusive quando são liberadas no caso de teclas como **capslock** e **shift**.
+
+Após as informações serem armazenadas, um script python é executado para fazer a tradução dos dados armazenados.
+
+### Versão Beta
+
+### Versão Alpha
+
+## Instruções
+
+### Instalação
+
+### Uso
+
+### Monitoramento
+
+### Remoção
+
+## Referências
 
 Vírus de computador, https://pt.wikipedia.org/wiki/V%C3%ADrus_de_computador, acessado em 27/11/2017.
 
