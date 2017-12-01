@@ -1,14 +1,8 @@
 # Keylogger
 
-* **Disciplina**:
-
-	Fundamento de Sistemas Operacionais
-
-* **Professor**:
-
-	Fernando W Cruz
-
-* **Integrantes**:
+**Disciplina**: Fundamento de Sistemas Operacionais<br>
+**Professor**: Fernando W Cruz<br>
+**Alunos**:
 
 |Nome|Matrícula|Github|
 |----|---------|------|
@@ -18,9 +12,15 @@
 
 ## Introdução
 
+Caso o leitor queira reproduzir o experimento, não nos responsabilizamos por eventuais problemas/danos em dispositivos e nem outras eventuais consequências de seu uso.
+
+### Contexto
+
 O módulo aqui descrito foi feito no contexto da disciplina universitária de Fundamentos de Sistemas Operacionais e tem apenas objetivos acadêmicos. O foco desse trabalho é na área de __device drivers__ e foi proposto que uníssemos esse contexto ao contexto dos vírus, construindo assim um módulo que contém um vírus, além de algumas exigências mais específicas.
 
-Caso o leitor queira reproduzir o experimento, não nos responsabilizamos por eventuais problemas/danos em dispositivos e nem outras eventuais consequências de seu uso.
+### Device Drivers
+
+TODO
 
 ### Vírus
 
@@ -36,19 +36,19 @@ Um vírus que se infiltra num computador pelo software device driver (o software
 
 Para a construção deste módulo foram seguidos os seguintes passos:
 
-### 1. Estudo inicial sobre device drivers e vírus
+### Estudo inicial sobre device drivers e vírus
 
 Diante da abragência do assunto, foi realizado um estudo inicial para melhor entendimento e assim uma melhor escolha do módulo que estaríamos desenvolvendo.
 
-### 2. Definição do projeto e escopo
+### Definição do projeto e escopo
 
 Após o estudo inicial foi decidido que faríamos um módulo para **teclados**. O escolhemos Por ser um dispositivo de I/O bastante comum, com várias possibilidades de abordagem e não ser um dispositivo demasiadamente complexo para o nosso contexto atual. Inicialmente havíamos decidido por um device driver que permitisse ao usuário mapear facilmente as teclas, mas com mais estudo e alguns motivos que citaremos mais tarde neste documento, decidimos alterar a escolha para um __keylogger__.
 
-### 3. Estudo da implementação
+### Estudo da implementação
 
 Nessa fase procuramos por referências mais específicas ao nosso projeto, como captaríamos as teclas pressionadas? Como salvaríamos isso no espaço do usuário? Como funciona o teclado?
 
-### 4. Planejamento do projeto
+### Planejamento do projeto
 
 O tempo disponível para a construção do projeto juntamente com o escopo definido foi levado em consideração para a definição/divisão das atividades assim como para   datas de econtros presenciais ou não para a construção do projeto. Com boa parte do estudo já feita, definimos as seguintes tarefas que seriam realizadas até que o projeto fosse finalizado:
 
@@ -70,9 +70,10 @@ O tempo disponível para a construção do projeto juntamente com o escopo defin
 
 - [x] Facilitar uso do mecanismo como um todo
 
-### 5. Implementação
+###  Implementação
 
 #### Estratégia
+
 A estratégia era a de que construiríamos um módulo que capturaria as teclas digitadas pelo usuário e apenas isso. Isso seria o que seria feito no kernel. E então, no espaço do usuário, seria escrito um tradutor processaria esses dados coletados (dados completamente crús, scancodes) em caracteres ASCII que poderiam ser lidos pelo usuário.
 
 Fazendo essa separação, seria possível diminuir a quantidade de processamento e memória utilizada no espaço do kernel (que é um espaço mais limitado se tratando de recursos) e faríamos isso num espaço que temos mais ferramentas a disposição. Além disso, estaríamos seguindo a prática de separar o mecanismo da política e atribuiríamos ao módulo apenas a tarefa de interagir com o hardware.
@@ -123,7 +124,7 @@ Também adaptamos essa lista gerada para que fosse compatível o mapeamento de t
 
 Claro que a intenção não era produzir um software comercial, mas como foram utilizados vários mini-programas independentes, também escrevemos um script em bash que lidaria com eles e para isso, só precisaria que o usuário lhe informasse qual idioma do mapeamento de teclas e qual arquivo desejasse traduzir, se não seria usado o default.
 
-### 7. Testes
+### Testes
 
 ### Ambiente
 
@@ -134,14 +135,14 @@ Os testes foram realizados em dois ambientes:
 	Distribuição: Ubuntu 16.04
 	Versão do kernel: 4.4.0-101-generic
 
-##### Ambiente Manjaro:
+#### Ambiente Manjaro:
 
 	Distribuição: Manjaro
 	Versão do kernel: 4.9.65-1-MANJARO
 
-OBS: Não foram utilizadas máquinas virtuais, pois o interrup_handler não captava as teclas digitadas a partir dela.
+	* Não foram utilizadas máquinas virtuais, pois o interrup_handler não captava as teclas digitadas a partir dela.
 
-### 8. Evolução
+### Evolução
 
 Tentamos de várias formas resolver o problema de compatibilidade com o Ambiente Ubuntu e descobrimos que essa incompatibilidade era na chamada da função vfs_write(). Após várias tentativas sem sucesso de solucionar esse problema (provavelmente seria alguma incompatibilidade na versão do kernel), desistimos dessa abordagem de escrever num arquivo.
 
@@ -153,60 +154,81 @@ Para que o restante do mecanismo se adaptasse ao novo sistema, removemos os cód
 
 Dessa forma, o keylogger passou a funcionar em ambos ambientes, apenas com a diferença de que foi feita uma alteração no script em bash para que ele leia diretamente o arquivo de log no caso do Ambiente Ubuntu (este arquivo está em /var/log/.kern_log) e para o Ambiente Manjaro, ele execute o comando journalctl.
 
-OBS: Muito provavelmente o keylogger pode ser executado em todas as distribuições variantes do Debian e Arch com poucas ou nenhuma alteração, testes são necessários.
+	* Muito provavelmente o keylogger pode ser executado em todas as distribuições variantes do Debian e Arch com poucas ou nenhuma alteração, testes são necessários.
 
 ## Instruções
 
-Neste tópico é descrito como instalar e utilizar o Keylogger.
+Neste tópico é descrito como instalar e utilizar o keylogger.
 
 ### Instalação
 
-Para facilitar a utilização do driver, um **Makefile** e **Bash scripts** foram criados. Segue abaixo os passos necessários para instalação:
+Para facilitar a utilização do driver escrevemos um **Makefile** e dois scripts em **Bash**. Segue abaixo os passos necessários para instalação:
 
-* **Dependências**
-* Seguir tutorial do capítulo 2 do Livro **Linux Device Drivers**
+#### Dependências
 
-ou
+##### Sugestões:
 
-* Seguir [Tutorial](freesoftwaremagazine.com/articles/drivers_linux/) da Free Software magazine.
+* Utilizar o [script](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/master/keylogger/config). Ele foi projetado para computadores com ambiente "Debian like" e "Arch like". Basta executar o seguinte comando na pasta raiz do keylogger:
 
-ou
+	``` sh
+	./config
+	```
 
-* Utilizar o [script](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/master/keylogger/config) criado para configurar computadores com ambiente "Debian like" e "Arch like". Para executalo execute o comando abaixo na pasta raiz do keylogger:
+* Ou seguir tutorial do capítulo 2 do Livro **Linux Device Drivers**
 
-* `./config`
+* Ou seguir esse [Tutorial](freesoftwaremagazine.com/articles/drivers_linux/) da Free Software magazine.
 
 ### Uso
 
-* **Ativação**
-Para o Keylogger começar a coletar os dados basta executar o comando abaixo na pasta raiz do projeto:
+#### Ativação
+Para que o keylogger comece a coletar os dados basta executar o comando abaixo na pasta raiz do projeto:
 
-* `./make all`
+``` sh
+./make all
+```
 
-	* O comando acima compila os arquivos do driver e já o executa. Após ser informado a senha de sudo todas as teclas digitadas serão salvas.
-	* Será impresso no log do kernel a seguinte mensagem `Battery spent n mw` que é o valor referente as teclas digitadas.
+	* O comando acima compila o módulo e o executa.
+	* Ao final do comando as próximas teclas digitadas já serão salvas.
+	* Será impresso no log do kernel a seguinte mensagem `Battery spent n mw` em que `n` é o scancode referente a tecla digitada.
 
-* **Tradução**
-A coleta das teclas é feita utilizando `unsigned char` logo é necessário traduzir o arquivo para ver de forma fácil os dados coletados. Para conseguir ler as informações foi feito um [script](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/master/keylogger/get_translated):
+#### Tradução
+Para visualizar os dados coletados, basta executar o script [get_translated](https://github.com/icaropires/Fundamentos_Sistemas_Operacionais/blob/master/keylogger/get_translated):
 
-* `./get_translated`
+``` sh
+./get_translated [idioma] [quantidade de linhas processadas]
+```
 
-	* Esse script pega o log do kernel salva na no arquivo `io/.pressed_keys` e executa o script python `translator`. O script também ja imprime o resutlado no terminal e avisa caso algum erro ocorra em qualquer passo.
+##### Parâmetros
+
+**idioma:** Idioma usado no teclado quando as teclas foram digitadas, os possíveis parâmetros atualmente são: USA e BR, que se referem ao final no nome dos arquivos que estão na pasta maps/.
+
+**quantidade de linhas processadas:(opcional)** serão processadas as últimas n linhas do log do kernel (não necessariamente todas referentes a scancodes). Essa opção foi criada para evitar processamentos desnecessários.
+
+##### O que o script faz?
+
+* Copia o log do kernel para o arquivo `io/.pressed_keys`;
+* Executa o script python `translator` que irá traduzir o arquivo para caracteres ASCII e formatar alguns detalhes para melhor visualização;
+* Salva o resultado traduzido no arquivo `io/results.txt`
+* Imprime o arquivo de resultado no terminal
 
 
-### Monitoramento
-É possível verificar as teclas quais teclas são digitadas sem precisar executar o script de tradução:
+### Monitoramento da execução
 
-* `dmesg -we`
+Para visualizar em tempo real as mensagens referentes aos scancodes das teclas pressionadas em suas respectivas mensagens no kernel, basta usar o seguinte comando para visualizar o log do kernel sendo atualizado em tempo real:
 
-	* Este comando imprime o log do kernel à medida que ele é gerado, então é possível verificar os valores das teclas à medida que é digitado.
+``` sh
+dmesg -we
+```
 
 ### Remoção
-Caso você não queira mais coletar as teclas digitadas basta:
 
-* `sudo rmmod keylogger`
+Para parar o funcionamento do módulo é necessário removê-lo:
 
-	* Este comando remove o driver do sistema.
+``` sh
+sudo rmmod keylogger
+```
+
+em que `keylogger` é o nome do módulo.
 
 
 ## Referências
