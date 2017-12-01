@@ -18,7 +18,7 @@ Fernando W Cruz
 
 ## Introdução
 
-Não nos rensponsábilizamos por qualquer tipo de dano no uso deste software.
+O driver aqui descrito, foi feito de forma experimental e não passou por uma bateria rígida de testes. Logo não nos responsabilizamos por eventuais problemas e/ou danificações em seu dispositivo.
 
 ### O que é Vírus?
 
@@ -50,33 +50,53 @@ Existem recomendações como:
 
 ## Metodologia
 
+Para a construção deste driver foram seguidos os seguintes passos:
+
 1. Estudo inicial sobre Device Drivers e Vírus
+
+Existem inúmeras opções na construção de device drivers, logo um estudo inicial foi feito para ter uma visão geral das possibilidades e assim decidir qual tema utilizar.
 
 2. Definição do projeto
 
+Após efetuar o estudo o tema de **Teclado** foi escolhido, por ser um dispositivo de I/O comum em todos os computadores e com várias possibilidades de abordagem.
+
 3. Estudo da implementação
+
+Com o tema definido foi estudado como implementar um device driver que utiliza o teclado. Nesse ponto foi definido a criação de um **Keylogger**.
 
 4. Definição do escopo
 
+O escopo do projeto foi definido com a construção de um driver que fosse capaz de coletar tudo que o usuário digita e armazenar esta informação. Outro ponto do projeto foi também a criação de scripts de tradução para que fosse capaz a leitura das informações coletadas.
+
 5. Planejamento do projeto
+
+O tempo disponível para a construção do projeto juntamente com o escopo definido foi levado em conta para a definição das atividades, divisão das atividades e marcação dos econtros presenciais ou não para a construção do projeto.
 
 6. Implementação
 
+A implementação foi feita utilizando a linguagem **C** para a construção do driver, linguagem **Python** para a implementação do script de tradução e **Bash scripts** para automatizar execuções e chamada de partes da solução.
+
 7. Testes
+
+Os testes foram feitos em dois computadores de sistemas distintos, **Ubuntu 16.04** e **Manjaro**. Para garantir que o keylogger estava com comportamento correto ele foi instalado e testado nas duas máquinas e a verificação do seu comportamento era verificada a cada nova adição no sistema.
 
 8. Evolução
 
+Após a versão inicial finalizada e todas as partes do Keylogger estarem finalizadas, mais estudos foram feitos e uma solução mais eficiente surgiu. O processo de evolução foi iniciado para a implementação desta nova solução que será descrita no tópico de **solução**.
+
 ## Solução
+
+### Versão Beta
 
 A solução implementada foi a criação de um device driver que, após instalado, fica armazenando um um arquivo oculto todas as teclas pressionadas pelo computador "infectado", inclusive quando são liberadas no caso de teclas como **capslock** e **shift**.
 
 Após as informações serem armazenadas, um script python é executado para fazer a tradução dos dados armazenados.
 
-### Versão Beta
-
 ### Versão Alpha
 
 ## Instruções
+
+Neste tópico é descrito como instalar e utilizar o Keylogger.
 
 ### Instalação
 
