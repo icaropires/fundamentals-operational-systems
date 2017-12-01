@@ -20,7 +20,9 @@ O módulo aqui descrito foi feito no contexto da disciplina universitária de Fu
 
 ### Device Drivers
 
-TODO
+Device Drivers são responsáveis por melhorar o acesso e utilização de do hardware por meio de protocólos de comunicação e interface padronizada.
+
+Em sistemas Linux, drivers podem fazer parte do kernel ou apenas estarem linkado a ele, logo não são diretamente acessíveis para os processos de usuário. Entretanto o Linux fornece mecanismos para que cada processo possa se comunicar com devices drivers.
 
 ### Vírus
 
@@ -237,19 +239,32 @@ Vírus de computador, https://pt.wikipedia.org/wiki/V%C3%ADrus_de_computador, ac
 
 What Is the Difference: Viruses, Worms, Trojans, and Bots?, https://www.cisco.com/c/en/us/about/security-center/virus-differences.html, acessado em 27/11/2017.
 
-### arrumar:
-https://en.wikipedia.org/wiki/PC_System_Design_Guide#PC_97
-https://en.wikipedia.org/wiki/USB_human_interface_device_class#Keyboards
-http://www.usb.org/developers/hidpage/Hut1_12v2.pdf (Capítulo 10)
-https://www.computerhope.com/jargon/i/irq.htm
-https://www.win.tue.nl/~aeb/linux/kbd/scancodes-1.html (Tópico 1.4)
-Capítulos 1, 2, 3, 10 do Livro Linux Device Drivers
-http://cs.smith.edu/~nhowe/262/oldlabs/keyboard.html
-http://www.linuxjournal.com/node/8110/print
-http://ytliu.info/notes/linux/file_ops_in_kernel.html
-https://github.com/Golevka/rapoov7-keyboard-driver/blob/master/keystroke.c
-https://github.com/kinglongmee/rapoo-keyboard-driver/blob/master/hid-rapoo.c
-https://github.com/aleksandr-rakov/hid-a320/blob/master/hid-a320.c
-https://github.com/its-izhar/USB_HID_Keyboard_Driver_v2/blob/master/usbkbd_v2.c
-https://github.com/torvalds/linux/tree/ead751507de86d90fa250431e9990a8b881f713c/drivers/input/keyboard
-http://www.linuxjournal.com/article/8110
+PC System Design Guide, https://en.wikipedia.org/wiki/PC_System_Design_Guide#PC_97, acessado em 30/11/2017.
+
+USB human interface device class, https://en.wikipedia.org/wiki/USB_human_interface_device_class#Keyboards, acessado em 30/11/2017.
+
+Universal Serial Bus (USB), Capítulo 10, http://www.usb.org/developers/hidpage/Hut1_12v2.pdf, acessado em 30/11/2017.
+
+IRQ, https://www.computerhope.com/jargon/i/irq.htm, acessado em 30/11/2017.
+
+1. Keyboard scancodes, Tópico 1.4, https://www.win.tue.nl/~aeb/linux/kbd/scancodes-1.html, acessado em 30/11/2017.
+
+A keyboard interrupt handler, http://cs.smith.edu/~nhowe/262/oldlabs/keyboard.html, acessado em 30/11/2017.
+
+Driving Me Nuts - Things You Never Should Do in the Kernel, http://www.linuxjournal.com/node/8110/print, acessado em 30/11/2017.
+
+Read/Write From/to File in Kernel, http://ytliu.info/notes/linux/file_ops_in_kernel.html, acessado em 30/11/2017.
+
+rapoov7-keyboard-driver, https://github.com/Golevka/rapoov7-keyboard-driver/blob/master/keystroke.c, acessado em 30/11/2017.
+
+rapoo-keyboard-driver, https://github.com/kinglongmee/rapoo-keyboard-driver/blob/master/hid-rapoo.c, acessado em 30/11/2017.
+
+hid-a320, https://github.com/aleksandr-rakov/hid-a320/blob/master/hid-a320.c, acessado em 30/11/2017.
+
+USB_HID_Keyboard_Driver_v2/usbkbd_v2.c, https://github.com/its-izhar/USB_HID_Keyboard_Driver_v2/blob/master/usbkbd_v2.c, acessado em 30/11/2017.
+
+linux/drivers/input/keyboard/, https://github.com/torvalds/linux/tree/ead751507de86d90fa250431e9990a8b881f713c/drivers/input/keyboard, acessado em 30/11/2017.
+
+Driving Me Nuts - Things You Never Should Do in the Kernel, http://www.linuxjournal.com/article/8110, acessado em 30/11/2017.
+
+Capítulos 1, 2, 3, 10 do Livro Linux Device Drivers, acessado em 30/11/2017.
